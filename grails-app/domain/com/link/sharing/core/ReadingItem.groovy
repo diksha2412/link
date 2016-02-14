@@ -8,10 +8,10 @@ class ReadingItem {
     Date dateCreated
     Date lastUpdated
 
-    static belongsTo = [user:User]
+    static belongsTo = [user:User, resource:Resource]
 
     static constraints = {
-        resource(unique: 'user', nullable: false)
+        resource( nullable: false, unique: 'user')
         isRead(nullable: false)
         user(nullable: false)
     }

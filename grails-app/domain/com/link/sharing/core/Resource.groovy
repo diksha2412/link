@@ -11,7 +11,7 @@ abstract class Resource {
     static hasMany = [resourceratings: ResourceRating, readingItems:ReadingItem]
     static belongsTo = [topic:Topic ]
 
-    static constraints = {
+    static mapping = {
         description( type : 'text')
     }
 

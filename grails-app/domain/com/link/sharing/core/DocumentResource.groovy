@@ -7,6 +7,6 @@ class DocumentResource extends Resource {
     Date lastUpdated
 
     static constraints = {
-        filePath( nullable: false)
+        filePath( blank: false)
     }
 }

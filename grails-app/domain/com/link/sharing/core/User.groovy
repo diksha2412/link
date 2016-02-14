@@ -15,12 +15,13 @@ class User {
 
     static transients = ['fullName']
 
-    static hasMany = [topics:Topic, subscriptions:Subscription, readingItems: ReadingItem, resources: Resource]
+    static hasMany = [topics:Topic, subscriptions:Subscription, readingItems: ReadingItem, resources: Resource ]
 
     static constraints = {
         email(unique: true, blank: false, nullable: false, email: true)
         password(nullable: false, blank: false, minSize: 5)
         firstName(nullable: false, blank: false)
+        lastName(blank: false)
         photo(nullable: true)
         admin(nullable: true)
         active(nullable: true)
