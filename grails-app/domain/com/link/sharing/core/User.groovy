@@ -13,7 +13,7 @@ class User {
     Date dateCreated
     Date lastUpdated
 
-    static transients = ['fullName']
+  static transients = ['fullName', 'confirmPassword']
 
     static hasMany = [topics:Topic, subscriptions:Subscription, readingItems: ReadingItem, resources: Resource ]
 
@@ -25,14 +25,23 @@ class User {
         photo(nullable: true)
         admin(nullable: true)
         active(nullable: true)
+//        confirmPassword(blank: true, nullable: true, validator: { val, obj ->
+//            if (!password.equals(confirmPassword)) {
+//                return false
+//            }
+//        })
     }
 
     static mapping = {
         photo(sqlType:'longblob')
     }
+
     String getFullName() {
         [firstName, lastName].findAll { it }.join(' ')
     }
 
+    String toString(){
+        userName
+    }
 
 }

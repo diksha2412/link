@@ -16,5 +16,6 @@ class ResourceSpec extends Specification {
     }
 
     void "test something"() {
+        expect true
     }
 }
