@@ -29,6 +29,23 @@ class DocumentResourceSpec extends Specification {
 
 
     }
+
+    def "testing toString"(){
+        given:"a document resource"
+        DocumentResource documentResource=new DocumentResource(filePath: filePath)
+
+        when:"toString is invoked"
+        String result=documentResource.toString()
+
+        then:
+        result==output
+
+        where:
+        filePath|output
+        "some/file/path"|"some/file/path"
+
+
+    }
     def setup() {
     }
 

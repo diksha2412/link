@@ -41,7 +41,7 @@ class User {
     }
 
     String toString(){
-        userName
+        firstName
     }
 
 }

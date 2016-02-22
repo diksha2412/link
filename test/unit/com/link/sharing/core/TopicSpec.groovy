@@ -47,4 +47,19 @@ class TopicSpec extends Specification {
         t2.errors.getFieldError('name')
     }
 
+    def "checking toString"(){
+        given:"a topic"
+        Topic topic=new Topic(name: name)
+
+        when:"toString is invoked"
+        String result = topic.toString()
+
+        then:
+        result==output
+
+        where:
+        name|output
+        "topic1"|"topic1"
+    }
+
 }

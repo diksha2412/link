@@ -31,6 +31,22 @@ class LinkResourceSpec extends Specification {
         6   | "http://www.google.com/" | "abc"       | new User() | new Topic() | true
 
     }
+
+    def "checking toString"(){
+        given :" a link resource"
+        LinkResource linkResource=new LinkResource(url: url)
+
+        when:
+        String result= linkResource.toString()
+
+        then:
+        result==output
+
+        where:
+        url|output
+        "www.google.com"|"www.google.com"
+
+    }
     def setup() {
     }
 

@@ -9,4 +9,8 @@ class DocumentResource extends Resource {
     static constraints = {
         filePath( blank: false)
     }
+
+    String toString(){
+        filePath
+    }
 }

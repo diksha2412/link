@@ -16,7 +16,7 @@ class LoginController {
         User user=User.findByUserNameAndPassword(userName, password)
         if (user){
             if(user.active){
-                session.use=true
+                session.user=true
                 redirect(action: 'index')
             } else {
                 flash.error= 'Your account is not active'

@@ -82,4 +82,19 @@ class UserSpec extends Specification {
         user2.errors.getFieldError('email')
     }
 
+    def "testing toString()"(){
+        given: "a user"
+        User user = new User(firstName: firstName)
+
+        when:"toString is called"
+        String result = user.toString()
+
+        then:
+        result==output
+
+        where:
+        firstName | output
+        "diksha"  | "diksha"
+    }
+
 }
