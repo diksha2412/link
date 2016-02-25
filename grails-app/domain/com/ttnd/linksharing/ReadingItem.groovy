@@ -1,4 +1,4 @@
-package com.link.sharing.core
+package com.ttnd.linksharing
 
 class ReadingItem {
 
@@ -15,5 +15,7 @@ class ReadingItem {
         isRead(nullable: false)
         user(nullable: false)
     }
+
+
 
 }

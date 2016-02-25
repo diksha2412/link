@@ -3,21 +3,21 @@ package com.linksharing
 class ApplicationFilters {
 
     def filters = {
-        sessionCheck(controller:'*', action:'*') {
-            before = {
-
-            }
-            after = { Map model ->
-
-            }
-            afterView = { Exception e ->
-
-            }
-        }
-//        loginCheck(controller: 'login', invert:true){
-//            if(!session.user){
-//                redirect(controller: 'login', action: 'index')
+//        loginCheck(controller: ['login','console'], invert: true) {
+//            before = {
+//                if (!session.userId) {
+//                    redirect(controller: 'login', action: 'index')
+//                }
 //            }
 //        }
+
+        all(controller: '*', action: '*') {
+            before = {
+
+                println("filter " + params)
+            }
+        }
+
     }
+
 }

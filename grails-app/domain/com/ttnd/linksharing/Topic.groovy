@@ -1,4 +1,4 @@
-package com.link.sharing.core
+package com.ttnd.linksharing
 
 import com.enums.Seriousness
 import com.enums.Visibility
@@ -20,6 +20,10 @@ class Topic {
         visibility (nullable: false)
     }
 
+    static mapping = {
+        sort name: 'asc'
+    }
+
     String toString(){
         name
     }
@@ -33,5 +37,19 @@ class Topic {
                 log.error("error in saving subscription")
             }
         }
+    }
+
+    static List<TopicVO> getTrendingTopics(){
+        List<TopicVO> result = Topic.createCriteria().list() {
+            projections {
+                createAlias("Topic", "t")
+                groupProperty("t.id")
+                property("t.name")
+                sum("balance", 'totalBalance')
+            }
+            order("totalBalance", "desc")
+            order("b.name", "desc")
+        }
+        render "Result -> ${result}"
     }
 }

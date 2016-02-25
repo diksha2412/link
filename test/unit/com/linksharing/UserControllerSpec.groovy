@@ -9,12 +9,11 @@ import spock.lang.Specification
 @TestFor(UserController)
 class UserControllerSpec extends Specification {
 
-    def setup() {
-    }
+    void "test index"() {
+        when:"calling index action"
+        controller.index()
 
-    def cleanup() {
-    }
-
-    void "test something"() {
+        then:"content should be rendered"
+        response.contentAsString=="user dashboard"
     }
 }

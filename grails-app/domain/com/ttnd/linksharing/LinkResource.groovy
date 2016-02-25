@@ -1,4 +1,4 @@
-package com.link.sharing.core
+package com.ttnd.linksharing
 
 class LinkResource extends Resource{
 

@@ -1,4 +1,4 @@
-package com.link.sharing.core
+package com.ttnd.linksharing
 
 import com.enums.Seriousness
 
@@ -9,7 +9,7 @@ class Subscription {
     User user
     Date lastUpdated
     Date dateCreated
-    Seriousness seriousness
+    Seriousness seriousness=Seriousness.SERIOUS
 
     static belongsTo = [topic:Topic]
 
@@ -17,6 +17,6 @@ class Subscription {
         user (nullable: false, unique: 'topic')
         topic (nullable: false)
         seriousness (nullable: false)
-
     }
+
 }

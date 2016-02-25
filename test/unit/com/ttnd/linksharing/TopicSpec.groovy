@@ -1,4 +1,4 @@
-package com.link.sharing.core
+package com.ttnd.linksharing
 
 import com.enums.Visibility
 import grails.test.mixin.TestFor
