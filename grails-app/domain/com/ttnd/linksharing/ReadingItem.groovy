@@ -16,6 +16,10 @@ class ReadingItem {
         user(nullable: false)
     }
 
-
-
+    static Integer changeIsRead(Long id, Boolean isRead){
+        //ReadingItem readingItem=ReadingItem.get(id)
+        Integer result=ReadingItem.executeUpdate("update ReadingItem as r set r.isRead =: isRead " +
+                "where r.id=:id", [isRead: true, id: id])
+        result
+    }
 }

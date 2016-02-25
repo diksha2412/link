@@ -1,5 +1,7 @@
 package com.ttnd.linksharing
 
+import org.hibernate.sql.Update
+
 class User {
 
     String email
@@ -44,6 +46,7 @@ class User {
         String toString() {
             firstName
         }
+
 
 
 }

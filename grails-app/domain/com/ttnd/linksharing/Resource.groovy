@@ -1,4 +1,5 @@
 package com.ttnd.linksharing
+import org.hibernate.criterion.CriteriaSpecification
 
 abstract class Resource {
 
@@ -34,11 +35,12 @@ abstract class Resource {
                 sum('score','totalScore')
                 avg('score','avgScore')
             }
-            eq('user',this)
+            eq('resource',this)
             order('totalVotes','desc')
         }
         new  RatingInfoVO(totalVotes: result[0], totalScore: result[1], avgScore: result[2])
     }
+
 
 
 }

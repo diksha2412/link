@@ -2,6 +2,7 @@ package com.ttnd.linksharing
 
 import com.enums.Seriousness
 import com.enums.Visibility
+import org.hibernate.criterion.CriteriaSpecification
 
 
 class Topic {
@@ -15,23 +16,23 @@ class Topic {
     static hasMany = [resources: Resource, subscriptions: Subscription]
 
     static constraints = {
-        name (nullable: false, blank: false, unique:'createdBy')
-        createdBy (nullable: false)
-        visibility (nullable: false)
+        name(nullable: false, blank: false, unique: 'createdBy')
+        createdBy(nullable: false)
+        visibility(nullable: false)
     }
 
     static mapping = {
         sort name: 'asc'
     }
 
-    String toString(){
+    String toString() {
         name
     }
 
-    def afterInsert(){
+    def afterInsert() {
         Topic.withNewSession {
-            Subscription subscription=new Subscription(topic: this, user: this.createdBy, seriousness: Seriousness.VERY_SERIOUS)
-            if(subscription.save()){
+            Subscription subscription = new Subscription(topic: this, user: this.createdBy, seriousness: Seriousness.VERY_SERIOUS)
+            if (subscription.save()) {
                 log.info "subscription saved successfully"
             } else {
                 log.error("error in saving subscription")
@@ -39,17 +40,31 @@ class Topic {
         }
     }
 
-    static List<TopicVO> getTrendingTopics(){
-        List<TopicVO> result = Topic.createCriteria().list() {
+//    static List<TopicVO> getTrendingTopics(){
+//        List<TopicVO> result = Topic.createCriteria().list() {
+//            projections {
+//                createAlias("Topic", "t")
+//                groupProperty("t.id")
+//                property("t.name")
+//                sum("balance", 'totalBalance')
+//            }
+//            order("totalBalance", "desc")
+//            order("b.name", "desc")
+//        }
+//        render "Result -> ${result}"
+//    }
+
+    static List<TopicVO> getTrendingTopics() {
+        List<TopicVO> trendingTopics = Topic.createCriteria().list([max: 5]) {
+            createAlias('resources', 'r')
             projections {
-                createAlias("Topic", "t")
-                groupProperty("t.id")
-                property("t.name")
-                sum("balance", 'totalBalance')
+                groupProperty('id')
+                groupProperty('name')
+                count('r.id', 'resourceCount')
             }
-            order("totalBalance", "desc")
-            order("b.name", "desc")
+            order('resourceCount', 'desc')
+            order('name')
         }
-        render "Result -> ${result}"
+        trendingTopics
     }
 }

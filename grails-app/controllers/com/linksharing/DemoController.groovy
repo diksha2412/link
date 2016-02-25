@@ -4,7 +4,10 @@ import com.ttnd.linksharing.User
 
 class DemoController {
 
-    def index() { }
+    def index() {
+        render view: 'form'
+
+    }
 
     def myFirstAction(){
         List<User> users=User.list()
@@ -15,5 +18,16 @@ class DemoController {
         render view: 'form'
     }
 
-    
+    def save(User user){
+        if(user?.hasErrors()){
+            render view: 'form', model: [user: user ]
+        }else {
+            user.save()
+            render 'user saved'
+        }
+    }
+
+    def taglib(){
+        render view: 'try'
+    }
 }

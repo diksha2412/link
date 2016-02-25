@@ -1,5 +1,6 @@
 package com.linksharing
 
+import com.ttnd.linksharing.ReadingItem
 import com.ttnd.linksharing.User
 
 class UserController {
@@ -14,6 +15,14 @@ class UserController {
             flash.message(user.not.set)
         } else {
             render 'success'
+        }
+    }
+
+    def update(Long id, Boolean isRead){
+        if(ReadingItem.changeIsRead(id, isRead)){
+            render 'success'
+        } else {
+            render 'error'
         }
     }
 }

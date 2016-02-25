@@ -18,5 +18,11 @@
     render "${user.firstName}"
 </g:each>
 
+<div class="container well">
+
+    ==========${session.user.admin}============
+    <ls:showAdmin isAdmin="${session.user.admin}">This is only visible to admin</ls:showAdmin>
+</div>
+
 </body>
 </html>

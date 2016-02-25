@@ -12,18 +12,18 @@
 </head>
 
 <body>
-<g:form action="save">
-    name: <g:textField name="fname"></g:textField><br>
-    password :<g:passwordField name="password"></g:passwordField><br>
-    male: <g:radio name="gender" value="male"></g:radio>
-    female: <g:radio name="gender" value="female"></g:radio><br>
-    verticals: <br>
-    grails<g:checkBox name="grails"></g:checkBox>
-    amc<g:checkBox name="amc"></g:checkBox><br>
-    <g:submitButton name="submit"></g:submitButton>
 
+
+===${user}=========
+ <g:renderErrors bean="${user}" field="firstName"></g:renderErrors>
+
+<g:form action="save">
+    name: <g:textField name="firstName" value="${user?.firstName}"/><br>
+    password :<g:passwordField name="password" value="${user?.password}"/><br>
+    <g:submitButton name="submit"></g:submitButton>
 </g:form>
 
+<ls:showUserList/>
 
 </div>
 </body>
