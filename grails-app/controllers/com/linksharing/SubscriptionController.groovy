@@ -7,21 +7,21 @@ import com.ttnd.linksharing.User
 
 class SubscriptionController {
 
-    def index() {}
+    def index() { render "subscription"}
 
-    void delete(Long id) {
+    def delete(Long id) {
         Subscription subscription = Subscription.get(id)
         if (subscription) {
-            subscription.delete()
+            subscription.delete(flush: true)
             render("success")
         } else {
             render("not found")
         }
     }
 
-    void save(Long topicId){
+    def save(Long topicId){
         User user=User.get(session.userId)
-        Subscription subscription=new Subscription(Topic.get(topicId), user)
+        Subscription subscription=new Subscription(topic: Topic.get(topicId),user: user)
         if (subscription.validate()){
             subscription.save()
             render("subscription saved successfully")
@@ -30,10 +30,10 @@ class SubscriptionController {
         }
     }
 
-    void update(Long id, Seriousness serious){
+    def update(Long id, String serious){
         Subscription subscription=Subscription.get(id)
         if (subscription){
-            subscription.seriousness=serious
+            subscription.seriousness=Seriousness.convert(serious)
             if (subscription.validate()){
                 subscription.save()
                 render "success"
