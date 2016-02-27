@@ -35,4 +35,8 @@ class ResourceController {
             render 'resource could not be found'
         }
     }
+
+    def save(){
+
+    }
 }

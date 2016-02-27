@@ -36,7 +36,7 @@ class User {
 
         static mapping = {
             photo(sqlType: 'longblob')
-            sort id: 'desc'
+            sort dateCreated: 'asc'
         }
 
         String getFullName() {

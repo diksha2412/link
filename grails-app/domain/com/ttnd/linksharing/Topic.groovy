@@ -55,11 +55,12 @@ class Topic {
 //    }
 
     static List<TopicVO> getTrendingTopics() {
-        List<TopicVO> trendingTopics = Topic.createCriteria().list([max: 5]) {
-            createAlias('resources', 'r')
+        List<TopicVO> trendingTopics = Resource.createCriteria().list([max: 5]) {
+            createAlias('topic', 't')
             projections {
-                groupProperty('id')
-                groupProperty('name')
+                groupProperty('t.id')
+                Property('t.name')
+                Property('t.visibility')
                 count('r.id', 'resourceCount')
             }
             order('resourceCount', 'desc')

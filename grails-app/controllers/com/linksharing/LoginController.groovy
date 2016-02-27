@@ -5,11 +5,12 @@ import com.ttnd.linksharing.User
 class LoginController {
 
     def index() {
-        println session.userId
+
         if (session.userId) {
             forward(controller: 'User', action: 'index')
         } else {
-            render "failure, no user session"
+            //render "failure, no user session"
+            render view: 'home'
         }
     }
 
@@ -17,8 +18,9 @@ class LoginController {
         User user = User.findByUserNameAndPassword(userName, password)
         if (user) {
             if (user.active) {
-                //session.userId = user.id
-                session.userId = user
+                session.userId = user.id
+                //session.user = user
+
                 redirect(action: 'index')
             } else {
                 flash.error = 'Your account is not active'
@@ -32,6 +34,19 @@ class LoginController {
     def logout() {
         session.invalidate()
         forward(action: 'index')
+    }
+
+    def register(String firstName, String lastName, String email, String password, String confirmPassword, String userName ){
+        render "inside register"
+        User user = new User(firstName: firstName, lastName: lastName, email: email, password: password,
+                confirmPassword: confirmPassword, userName: userName )
+        if(user.validate()){
+            user.save()
+            render 'success'
+        } else {
+            flash.error=user.errors
+            render user.errors
+        }
     }
 
 //    def test() {

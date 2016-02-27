@@ -6,12 +6,13 @@ import com.ttnd.linksharing.User
 class UserController {
 
     def index() {
-        render User.get(session.userId as Long).fullName
+        //render User.get(session.userId as Long).fullName
+        render view:'dashboard'
     }
 
-    def register(){
-        User user = new User(firstName: "richa", lastName: "saini", email: "richa.saini@gmail.com", password: "richa123" )
-        if(!session.user){
+    def register(String firstName, String lastName, String email, String password ){
+        User user = new User(firstName: firstName, lastName: lastName, email: email, password: password )
+        if(!session.userId){
             flash.message(user.not.set)
         } else {
             render 'success'

@@ -22,10 +22,11 @@ class SubscriptionController {
     void save(Long topicId){
         User user=User.get(session.userId)
         Subscription subscription=new Subscription(Topic.get(topicId), user)
-        if (subscription.save()){
+        if (subscription.validate()){
+            subscription.save()
             render("subscription saved successfully")
         } else {
-            println(subscription.save(failOnError: true))
+            println(subscription.errors)
         }
     }
 
@@ -33,10 +34,11 @@ class SubscriptionController {
         Subscription subscription=Subscription.get(id)
         if (subscription){
             subscription.seriousness=serious
-            if (subscription.save()){
+            if (subscription.validate()){
+                subscription.save()
                 render "success"
             } else {
-                render subscription.save().errors
+                render subscription.errors
             }
         } else {
             render 'not found'
