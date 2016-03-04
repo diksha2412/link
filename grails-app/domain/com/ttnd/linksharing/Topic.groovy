@@ -40,32 +40,38 @@ class Topic {
         }
     }
 
-//    static List<TopicVO> getTrendingTopics(){
-//        List<TopicVO> result = Topic.createCriteria().list() {
+//    static List<TopicVO> getTrendingTopics() {
+//        List<TopicVO> trendingTopics = Resource.createCriteria().list([max: 5]) {
+//            createAlias('topic', 't')
 //            projections {
-//                createAlias("Topic", "t")
-//                groupProperty("t.id")
-//                property("t.name")
-//                sum("balance", 'totalBalance')
+//                groupProperty('t.id')
+//                Property('t.name')
+//                Property('t.visibility')
+//                count('r.id', 'resourceCount')
 //            }
-//            order("totalBalance", "desc")
-//            order("b.name", "desc")
+//            order('resourceCount', 'desc')
+//            order('name')
 //        }
-//        render "Result -> ${result}"
+//        trendingTopics
 //    }
+//}
 
     static List<TopicVO> getTrendingTopics() {
-        List<TopicVO> trendingTopics = Resource.createCriteria().list([max: 5]) {
-            createAlias('topic', 't')
-            projections {
-                groupProperty('t.id')
-                Property('t.name')
-                Property('t.visibility')
-                count('r.id', 'resourceCount')
-            }
-            order('resourceCount', 'desc')
-            order('name')
+        List<TopicVO> topicVoList = []
+        String hql = '''
+                            SELECT t.id
+                            FROM Topic t LEFT JOIN t.resources AS resource
+                            GROUP BY t.id
+                            ORDER BY COUNT(resource) DESC, name ASC
+                            '''
+        def ids = Topic.executeQuery(hql,[max:5])
+        def orderedTopics = Topic.getAll(ids)
+
+        println "${orderedTopics}"
+        orderedTopics.each { Topic topic ->
+            topicVoList.add(new TopicVO(id: topic.id, name: topic.name, visibility: topic.visibility, createdBy: topic.createdBy,
+                    count: topic.resources.size()))
         }
-        trendingTopics
+        topicVoList
     }
 }

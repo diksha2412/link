@@ -1,5 +1,9 @@
 package com.linksharing
 
+import com.ttnd.linksharing.Resource
+import com.ttnd.linksharing.ResourceRating
+import com.ttnd.linksharing.Topic
+import com.ttnd.linksharing.TopicVO
 import com.ttnd.linksharing.User
 
 class LoginController {
@@ -10,7 +14,10 @@ class LoginController {
             forward(controller: 'User', action: 'index')
         } else {
             //render "failure, no user session"
-            render view: 'home'
+            List<Resource> resources = ResourceRating.topPosts()
+            //println resources
+            List<TopicVO> recentShares = Resource.list(max: 2, sort: 'dateCreated', order: 'desc')
+            render view: 'home', model: [resources: resources, recentShares: recentShares]
         }
     }
 
@@ -34,19 +41,6 @@ class LoginController {
     def logout() {
         session.invalidate()
         forward(action: 'index')
-    }
-
-    def register(String firstName, String lastName, String email, String password, String confirmPassword, String userName ){
-        render "inside register"
-        User user = new User(firstName: firstName, lastName: lastName, email: email, password: password,
-                confirmPassword: confirmPassword, userName: userName )
-        if(user.validate()){
-            user.save()
-            render 'success'
-        } else {
-            flash.error=user.errors
-            render user.errors
-        }
     }
 
 //    def test() {

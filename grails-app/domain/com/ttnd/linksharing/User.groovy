@@ -16,7 +16,7 @@ class User {
     Date lastUpdated
     String confirmPassword
 
-    static transients = ['fullName','confirmPassword']
+    static transients = ['fullName','confirmPassword','subscribedTopics']
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
@@ -43,10 +43,17 @@ class User {
             [firstName, lastName].findAll { it }.join(' ')
         }
 
+    List<Topic> getSubscribedTopics() {
+        List<Topic> result = Subscription.createCriteria().list() {
+            projections {
+                property('topic')
+            }
+            eq('user.id', this.id)
+        }
+        result
+    }
+
         String toString() {
             firstName
         }
-
-
-
 }

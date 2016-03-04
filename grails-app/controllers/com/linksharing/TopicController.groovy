@@ -13,14 +13,16 @@ class TopicController {
 
     }
 
-    def show(Long id) {
+    def show(Long topicId) {
         //Topic topic = Topic.get(id)
-        Topic topic=Topic.read(params.id)
+        Topic topic=Topic.read(topicId)
         if (!topic) {
-            flash.error = "no topic in database"
-            redirect(controller: 'login', action: 'index')
-        } else if (topic.visibility == Visibility.PUBLIC) {
-            render "success"
+            render ${topic.properties}
+           // flash.error = "no topic in database"
+//            redirect(controller: 'user', action: 'index')
+            } else if (topic.visibility == Visibility.PUBLIC) {
+//            render view: '/topic/show'
+            render "${topic.properties}"
         } else {
             User user1 = User.findByUserName(session.userId)
             if (Subscription.findByTopicAndUser(topic, user1)){

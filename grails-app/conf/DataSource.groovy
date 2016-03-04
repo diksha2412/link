@@ -29,7 +29,7 @@ environments {
             password = "igdefault"
             dbCreate = "update"
             url = "jdbc:mysql://localhost:3306/linksharing"
-            logSql=false
+            logSql=true
 
         }
     }

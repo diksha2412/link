@@ -1,5 +1,6 @@
 package com.ttnd.linksharing
 import org.hibernate.criterion.CriteriaSpecification
+import com.ttnd.linksharing.ResourceRating
 
 abstract class Resource {
 
@@ -28,19 +29,16 @@ abstract class Resource {
         }
     }
 
-    RatingInfoVO getRatingInfo(){
-        List result=ResourceRating.createCriteria().get {
-            projections {
-                count('id','totalVotes')
-                sum('score','totalScore')
-                avg('score','avgScore')
-            }
-            eq('resource',this)
-            order('totalVotes','desc')
-        }
-        new  RatingInfoVO(totalVotes: result[0], totalScore: result[1], avgScore: result[2])
-    }
-
-
-
+//    RatingInfoVO getRatingInfo(){
+//        List result=ResourceRating.createCriteria().list() {
+//            projections {
+//                count('id','totalVotes')
+//                sum('score','totalScore')
+//                avg('score','avgScore')
+//            }
+//            eq('resource',this)
+//            order('totalVotes','desc')
+//        }
+//        new  RatingInfoVO(totalVotes: result[0], totalScore: result[1], avgScore: result[2])
+//    }
 }

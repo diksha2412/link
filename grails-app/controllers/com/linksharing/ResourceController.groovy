@@ -4,10 +4,14 @@ import com.enums.Visibility
 import com.ttnd.linksharing.RatingInfoVO
 import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.ResourceSearchCO
+import com.ttnd.linksharing.Topic
+import com.ttnd.linksharing.TopicVO
 
 class ResourceController {
 
-    def index() {}
+    def index() {
+
+    }
 
     def deletion(){
         Resource resource=Resource.load(params.id)
@@ -34,6 +38,11 @@ class ResourceController {
         } else {
             render 'resource could not be found'
         }
+    }
+
+    def showTopics() {
+        List<TopicVO> topicVOs = Topic.getTrendingTopics()
+        render topicVOs
     }
 
     def save(){

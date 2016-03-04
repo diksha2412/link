@@ -1,3 +1,4 @@
+<%@ page import="com.ttnd.linksharing.User" %>
 <div id="sharelink" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,39 +8,47 @@
                 <h4 class="modal-title">Share Link</h4>
             </div>
             <!--Body-->
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="link" class="control-label col-lg-2">Link*</label>
-                        <div class="col-lg-10">
-                            <input type="url" class="form-control" placeholder="Link">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="control-label col-lg-2">Description</label>
-                        <div class="col-xs-10">
-                            <textarea rows="5" class="form-control" placeholder="Description" required></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="pwd">Topic* :</label>
-                        <div class="dropdown col-sm-6">
+        <div class="modal-body">
+            <g:form name="emailForm" class="form-horizontal" action="create" controller="linkResource">
+                <div class="form-group">
+                    <label for="link" class="control-label col-lg-2">Link*</label>
 
-                            <g:select name="topic" from="${}"
-                                      noSelection="['':'-Choose topic-']"/>
-
-                        </div>
+                    <div class="col-lg-10">
+                        <g:textField name="link" class="form-control" placeholder="Link"></g:textField>
                     </div>
-                </form>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="control-label col-lg-2">Description</label>
+
+                    <div class="col-xs-10">
+                        <g:textArea name="description" rows="5" class="form-control"
+                                    placeholder="Description"></g:textArea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="topicName">Topic* :</label>
+
+                    <div class="dropdown col-sm-6">
+
+                        <g:select name="topicName" from="${subscribedTopics}" optionKey="id" value="${subscribedTopics}"
+                                  noSelection="['': '-Choose topic-']"/>
+
+                    </div>
+                </div>
+
                 <!--Form Closing-->
             </div>
             <!--Footer-->
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" >Share</button>
+                <g:submitButton name="share" value="Share" type="submit" class="btn btn-primary"
+                                controller="linkResource" action="create"></g:submitButton>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-            </div>
-
+            </g:form>
+        </div>
         </div>
     </div>
+</div>
 </div>
 <!--END OF SHARE LINK MODAL-->
