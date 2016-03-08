@@ -11,8 +11,11 @@ class UserController {
     def index() {
         //render User.get(session.userId as Long).fullName
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
+        def readingItemsList=User.get(session.userId).readingItems
+//        println readingItemsList
         render view:'dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
-                                         'trendingTopics': trendingTopics ]
+                                         'trendingTopics': trendingTopics, 'readingItems': readingItemsList]
+
     }
 
     def update(Long id, Boolean isRead){
@@ -35,6 +38,4 @@ class UserController {
             render user.errors
         }
     }
-
-
 }

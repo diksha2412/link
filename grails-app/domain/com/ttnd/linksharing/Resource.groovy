@@ -1,4 +1,6 @@
 package com.ttnd.linksharing
+
+import com.enums.Visibility
 import org.hibernate.criterion.CriteriaSpecification
 import com.ttnd.linksharing.ResourceRating
 
@@ -10,23 +12,48 @@ abstract class Resource {
     Date dateCreated
     Date lastUpdated
 
-    static hasMany = [resourceratings: ResourceRating, readingItems:ReadingItem]
-    static belongsTo = [topic:Topic ]
+    static hasMany = [resourceratings: ResourceRating, readingItems: ReadingItem]
+    static belongsTo = [topic: Topic]
     static transients = ['ratingInfoVO']
 
     static mapping = {
-        description( type : 'text')
+        description(type: 'text')
     }
 
     static namedQueries = {
         search { ResourceSearchCO resourceSearchCO ->
-            eq ('topic.id', resourceSearchCO.topicId)
+            eq('topic.id', resourceSearchCO.topicId)
         }
 
         resourceSearch { ResourceSearchCO resourceSearchCO ->
-            eq ('topic.visibility', resourceSearchCO.visibility)
+            eq('topic.visibility', resourceSearchCO.visibility)
 
         }
+    }
+
+    static List<Resource> showTopPosts() {
+        List<Resource> resourceList = []
+        def result = ResourceRating.createCriteria().list(max: 5) {
+            projections {
+                property('resource.id')
+            }
+            groupProperty('resource.id')
+            count('id', 'totalVotes')
+            order('totalVotes', 'desc')
+        }
+        List list = result.collect { it[0] }
+        resourceList = Resource.getAll(list)
+        resourceList
+    }
+
+    Boolean isLinkResource(){
+
+        println "--->> ${this}"
+       this.instanceOf(LinkResource) ? true : false
+    }
+
+    Boolean canBeViewedBy(){
+        this.topic.canBeViewedBy()
     }
 
 //    RatingInfoVO getRatingInfo(){

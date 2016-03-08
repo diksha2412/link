@@ -7,7 +7,8 @@
         <p>Uday Pratap Singh
             <inline style="margin-left:1em; color:#d2d4d9">@Uday 5min</inline>
             <inline style="float:right"></inline>
-            <br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua.
         </p>
 
         <p style="float:right">
@@ -22,7 +23,8 @@
         <p>Uday Pratap Singh.
             <inline style="margin-left:1em; color:#d2d4d9">@Uday</inline>
             <inline style="float:right"></inline>
-            <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore magna aliqua.
         </p>
         <div>
             <p style="float:right">

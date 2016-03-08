@@ -65,13 +65,14 @@
     <div class="navbar navbar-default">
         <nav class="navbar header">
             <a class="navbar-brand" href="#">Link sharing</a>
-            <form class="navbar-form " role="search">
+            <g:form class="navbar-form " role="search">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-search" style="margin-left:47em"></span>
                     <input type="text"class="form-control" placeholder="Search" ></input>
                 </div>
-            </form>
+            </g:form>
         </nav>
+        <g:render template="/user/forgotPassword"></g:render>
     </div>
 </g:else>
 <g:layoutBody/>

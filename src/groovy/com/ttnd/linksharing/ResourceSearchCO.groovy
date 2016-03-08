@@ -1,10 +1,9 @@
 package com.ttnd.linksharing
 
 import com.enums.Visibility
+import grails.validation.Validateable
 
-/**
- * Created by diksha on 24/2/16.
- */
+@Validateable
 class ResourceSearchCO extends SearchCO {
     Long topicId
     Visibility visibility

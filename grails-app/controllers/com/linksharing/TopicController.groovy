@@ -13,19 +13,16 @@ class TopicController {
 
     }
 
-    def show(Long topicId) {
-        //Topic topic = Topic.get(id)
-        Topic topic=Topic.read(topicId)
+    def show(ResourceSearchCO resourceSearchCO) {
+        Topic topic = Topic.read(resourceSearchCO.topicId)
         if (!topic) {
-            render ${topic.properties}
-           // flash.error = "no topic in database"
-//            redirect(controller: 'user', action: 'index')
-            } else if (topic.visibility == Visibility.PUBLIC) {
-//            render view: '/topic/show'
-            render "${topic.properties}"
+             flash.error = "no topic in database"
+            redirect(controller: 'user', action: 'index')
+        } else if (topic.visibility == Visibility.PUBLIC) {
+            render view: '/topic/show'
         } else {
             User user1 = User.findByUserName(session.userId)
-            if (Subscription.findByTopicAndUser(topic, user1)){
+            if (Subscription.findByTopicAndUser(topic, user1)) {
                 render 'success'
             } else {
                 flash.error = "user subscription doesn't exist for the given topic"
@@ -45,7 +42,9 @@ class TopicController {
         Topic topic1=new Topic(name: topic, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
 
         if (topic1.validate()) {
+            println "1"
             topic1.save()
+            println "2"
             flash.message = 'topic saved successfully'
             render template: '/user/dashboard'
         }else {

@@ -26,7 +26,8 @@
 
 <div class="row">
     <div class="col-xs-7">
-        <g:render template="topPosts"></g:render>
+        <ls:topPosts/>
+        %{--<g:render template="topPosts"></g:render>--}%
     </div>
 
     <div class="col-xs-5">

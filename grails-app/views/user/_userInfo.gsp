@@ -1,6 +1,6 @@
 <div class="panel panel-default"><!--FIRST PANEL-->
     <div class="panel-body">
-    <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
+        <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
 
         <span class="strong" style="float:left">Uday Pratap Singh</span><br>
 

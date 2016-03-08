@@ -15,6 +15,8 @@ class Topic {
 
     static hasMany = [resources: Resource, subscriptions: Subscription]
 
+    static transients = ['subscribedUsers']
+
     static constraints = {
         name(nullable: false, blank: false, unique: 'createdBy')
         createdBy(nullable: false)
@@ -73,5 +75,24 @@ class Topic {
                     count: topic.resources.size()))
         }
         topicVoList
+    }
+
+    static List<User> getSubscribedUsers(){
+        List<User> result= Subscription.createCriteria().list(){
+            projections{
+                property('user')
+            }
+            eq('topic.id',this.id)
+        }
+        result
+    }
+
+    Boolean isPublic(){
+        this.visibility.equals(Visibility.PUBLIC) ? true : false
+    }
+
+    Boolean canBeViewedBy(){
+        User user=User.get(session.UserId)
+        (isPublic() || user.subscribedTopics.contains(this) || user.admin) ? true : false
     }
 }

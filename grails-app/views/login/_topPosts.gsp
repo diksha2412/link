@@ -2,7 +2,7 @@
     <div class="panel panel-heading">Top posts</div>
 
     <div class="panel-body">
-        <img src="/home/diksha/Downloads/user.png" class="img-thumbnail; col-xs-2" alt="Responsive image">
+        <asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>
 
         <div class="col-sm-10">
             <p>Uday Pratap Singh

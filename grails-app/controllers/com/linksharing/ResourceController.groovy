@@ -14,10 +14,15 @@ class ResourceController {
     }
 
     def deletion(){
-        Resource resource=Resource.load(params.id)
+        println  params
+        Resource resource=Resource.load(params.resourceId)
         if(resource){
+            println "resource found"
             try {
                 resource.delete()
+                println "resource deleted successfully"
+                flash.message="resource deleted successfully"
+                redirect(controller: 'user', action: 'index')
             }catch (Exception e) {
                 render("object couldn't be deleted ")
             }
@@ -30,11 +35,13 @@ class ResourceController {
         }
     }
 
-    def show(Long id){
-        Resource resource=Resource.get(id)
+    def show(Long resourceId){
+        Resource resource=Resource.get(resourceId)
+        List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         if (resource){
-            RatingInfoVO ratingInfoVO=resource.getRatingInfo()
-            render "${ratingInfoVO}"
+            render(view: 'show', model: [trendingTopics: trendingTopics, resource:resource])
+//            RatingInfoVO ratingInfoVO=resource.getRatingInfo()
+//            render "${ratingInfoVO}"
         } else {
             render 'resource could not be found'
         }

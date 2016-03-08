@@ -4,11 +4,15 @@
 
     <div class="panel-body">
         <div class="row-sm-6">
+
+            %{--<g:each in="${subscribedTopics}" var="{topic}"></g:each>--}%
             <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
 
 
             <span class="strong">Uday Pratap Singh</span>
-            <span style="float:right"><a href="#">Grails</a></span><br>
+            <span style="float:right">
+
+                <a href="#">Grails</a></span><br>
 
             <span style="float:left; color:grey">@Uday</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;

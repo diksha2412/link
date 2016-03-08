@@ -53,6 +53,10 @@ class User {
         result
     }
 
+    Boolean canDeleteResource(Resource resource){
+        resource.createdBy.equals(this) || this.admin
+    }
+
         String toString() {
             firstName
         }

@@ -15,7 +15,7 @@
 
         &nbsp;&nbsp;
         <span style="float:left; margin-left:1em">50</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <span style="color:grey; margin-left:5em">30</span>
         <hr>
 
@@ -31,7 +31,7 @@
 
         &nbsp;&nbsp;
         <span style="float:left; margin-left:1em">50</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <span style="color:grey; margin-left:5em">30</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span style=" margin-left:5em">30</span>
     </div>
 </div> <!-- First Panel close-->

@@ -30,7 +30,7 @@
                     <!--Footer-->
                     <div class="modal-footer">
 
-                        <g:actionSubmit value="save" class="btn btn-primary" data-dismiss="modal">Cancel</g:actionSubmit>
+                        <g:actionSubmit value="save" class="btn btn-primary" data-dismiss="modal"></g:actionSubmit>
 
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     </div>

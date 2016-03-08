@@ -26,20 +26,5 @@ class ResourceRating {
         }
     }
 
-    static List<Resource> topPosts() {
-        List<Resource> resources = []
-        def result = ResourceRating.createCriteria().list(max: 5) {
-            projections {
-                property('resource.id')
-                //property('resource.description')
-            }
-            groupProperty('resource.id')
-            count('id', 'totalVotes')
-            order('totalVotes', 'desc')
-        }
-        List list = result.collect { it[0] }
-        resources = Resource.getAll(list)
 
-        resources
-    }
 }

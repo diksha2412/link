@@ -10,11 +10,14 @@
                 <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
 
                 <inline>
-                    <span style="float:left"><g:link controller="topic" action="show"
-                                                     params='[topicId: "${topic.id}}"]'>"${topic.name}"</g:link></span><br>
+                    <span style="float:left">
+                        <g:link controller="topic" action="show"
+                                params='[topicId: "${topic.id}}"]'>"${topic.name}"</g:link>
+                    </span><br>
                 </inline>
                 <inline>
-                    <span style="float:left; color:grey">@"${topic.createdBy}"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="float:left; color:grey">@"${topic.createdBy}"</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
                     <span style="color:grey;float:right">Posts</span>
                 </inline><br>
@@ -26,7 +29,6 @@
 
             </div>
         </g:each>
-
         <hr>
 
         <div class="row-sm-6">
@@ -76,6 +78,6 @@
                 <i class="glyphicon glyphicon-trash" style="font-size:20px"></i>
             </div>
         </div>
-    </div>
-</div> <!--END OF PANEL BODY-->
+
+    </div> <!--END OF PANEL BODY-->
 </div> <!--END OF TRENDING TOPICS PANEL-->

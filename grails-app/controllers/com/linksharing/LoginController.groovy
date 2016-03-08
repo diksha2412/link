@@ -14,9 +14,9 @@ class LoginController {
             forward(controller: 'User', action: 'index')
         } else {
             //render "failure, no user session"
-            List<Resource> resources = ResourceRating.topPosts()
+            List<Resource> resources = Resource.showTopPosts()
             //println resources
-            List<TopicVO> recentShares = Resource.list(max: 2, sort: 'dateCreated', order: 'desc')
+            List<Resource> recentShares = Resource.list(max: 5, sort: 'dateCreated', order: 'desc')
             render view: 'home', model: [resources: resources, recentShares: recentShares]
         }
     }
@@ -41,6 +41,10 @@ class LoginController {
     def logout() {
         session.invalidate()
         forward(action: 'index')
+    }
+
+    def forgotPassword(){
+//        render template: '/user/forgotPassword'
     }
 
 //    def test() {
