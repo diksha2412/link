@@ -1,6 +1,8 @@
 package com.linksharing
 
 import com.ttnd.linksharing.ReadingItem
+import com.ttnd.linksharing.Resource
+import com.ttnd.linksharing.ResourceRating
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.TopicVO
 import com.ttnd.linksharing.User
@@ -14,7 +16,8 @@ class UserController {
         def readingItemsList=User.get(session.userId).readingItems
 //        println readingItemsList
         render view:'dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
-                                         'trendingTopics': trendingTopics, 'readingItems': readingItemsList]
+                                         'trendingTopics': trendingTopics, 'readingItems': readingItemsList,
+                                         'subscriptions' : User.get(session.userId).subscriptions]
 
     }
 
@@ -38,4 +41,19 @@ class UserController {
             render user.errors
         }
     }
+
+    /*def getScore(Long resourceId, Integer score) {
+        String msg =""
+        User user = User.get(session.user)
+        Resource resource = Resource.findById(resourceId)
+        println resource
+        if(resource) {
+            ResourceRating.executeUpdate("update ResourceRating r set r.score=:score where " +
+                    "r.resource.id=:resourceId and r.user.id = :userId", [score: score, resourceId: resourceId, userId: user.id])
+            msg = "Sucess"
+        }else{
+            msg = "${resource} not found."
+        }
+        render msg
+    }*/
 }

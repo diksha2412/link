@@ -52,8 +52,8 @@ abstract class Resource {
        this.instanceOf(LinkResource) ? true : false
     }
 
-    Boolean canBeViewedBy(){
-        this.topic.canBeViewedBy()
+    Boolean canBeViewedBy(User user){
+        this.topic.canBeViewedBy(user)
     }
 
 //    RatingInfoVO getRatingInfo(){

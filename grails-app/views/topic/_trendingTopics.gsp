@@ -12,19 +12,25 @@
                 <inline>
                     <span style="float:left">
                         <g:link controller="topic" action="show"
-                                params='[topicId: "${topic.id}}"]'>"${topic.name}"</g:link>
+                                params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
                     </span><br>
                 </inline>
                 <inline>
-                    <span style="float:left; color:grey">@"${topic.createdBy}"</span>
+                    <span style="float:left; color:grey">@${topic.createdBy.userName}</span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
                     <span style="color:grey;float:right">Posts</span>
                 </inline><br>
                 <inline>
-                    <span style="float:left"><a href="#">Subscribe</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span style="margin-left:60px">"${topic.count}"</span>
-                    <span style="float:right">30</span>
+                    <span style="float:left">
+
+                        <ls:showSubscribe id="${topic.id}"></ls:showSubscribe>
+
+                       </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    %{--<span style="margin-left:60px"> <ls:subscriptionCount id="${topic.id}"/> </span>--}%
+                    <span style="float:right"> <ls:resourceCount topicId="${topic.id}"/> </span>
                 </inline><hr>
 
             </div>

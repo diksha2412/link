@@ -40,14 +40,25 @@ class BootStrap {
 //            }
 //        }
 //
-        if (!ResourceRating.count()) {
+        /*if (!ResourceRating.count()) {
             println("creating resource rating")
             ReadingItem.findAllByIsRead(false).each {
                 createResourceRating(it.resource, it.resource.createdBy, 3)
             }
+        }*/
+
+        if (!ResourceRating.count()) {
+            println("creating resource rating")
+            User.all.each { User user ->
+                user.readingItems.each { ReadingItem readingItem ->
+                    if (!readingItem.isRead) {
+                        createResourceRating(readingItem.resource, user, 3)
+                    }
+                }
+//
+//
+            }
         }
-//
-//
     }
 
     void createUser() {

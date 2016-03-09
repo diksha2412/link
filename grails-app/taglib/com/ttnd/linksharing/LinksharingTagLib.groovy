@@ -44,4 +44,34 @@ class LinksharingTagLib {
         List<Resource> resourceList = Resource.showTopPosts()
         out<< render (template:"/login/topPosts", model:[resourceList: resourceList])
     }
+
+    def showSubscribe = { attrs, body ->
+        if (session.userId) {
+            if (!User.isSubscribed(User.get(session.userId), attrs.id)) {
+                String subscribe = "${createLink(controller: 'subscription', action: 'save', params: [id: attrs.id])}"
+                out << "<a href=$subscribe>Subscribe</a>"
+            } else {
+                String unsubscribe = "${createLink(controller: 'subscription', action: 'delete', params: [id: attrs.id])}"
+                out << "<a href=$unsubscribe>Unsubscribe</a>"
+            }
+        }
+    }
+
+    def resourceCount = { attrs,body ->
+        Topic topic=Topic.read(attrs.topicId)
+        out<<topic.resources.size()
+    }
+
+    def subscriptionCount = {  attrs,body ->
+        if (attrs.topicId){
+            out<<Topic.get(attrs.topicId).subscriptions.size()
+        } else {
+            out<<User.get(session.userId).subscriptions.size()
+        }
+    }
+
+    def topicCount ={ attrs,body ->
+        User user=User.get(session.userId)
+        out<<user.topics.size()
+    }
 }

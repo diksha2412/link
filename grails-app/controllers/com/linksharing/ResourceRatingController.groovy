@@ -8,18 +8,27 @@ class ResourceRatingController {
 
     def index() {}
 
-    def save(int score){
-        println "inside save of rsource rating"
+    def save(int score, Long resourceId) {
+        println "===========inside save"
+        User user = User.get(session.userId)
+        println "=======userId : ${user.id}"
+        Resource resource = Resource.get(resourceId)
+        println "==========resourceId : ${resource.id}"
+        if (resource) {
+            println "resource found"
 
-        Resource resource=Resource.get(params.resourceId)
-        ResourceRating resourceRating=new ResourceRating(resource: resource, user: User.get(session.UserId), score: score)
+            ResourceRating resourceRating = ResourceRating.findByResourceAndUser(resource, user)
+            resourceRating.score = score
+            resourceRating.save(flush: true)
 
-        if(resourceRating.validate()){
-            println "resource rating validated"
-            resourceRating.save()
+
+            println "score updated"
+
+//            Integer value = ResourceRating.executeUpdate("update ResourceRating r set r.score=:score where " +
+//                    "r.resource=:resource and r.user = :user", [score: score, resource: resource, user: user])
+//        println "value!!!--${value}"
         } else {
-            println "error in saving resource"
-            flash.error="error in saving resource"
+            println "resource not found"
         }
     }
 }

@@ -2,26 +2,32 @@
     <div class="panel-heading">
         <h3 class="panel-title">Subscriptions</h3></div>
 
-    <div class="panel-body">
+    <div class="panel-body" style="overflow-y: auto; height: 300px">
+        <g:each in="${subscriptions}" var="subscription">
         <div class="row-sm-6">
 
-            %{--<g:each in="${subscribedTopics}" var="{topic}"></g:each>--}%
             <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
 
-
-            <span class="strong">Uday Pratap Singh</span>
+            <span class="strong">${subscription.user.fullName}</span>
             <span style="float:right">
+                <g:link controller="topic" action="show"
+                        params='[topicId: "${subscription.topic.id}"]'>"${subscription.topic}"</g:link>
+            </span><br>
 
-                <a href="#">Grails</a></span><br>
-
-            <span style="float:left; color:grey">@Uday</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span style="float:left; color:grey">@${subscription.user.userName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
             <span style="color:grey;float:right">Posts</span>
             <br>
 
             <span style="float:left"><a href="#">Subscribe</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style="color:grey; margin-left:50px">50</span>
-            <span style="color:grey; float:right">30</span>
+            <span style="color:grey; margin-left:50px">
+
+            %{--${subscriptions.size()}--}%
+
+            <ls:subscriptionCount topicId="${subscription.topic.id}"/>
+
+            </span>
+            <span style="color:grey; float:right">${subscription.topic.resources.size()}</span>
             <br><br>
 
             <div style="float:right">
@@ -54,6 +60,7 @@
             </div>
         </div><br>
         <hr>
+                </g:each>
 
         <div class="row-sm-6">
             <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>

@@ -6,6 +6,7 @@ import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.ResourceSearchCO
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.TopicVO
+import com.ttnd.linksharing.User
 
 class ResourceController {
 
@@ -19,7 +20,7 @@ class ResourceController {
         if(resource){
             println "resource found"
             try {
-                resource.delete()
+                resource.delete(flush: true)
                 println "resource deleted successfully"
                 flash.message="resource deleted successfully"
                 redirect(controller: 'user', action: 'index')
@@ -37,8 +38,9 @@ class ResourceController {
 
     def show(Long resourceId){
         Resource resource=Resource.get(resourceId)
-        List<TopicVO> trendingTopics = Topic.getTrendingTopics()
-        if (resource){
+        User user=User.get(session.userId)
+       List<TopicVO> trendingTopics = Topic.getTrendingTopics()
+        if (resource&&resource.canBeViewedBy(user)){
             render(view: 'show', model: [trendingTopics: trendingTopics, resource:resource])
 //            RatingInfoVO ratingInfoVO=resource.getRatingInfo()
 //            render "${ratingInfoVO}"

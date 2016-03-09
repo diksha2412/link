@@ -10,9 +10,11 @@ class SubscriptionController {
     def index() { render "subscription"}
 
     def delete(Long id) {
+        println "===================inside subscription delete"
         Subscription subscription = Subscription.get(id)
         if (subscription) {
             subscription.delete(flush: true)
+            println "================subscription deleted successfully"
             render("success")
         } else {
             render("not found")
@@ -20,12 +22,14 @@ class SubscriptionController {
     }
 
     def save(Long topicId){
+        println "============inside subscription delete"
         User user=User.get(session.userId)
         Subscription subscription=new Subscription(topic: Topic.get(topicId),user: user)
         if (subscription.validate()){
             subscription.save()
             render("subscription saved successfully")
         } else {
+            println "===============error in saving subscription"
             println(subscription.errors)
         }
     }

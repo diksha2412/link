@@ -88,11 +88,10 @@ class Topic {
     }
 
     Boolean isPublic(){
-        this.visibility.equals(Visibility.PUBLIC) ? true : false
+        this.visibility.equals(Visibility.PUBLIC)
     }
 
-    Boolean canBeViewedBy(){
-        User user=User.get(session.UserId)
+    Boolean canBeViewedBy(User user){
         (isPublic() || user.subscribedTopics.contains(this) || user.admin) ? true : false
     }
 }

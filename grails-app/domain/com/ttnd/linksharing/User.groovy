@@ -51,13 +51,32 @@ class User {
             eq('user.id', this.id)
         }
         result
+
     }
 
     Boolean canDeleteResource(Resource resource){
         resource.createdBy.equals(this) || this.admin
     }
 
+    static Boolean isSubscribed(User user, Long topicId) {
+        if (user) {
+            List<Subscription> subscriptions= Subscription.createCriteria().list() {
+                createAlias('topic', 't')
+                projections {
+                    property('t.id')
+                }
+                eq('t.id', topicId)
+            }
+            if(subscriptions.size()==0){
+                return false
+            }else {
+                return true
+            }
+        }
+    }
+
         String toString() {
             firstName
         }
+
 }
