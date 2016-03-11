@@ -5,7 +5,10 @@
 
     <div class="panel-body" style="overflow-y: auto; height: 300px">
         <g:each in="${readingItems}" var="readingItem">
-        <asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>
+
+            <ls:userImage userId="${session.userId}"/>
+
+            %{--<asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>--}%
 
         <p>${readingItem.resource.createdBy.fullName}
 
@@ -15,16 +18,12 @@
                 <g:link controller="topic" action="show"
                         params='[topicId: "${readingItem.resource.topic.id}"]'>"${readingItem.resource.topic.name}"</g:link></inline>
 
-                %{--<a href="#"><u>${readingItem.resource.topic}</u></a></inline>--}%
-            <br/>${readingItem.resource.description}
+            <br/>${readingItem.resource.description} this is readingItem no:${readingItem.id}
         </p>
 
         <p style="float:right">
 
             <ls:checkType id="${readingItem.resource.id}"></ls:checkType>
-
-            %{--<a href="#"><u>Download</u></a>--}%
-            %{--<a href="#"><u>View full Size</u></a>--}%
 
             <ls:markRead readingItem="${readingItem}"></ls:markRead>
 

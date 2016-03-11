@@ -39,7 +39,7 @@ class BootStrap {
 //                2.times { createResourceAndNotifyAll("http://www.google.com", topic.name, topic, topic.createdBy) }
 //            }
 //        }
-//
+
         /*if (!ResourceRating.count()) {
             println("creating resource rating")
             ReadingItem.findAllByIsRead(false).each {

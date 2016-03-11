@@ -7,46 +7,45 @@
                 <h4 class="modal-title">Share Document</h4>
             </div>
             <!--Body-->
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="link" class="control-label col-lg-2">Document*</label>
-                        <div class="col-lg-7">
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="button" value="browse"></input>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="control-label col-lg-2">Description</label>
-                        <div class="col-xs-10">
-                            <textarea rows="5" class="form-control" placeholder="Description" required></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="pwd">Topic* :</label>
-                        <div class="dropdown col-sm-6">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">Topic
-                                <span class="caret"></span>
-                            </button>
+        <div class="modal-body">
+            <g:uploadForm class="form-horizontal" controller="documentResource">
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Document*</label>
 
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Bootstrap</a></li>
-                                <li><a href="#">Groovy</a></li>
-                                <li><a href="#">Grails</a></li>
-                            </ul>
-                        </div>
+                    <div class="col-lg-7">
+                        <input type="file" id="file" class="form-control" name="file">
                     </div>
-                </form>
-                <!--Form Closing-->
-            </div>
-            <!--Footer-->
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" >Share</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-            </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Description</label>
+
+                    <div class="col-xs-10">
+                        <textarea rows="5" name="description" class="form-control" placeholder="Description"
+                                  required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-lg-2">Topic* :</label>
+
+                    <div class="dropdown col-sm-6">
+
+                        <g:select name="topic" from="${subscribedTopics}" optionKey="id" value="${subscribedTopics}"
+                                  noSelection="['': '-Choose topic-']"></g:select>
+                    </div>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <g:actionSubmit value="share" action="save"/>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
+            </g:uploadForm>
+        <!--Form Closing-->
 
         </div>
+        <!--Footer-->
+
     </div>
 </div>

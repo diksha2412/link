@@ -1,6 +1,7 @@
-package com.ttnd.linksharing
+package com.ttnd.linksharing.VO
 
 import com.enums.Visibility
+import com.ttnd.linksharing.User
 
 
 class TopicVO {

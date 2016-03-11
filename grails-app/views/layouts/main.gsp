@@ -22,31 +22,35 @@
 
 <body>
 <g:if test="${session.userId}">
-    <nav  class="navbar navbar-default">
+    <nav class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand" href="#"><ins>Link Sharing</ins></a>
         </div>
+
         <form class="navbar-form" role="Search">
             <div class="form-group">
                 <span class="glyphicon glyphicon-search" style="margin-left:43em"></span>
                 <input type="text" class="form-control" placeholder="Search">&nbsp;&nbsp;
                 <i class="fa fa-comment" data-target="#createtopic" data-toggle="modal"></i>&nbsp;&nbsp;
-                <i class="glyphicon glyphicon-envelope" data-target="#sendinvitation" data-toggle="modal"></i>&nbsp;&nbsp;
+                <i class="glyphicon glyphicon-envelope" data-target="#sendinvitation"
+                   data-toggle="modal"></i>&nbsp;&nbsp;
                 <i class="glyphicon glyphicon-link" data-target="#sharelink" data-toggle="modal"></i>&nbsp;&nbsp;
-                <i class="fa fa-external-link" data-target="#sharedocument" data-toggle="modal"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-external-link" data-target="#sharedocument"
+                   data-toggle="modal"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;
 
                 <span class="dropdown" style="float:right">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Uday
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        ${com.ttnd.linksharing.User.get(session.userId).firstName}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li><a href="#">Profile</a></li>
-                        <li><a href="#">Users </a></li>
-                        <li><a href="#">Topics </a></li>
+                        <li><a href="#">Users</a></li>
+                        <li><a href="#">Topics</a></li>
                         <li><a href="#">Posts</a></li>
-                        <li><a href="#">LOgOut</a></li>
+                        <li><g:link controller="login" action="logout"> Logout</g:link></li>
                     </ul>
                 </span>
 
@@ -59,7 +63,7 @@
     <g:render template="/documentResource/createDocumentResource"></g:render>
 
     <g:render template="/linkResource/emailLinkResource"></g:render>
-    </g:if>
+</g:if>
 
 <g:else>
     <div class="navbar navbar-default">
@@ -68,7 +72,7 @@
             <g:form class="navbar-form " role="search">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-search" style="margin-left:47em"></span>
-                    <input type="text"class="form-control" placeholder="Search" ></input>
+                    <input type="text" class="form-control" placeholder="Search"></input>
                 </div>
             </g:form>
         </nav>

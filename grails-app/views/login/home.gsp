@@ -17,22 +17,14 @@
 <div class="row">
     <div class="col-xs-7">
         <g:render template="recentShares"></g:render>
+        <ls:topPosts/>
     </div>
 
     <div class="col-xs-5">
         <g:render template="login"></g:render>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-7">
-        <ls:topPosts/>
-        %{--<g:render template="topPosts"></g:render>--}%
-    </div>
-
-    <div class="col-xs-5">
         <g:render template="/user/register"></g:render>
     </div>
 </div>
+
 </body>
 </html>

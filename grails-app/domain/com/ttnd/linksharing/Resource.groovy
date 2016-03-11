@@ -1,8 +1,7 @@
 package com.ttnd.linksharing
 
-import com.enums.Visibility
-import org.hibernate.criterion.CriteriaSpecification
-import com.ttnd.linksharing.ResourceRating
+import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.VO.RatingInfoVO
 
 abstract class Resource {
 
@@ -47,7 +46,6 @@ abstract class Resource {
     }
 
     Boolean isLinkResource(){
-
         println "--->> ${this}"
        this.instanceOf(LinkResource) ? true : false
     }

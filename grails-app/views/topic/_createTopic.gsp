@@ -8,12 +8,12 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" action="save" controller="topic">
+                <g:form class="form-horizontal" controller="topic" action="save">
                     <div class="form-group">
-                        <label for="name" class="control-label col-lg-2">Topic Name*</label>
+                        <label class="control-label col-lg-2">Topic Name*</label>
 
                         <div class="col-lg-10">
-                            <g:textField name="topic" class="form-control" placeholder="Name"></g:textField>
+                            <g:textField name="topic" class="form-control" placeholder="Name" required=""></g:textField>
                         </div>
                     </div>
 
@@ -23,7 +23,7 @@
                         <div class="dropdown col-sm-6">
 
                             <g:select name="visibility" from="${com.enums.Visibility.values()}"
-                                      noSelection="['':'select visibility']"/>
+                                      noSelection="['': 'select visibility']"/>
 
                         </div>
                     </div>
@@ -35,6 +35,6 @@
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     </div>
 
-            </g:form>
-        </div>
-    </div></div></div>
+                </g:form>
+            </div>
+        </div></div></div>

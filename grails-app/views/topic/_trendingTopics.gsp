@@ -24,13 +24,14 @@
                 <inline>
                     <span style="float:left">
 
-                        <ls:showSubscribe id="${topic.id}"></ls:showSubscribe>
+                        <ls:showSubscribe topicId="${topic.id}"></ls:showSubscribe>
 
-                       </span>
+                    </span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                    %{--<span style="margin-left:60px"> <ls:subscriptionCount id="${topic.id}"/> </span>--}%
-                    <span style="float:right"> <ls:resourceCount topicId="${topic.id}"/> </span>
+                    <span style="margin-left:7em"> <ls:subscriptionCount topicId="${topic.id}"/> </span>
+
+                    <span style="float:right"><ls:resourceCount topicId="${topic.id}"/></span>
                 </inline><hr>
 
             </div>

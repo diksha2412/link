@@ -1,23 +1,23 @@
 <div class="panel panel-default"><!--BEGINNING OF SUBSCRIPTIONS PANEL-->
     <div class="panel-heading">
-        <h3 class="panel-title">Topic: "Grails"</h3></div>
+        <h3 class="panel-title">Topic: "${topic.name}"</h3></div>
 
     <div class="panel-body">
         <div class="row-sm-6">
             <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
             <inline>
-                <span class="strong">Uday Pratap Singh</span>
-                <span style="float:right"><a href="#">Grails</a></span><br>
+                <span class="strong">${topic.createdBy.fullName}</span> <br/>
+
             </inline>
             <inline>
-                <span style="float:left; color:grey">@Uday</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="float:left; color:grey">@${topic.createdBy.userName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
                 <span style="color:grey;float:right">Posts</span>
             </inline><br>
             <inline>
-                <span style="float:left"><a href="#">Subscribe</a></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="color:grey; margin-left:50px">50</span>
-                <span style="color:grey; float:right">30</span>
+                <span style="float:left"><ls:showSubscribe topicId="${topic.id}"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="color:grey; margin-left: 75px"><ls:subscriptionCount topicId="${topic.id}"/></span>
+                <span style="color:grey; float:right"><ls:resourceCount topicId="${topic.id}"/></span>
             </inline><br>
 
             <div style="float:right">

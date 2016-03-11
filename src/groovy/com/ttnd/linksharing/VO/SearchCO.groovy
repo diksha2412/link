@@ -1,4 +1,4 @@
-package com.ttnd.linksharing
+package com.ttnd.linksharing.VO
 
 /**
  * Created by diksha on 24/2/16.

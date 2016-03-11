@@ -1,10 +1,6 @@
-package com.ttnd.linksharing
+package com.ttnd.linksharing.CO
 
 import grails.validation.Validateable
-
-/**
- * Created by diksha on 3/3/16.
- */
 
 @Validateable
 class UserCO {
@@ -14,4 +10,5 @@ class UserCO {
     String firstName
     String lastName
     String confirmPassword
+    Byte[] photo
 }

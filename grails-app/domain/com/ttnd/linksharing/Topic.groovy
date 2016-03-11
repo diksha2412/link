@@ -2,8 +2,7 @@ package com.ttnd.linksharing
 
 import com.enums.Seriousness
 import com.enums.Visibility
-import org.hibernate.criterion.CriteriaSpecification
-
+import com.ttnd.linksharing.VO.TopicVO
 
 class Topic {
 
@@ -77,7 +76,7 @@ class Topic {
         topicVoList
     }
 
-    static List<User> getSubscribedUsers(){
+    List<User> getSubscribedUsers(){
         List<User> result= Subscription.createCriteria().list(){
             projections{
                 property('user')

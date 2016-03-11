@@ -9,9 +9,13 @@ class SubscriptionController {
 
     def index() { render "subscription"}
 
-    def delete(Long id) {
+    def delete(Long topicId) {
         println "===================inside subscription delete"
-        Subscription subscription = Subscription.get(id)
+
+        println "====topic id is: ${topicId}"
+        println "====user id is: ${session.userId}"
+        Subscription subscription = Subscription.findByUserAndTopic(User.get(session.userId), Topic.get(topicId))
+
         if (subscription) {
             subscription.delete(flush: true)
             println "================subscription deleted successfully"
@@ -22,7 +26,7 @@ class SubscriptionController {
     }
 
     def save(Long topicId){
-        println "============inside subscription delete"
+        println "============inside subscription save"
         User user=User.get(session.userId)
         Subscription subscription=new Subscription(topic: Topic.get(topicId),user: user)
         if (subscription.validate()){
