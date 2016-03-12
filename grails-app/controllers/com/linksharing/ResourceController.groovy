@@ -2,6 +2,7 @@ package com.linksharing
 
 import com.enums.Visibility
 import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.ReadingItem
 import com.ttnd.linksharing.Resource
 
 import com.ttnd.linksharing.Topic
@@ -21,8 +22,12 @@ class ResourceController {
         List<User> subscribedUsers = topic.getSubscribedUsers()
 
         subscribedUsers.each { User user ->
+            println "====${user} subscribed user=========="
             if (resource.createdBy!=user){
                 user.addToResources(resource)
+                println "======resource added=========="
+                user.addToReadingItems(new ReadingItem(resource: resource,user: user ).save(failOnError: true,flush: true))
+                println "========reading item added=========="
             }
         }
     }

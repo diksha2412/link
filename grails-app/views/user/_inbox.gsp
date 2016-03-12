@@ -6,9 +6,9 @@
     <div class="panel-body" style="overflow-y: auto; height: 300px">
         <g:each in="${readingItems}" var="readingItem">
 
+            <div class="col-xs-2">
             <ls:userImage userId="${session.userId}"/>
-
-            %{--<asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>--}%
+            </div>
 
         <p>${readingItem.resource.createdBy.fullName}
 
@@ -25,7 +25,7 @@
 
             <ls:checkType id="${readingItem.resource.id}"></ls:checkType>
 
-            <ls:markRead readingItem="${readingItem}"></ls:markRead>
+            <ls:markRead isRead="${readingItem.isRead}" resourceId="${readingItem.id}"/>
 
             <g:link controller="resource" action="show"
                     params='[resourceId: "${readingItem.resource.id}"]'>View Post</g:link>

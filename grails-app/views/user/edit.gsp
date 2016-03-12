@@ -2,7 +2,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title></title>
+    <title>edit page</title>
+    <meta name="layout" content="main">
 </head>
 
 <body>

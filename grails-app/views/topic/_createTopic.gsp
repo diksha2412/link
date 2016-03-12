@@ -13,7 +13,7 @@
                         <label class="control-label col-lg-2">Topic Name*</label>
 
                         <div class="col-lg-10">
-                            <g:textField name="topic" class="form-control" placeholder="Name" required=""></g:textField>
+                            <g:textField name="name" class="form-control" placeholder="Name" required=""></g:textField>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                     <!--Footer-->
                     <div class="modal-footer">
 
-                        <g:actionSubmit value="save" class="btn btn-primary" data-dismiss="modal"></g:actionSubmit>
+                        <g:actionSubmit value="save" action="save" class="btn btn-primary" data-dismiss="modal"></g:actionSubmit>
 
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     </div>

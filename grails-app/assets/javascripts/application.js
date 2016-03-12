@@ -9,12 +9,46 @@
 //= require_tree .
 //= require_self
 
-if (typeof jQuery !== 'undefined') {
-	(function($) {
-		$('#spinner').ajaxStart(function() {
-			$(this).fadeIn();
-		}).ajaxStop(function() {
-			$(this).fadeOut();
-		});
-	})(jQuery);
+
+function ajaxSuccess(result) {
+
+    if (result) {
+        var jsonResponseDiv = $(".jsonResponse");
+
+        if (result.message) {
+
+            alert("succcess")
+            jsonResponseDiv.text(result.message);
+            jsonResponseDiv.addClass("alert alert-success");
+        }
+        else {
+            alert("error")
+            jsonResponseDiv.text(result.error);
+            jsonResponseDiv.addClass("alert alert-danger");
+        }
+        jsonResponseDiv.css({'display': 'block'})
+    }
 }
+
+/*
+(document).ready(function () {
+    $(".markReadStatus").click(function(){
+        $.ajax({
+            url: "/readingItem/changeIsRead",
+            data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
+            success: location.reload()
+        });
+    });
+
+
+}
+    $('.subscription').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: "/subscription/delete",
+            data: {topicId: $(this).attr('topicId')},
+            success: ajaxSuccess
+        });
+    });
+);
+*/

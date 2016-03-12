@@ -14,38 +14,40 @@ class BootStrap {
     def init = { servletContext ->
         //println grailsApplication.config.grails.testValue
 
+        //String path="${grailsApplication.config.grails.linksharing.folderPath}"
+
         if (!User.count()) {
             createUser()
         }
-//        if (!Topic.count()) {
-//            User.all.each { User user ->
-//                println("creating topics")
-//                createTopics(user)
-//            }
-//        }
-//
-//        //Subscribing user to other topics
-//        User.all.each { User user ->
-//            Topic.findAllByCreatedByNotEqual(user).each { Topic topic ->
-//                subscribeTopics(user, topic)
-//            }
-//        }
-//
-//        if (!Resource.count()) {
-//            Topic.all.each { Topic topic ->
-//                log.info("creating document resources")
-//                2.times { createResourceAndNotifyAll("some/file/path${it}", topic.name, topic, topic.createdBy, true) }
-//                log.info("creating link resources")
-//                2.times { createResourceAndNotifyAll("http://www.google.com", topic.name, topic, topic.createdBy) }
-//            }
-//        }
+        if (!Topic.count()) {
+            User.all.each { User user ->
+                println("creating topics")
+                createTopics(user)
+            }
+        }
 
-        /*if (!ResourceRating.count()) {
+        //Subscribing user to other topics
+        /*User.all.each { User user ->
+            Topic.findAllByCreatedByNotEqual(user).each { Topic topic ->
+                subscribeTopics(user, topic)
+            }
+        }*/
+
+        if (!Resource.count()) {
+            Topic.all.each { Topic topic ->
+                log.info("creating document resources")
+                2.times { createResourceAndNotifyAll("some/file/path${it}", topic.name, topic, topic.createdBy, true) }
+                log.info("creating link resources")
+                2.times { createResourceAndNotifyAll("http://www.google.com", topic.name, topic, topic.createdBy) }
+            }
+        }
+
+        if (!ResourceRating.count()) {
             println("creating resource rating")
             ReadingItem.findAllByIsRead(false).each {
                 createResourceRating(it.resource, it.resource.createdBy, 3)
             }
-        }*/
+        }
 
         if (!ResourceRating.count()) {
             println("creating resource rating")
@@ -55,8 +57,6 @@ class BootStrap {
                         createResourceRating(readingItem.resource, user, 3)
                     }
                 }
-//
-//
             }
         }
     }

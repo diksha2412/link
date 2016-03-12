@@ -9,11 +9,16 @@ class ReadingItemController {
     def index() {}
 
     def changeIsRead(Long resourceId, Boolean isRead ) {
+        println "====inside changeIsRead========="
+        println "====resource id is : ${resourceId}"
+        println "====isRead is : ${isRead}"
+        
         Resource resource = Resource.get(resourceId)
-        Long userId = session.userId
+        
+        User user=User.get(session.userId)
 
-        if (ReadingItem.executeUpdate("update ReadingItem as r set r.isRead=:isRead where r.resource.id=:resourceId and " +
-                "r.user.id = :userId", [isRead: isRead, userId: userId, resourceId: resourceId])) {
+        if (ReadingItem.executeUpdate("update ReadingItem as r set r.isRead=:isRead where r.resource=:resource and " +
+                "r.user = :user", [isRead: isRead, user: user, resource: resource])) {
             render "Reading Item isRead successfully changed. ~SUCCESS~"
         } else {
             render "Reading Item isRead could not be changed. ~FAILURE~"

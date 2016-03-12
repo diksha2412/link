@@ -7,7 +7,11 @@
         <g:each in="${trendingTopics}" var="topic">
 
             <div class="row-sm-6">
-                <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
+
+                <div class="col-xs-3">
+                    <ls:userImage userId="${topic.createdBy.id}"/>
+                </div>
+
 
                 <inline>
                     <span style="float:left">

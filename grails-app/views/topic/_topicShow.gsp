@@ -22,7 +22,10 @@
 
             <div style="float:right">
                 <span class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+
+                    <g:select name="seriousness" from="${com.enums.Seriousness.values()}"
+                              noSelection="['': 'select visibility']"/>
+                    %{--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Serious
                         <span class="caret"></span>
@@ -30,7 +33,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li><a href="#">Very Serious</a></li>
                         <li><a href="#">Casual</a></li>
-                    </ul>
+                    </ul>--}%
                 </span>
 
                 &nbsp;&nbsp;

@@ -26,7 +26,10 @@ abstract class Resource {
 
         resourceSearch { ResourceSearchCO resourceSearchCO ->
             eq('topic.visibility', resourceSearchCO.visibility)
+        }
 
+        userResourceSearch { ResourceSearchCO resourceSearchCO ->
+            eq('createdBy',resourceSearchCO.getUser())
         }
     }
 
@@ -47,7 +50,7 @@ abstract class Resource {
 
     Boolean isLinkResource(){
         println "--->> ${this}"
-       this.instanceOf(LinkResource) ? true : false
+       this.instanceOf(LinkResource)
     }
 
     Boolean canBeViewedBy(User user){

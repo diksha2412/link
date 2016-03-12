@@ -7,10 +7,11 @@
         <g:each in="${subscriptions}" var="subscription">
 
             <div class="row-sm-6">
+                <div class="col-xs-3">
 
-                <ls:userImage userId="${subscription.user.id}"/>
+                <ls:userImage userId="${subscription.user.id}" />
                 %{--<asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>--}%
-
+                </div>
                 <span class="strong">${subscription.user.fullName}</span>
 
                 <span style="float:right">
@@ -55,12 +56,12 @@
                     </span>
 
                     <span class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Private
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                             <li><a href="#">Public</a></li>
                         </ul>
                     </span>
@@ -92,12 +93,12 @@
 
             <div style="float:right">
                 <span class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu3"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         Serious
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
                         <li><a href="#">Very Serious</a></li>
                         <li><a href="#">Casual</a></li>
                     </ul>

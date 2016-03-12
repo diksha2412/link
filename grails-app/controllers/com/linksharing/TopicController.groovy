@@ -37,9 +37,9 @@ class TopicController {
 //    }
 
 
-    def save(String topic, String visibility) {
+    def save(String name, String visibility) {
         println "======inside topic save"
-        Topic topic1=new Topic(name: topic, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
+        Topic topic1=new Topic(name: name, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
 
         if (topic1.validate()) {
             println "1"

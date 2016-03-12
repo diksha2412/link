@@ -9,18 +9,35 @@ class LinksharingTagLib {
     static namespace = "ls"
 
     def markRead = { attrs, body ->
+        User user=User.get(session.userId)
+        if (user){
+            Long resourceId=attrs.resourceId
+            Boolean isRead=attrs.isRead
+            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead', params: [resourceId: attrs.resourceId, isRead: !attrs.isRead])}"
+            if (isRead){
+                out << "<a href=$link>Mark as Unread</a>"
+            } else {
+                out << "<a href=$link>Mark as read</a>"
+            }
+        }
+
+    }
+
+   /* def markRead = { attrs, body ->
         User user = User.get(session.userId)
         if (user) {
             out << render(template: '/resource/readMark', model: [readingItem: attrs.readingItem])
         }
-    }
+    }*/
 
     def checkType = { attrs, body ->
         Resource resource = Resource.get(attrs.id as Long)
         if (resource.isLinkResource()) {
             out << "<a href='${resource.url}' target='_blank'>View full site</a>"
         } else {
-            out << "<a href='${resource.filePath}'>Download</a>"
+            String download = "${createLink(controller: 'documentResource', action: 'download', params: [id: attrs.id])}"
+            out << "<a href=$download class='download'>Download</a>"
+//            out << "<a href='${resource.filePath}'>Download</a>"
         }
     }
 
@@ -34,7 +51,6 @@ class LinksharingTagLib {
     def deleteResource = { attrs, body ->
         out << render(template: '/resource/delete', model: [resource: attrs.resource])
     }
-
 
     def trendingTopics = {
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
@@ -53,7 +69,7 @@ class LinksharingTagLib {
                 out << "<a href=$subscribe>Subscribe</a>"
             } else {
                 String unsubscribe = "${createLink(controller: 'subscription', action: 'delete', params: [topicId: attrs.topicId])}"
-                out << "<a href=$unsubscribe>Unsubscribe</a>"
+                out << "<a href=$unsubscribe class='subscription'>Unsubscribe</a>"
             }
         }
     }
@@ -77,7 +93,6 @@ class LinksharingTagLib {
     }
 
     def userImage = { attrs, body ->
-
         if (attrs.userId) {
             String src = "${createLink(controller: 'user', action: 'image', params: [userId: attrs.userId])}"
             out << "<img src=${src} class='img-thumbnail'>"

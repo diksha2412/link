@@ -1,7 +1,9 @@
 <div class="panel panel-default"><!--FIRST PANEL-->
     <div class="panel-body">
+    <div class="col-xs-3">
 
         <ls:userImage userId="${session.userId}"/>
+    </div>
 
         %{--<asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>--}%
 
@@ -17,11 +19,9 @@
         <br>
 
 
-        <span style="float:left; margin-left:9em"><ls:subscriptionCount/></span>
+        <span style="float:left"><ls:subscriptionCount/></span>
 
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-        <span style=" margin-left:2em"><ls:topicCount/></span>
+        <span style=" margin-left:8em"><ls:topicCount/></span>
 
     </div>
 </div> <!-- First Panel close-->

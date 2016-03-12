@@ -1,14 +1,21 @@
 package com.linksharing
 
+import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.CO.TopicSearchCO
 import com.ttnd.linksharing.CO.UserCO
 import com.ttnd.linksharing.ReadingItem
+import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.VO.TopicVO
 import com.ttnd.linksharing.User
+import com.ttnd.linksharing.VO.UserVO
 
 class UserController {
 
     def assetResourceLocator
+    def topicService
+    def resourceService
+    def subscriptionService
 
     def index() {
         //render User.get(session.userId as Long).fullName
@@ -57,6 +64,27 @@ class UserController {
 
         response.outputStream.write(img)
         response.outputStream.flush()
+    }
+
+    def profile(ResourceSearchCO resourceSearchCO) {
+
+        TopicSearchCO topicSearchCO = new TopicSearchCO(id: resourceSearchCO.id, visibility: resourceSearchCO.visibility)
+
+        List<Resource> resources = resourceService.search(resourceSearchCO)
+        List<Resource> subscribedTopics = subscriptionService.search(topicSearchCO)
+        List<Topic> topicsCreated = topicService.search(topicSearchCO)
+
+        UserVO userDetails = User.get(session.userId).getUserDetails()
+//        User user = User.get(resourceSearchCO.id)
+
+        render view: 'profile', model: ['resources': resources, 'topicsCreated': topicsCreated,
+                                        'userDetails': resourceSearchCO.getUser(), subscribedTopics: subscribedTopics]
+
+    }
+
+    def edit(){
+        render "inside edit"
+//        render view: '/user/edit'
     }
 
     /*def getScore(Long resourceId, Integer score) {
