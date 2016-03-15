@@ -19,6 +19,7 @@ class ReadingItemController {
             println "=====reading item found"
             readingItem.isRead = isRead
             readingItem.save(flush: true, failOnError: true)
+            println("=======changed isRead is : ${readingItem.isRead}")
             println "=========changed========"
             jsonResponseMap.message = "updated successfully"
         } else {

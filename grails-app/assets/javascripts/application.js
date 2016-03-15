@@ -31,7 +31,7 @@ function ajaxSuccess(result) {
 }
 
 jQuery(document).ready(function () {
-    $(".markReadStatus").click(function (e) {
+    /*$(".markReadStatus").click(function (e) {
         e.preventDefault()
         alert(jQuery(this).attr('resourceId'))
         $.ajax({
@@ -39,7 +39,7 @@ jQuery(document).ready(function () {
             data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
             success: location.reload()
         });
-    });
+    });*/
 
     $(function () {
         $('#registrationForm').validate({

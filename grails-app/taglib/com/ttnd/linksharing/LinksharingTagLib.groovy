@@ -15,11 +15,11 @@ class LinksharingTagLib {
         if (user) {
             Long resourceId = attrs.resourceId
             Boolean isRead = attrs.isRead
-            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead')}"
+            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead', params: ['resourceId': attrs.resourceId, 'isRead': !attrs.isRead])}"
             if (isRead) {
-                out << "<a href=$link class='markReadStatus' resourceId=\"${attrs.resourceId}\" isRead=\"${attrs.isRead}\">Mark as Unread</a>"
+                out << "<a href=$link class='markReadStatus' >Mark as Unread</a>"
             } else {
-                out << "<a href=$link class='markReadStatus' resourceId=\"${attrs.resourceId}\" isRead=\"${attrs.isRead}\">Mark as read</a>"
+                out << "<a href=$link class='markReadStatus' >Mark as read</a>"
             }
         }
     }
@@ -67,7 +67,7 @@ class LinksharingTagLib {
         if (session.userId) {
             User user = User.get(session.userId)
             if (!user.isSubscribed(attrs.topicId)) {
-                String subscribe = "${createLink(controller: 'subscription', action: 'save')}"
+                String subscribe = "${createLink(controller: 'subscription', action: 'save' )}"
                 out << "<a href=$subscribe class='subscriptionSave' topicId=\"${attrs.topicId}\">Subscribe</a>"
             } else {
                 String unsubscribe = "${createLink(controller: 'subscription', action: 'delete')}"
