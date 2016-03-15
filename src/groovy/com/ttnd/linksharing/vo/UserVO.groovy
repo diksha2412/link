@@ -1,4 +1,4 @@
-package com.ttnd.linksharing.VO
+package com.ttnd.linksharing.vo
 
 
 class UserVO {

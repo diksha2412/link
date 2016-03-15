@@ -1,10 +1,10 @@
-package com.ttnd.linksharing.VO
+package com.ttnd.linksharing.vo
 
 /**
  * Created by diksha on 24/2/16.
  */
 class SearchCO {
-    String q
+    String queryString
     Integer max
     Integer offset
     String order

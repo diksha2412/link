@@ -2,7 +2,7 @@ package com.ttnd.linksharing
 
 import com.enums.Seriousness
 import com.enums.Visibility
-import com.ttnd.linksharing.VO.TopicVO
+import com.ttnd.linksharing.vo.TopicVO
 
 class Topic {
 
@@ -65,7 +65,7 @@ class Topic {
                             GROUP BY t.id
                             ORDER BY COUNT(resource) DESC, name ASC
                             '''
-        def ids = Topic.executeQuery(hql,[max:5])
+        def ids = Topic.executeQuery(hql, [max: 5])
         def orderedTopics = Topic.getAll(ids)
 
         println "${orderedTopics}"
@@ -76,21 +76,31 @@ class Topic {
         topicVoList
     }
 
-    List<User> getSubscribedUsers(){
-        List<User> result= Subscription.createCriteria().list(){
-            projections{
+    List<User> getSubscribedUsers() {
+        List<User> result = Subscription.createCriteria().list() {
+            projections {
                 property('user')
             }
-            eq('topic.id',this.id)
+            eq('topic.id', this.id)
         }
         result
     }
 
-    Boolean isPublic(){
+    Boolean isPublic() {
         this.visibility.equals(Visibility.PUBLIC)
     }
 
-    Boolean canBeViewedBy(User user){
+    Boolean canBeViewedBy(User user) {
         (isPublic() || user.subscribedTopics.contains(this) || user.admin) ? true : false
+    }
+
+    List<Topic> search(String search) {
+        Topic.createCriteria().list {
+            createAlias('createdBy', 'user')
+            or {
+                like('name', search)
+                like('user.userName', search)
+            }
+        }
     }
 }

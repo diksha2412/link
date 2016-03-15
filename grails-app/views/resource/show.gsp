@@ -9,15 +9,15 @@
 
 <div class="row"><!-- for two halves-->
 
-    <div class="col-lg-7"><!-- FIRST HALF-->
-    <g:render template="postLeftBox" model="[resource: resource]"></g:render>
+    <div class="col-lg-7">
+        <g:render template="postLeftBox" model="[resource: resource]"></g:render>
     </div>
 
     <div class="col-lg-5">
         <g:render template="/topic/trendingTopics" model="[trendingTopics: trendingTopics]"></g:render>
     </div>
 
-</div>        <!--ROW END-->
+</div>
 
 </body>
 </html>

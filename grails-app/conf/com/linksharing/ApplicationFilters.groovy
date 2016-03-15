@@ -18,6 +18,12 @@ class ApplicationFilters {
             }
         }
 
+        userIndexCheck(controller: 'user', action: 'index') {
+            before = {
+                if (!session.userId) {
+                    redirect(controller: 'login', action: 'index')
+                }
+            }
+        }
     }
-
 }

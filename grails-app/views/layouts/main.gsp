@@ -15,6 +15,7 @@
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
     <asset:javascript src="jquery.validate.min.js"/>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -29,39 +30,44 @@
             <a class="navbar-brand" href="#"><ins>Link Sharing</ins></a>
         </div>
 
-        <g:form class="navbar-form" role="Search">
-            <div class="form-group">
-                <span class="glyphicon glyphicon-search" style="margin-left:43em"></span>
-                <input type="text" class="form-control" placeholder="Search">&nbsp;&nbsp;
-                <i class="fa fa-comment" data-target="#createtopic" data-toggle="modal"></i>&nbsp;&nbsp;
-                <i class="glyphicon glyphicon-envelope" data-target="#sendinvitation"
-                   data-toggle="modal"></i>&nbsp;&nbsp;
-                <i class="glyphicon glyphicon-link" data-target="#sharelink" data-toggle="modal"></i>&nbsp;&nbsp;
-                <i class="fa fa-external-link" data-target="#sharedocument"
-                   data-toggle="modal"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;
+        <div style="float: right; margin-top: 1%" >
+            <i class="fa fa-comment fa-lg" data-target="#createtopic" data-toggle="modal"></i>&nbsp;&nbsp;
+            <i class="glyphicon glyphicon-envelope fa-lg" data-target="#sendinvitation" data-toggle="modal"></i>&nbsp;&nbsp;
+            <i class="glyphicon glyphicon-link fa-lg" data-target="#sharelink" data-toggle="modal"></i>&nbsp;&nbsp;
+            <i class="fa fa-external-link fa-lg" data-target="#sharedocument" data-toggle="modal"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <i class="glyphicon glyphicon-user fa-lg"></i>&nbsp;&nbsp;
 
 
-                <span class="dropdown" style="float:right">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        ${com.ttnd.linksharing.User.get(session.userId).firstName}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><g:link controller="user" action="edit" >Profile</g:link></li>
-                        <li><a href="#">Users</a></li>
-                        <li><a href="#">Topics</a></li>
-                        <li><a href="#">Posts</a></li>
-                        <li><g:link controller="login" action="logout">Logout</g:link></li>
-                    </ul>
-                </span>
+            <span class="dropdown" style="margin-right: 1%">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    ${com.ttnd.linksharing.User.get(session.userId).firstName}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><g:link controller="user" action="showEditProfile">Profile</g:link></li>
+                    <li><a href="#">Users</a></li>
+                    <li><a href="#">Topics</a></li>
+                    <li><a href="#">Posts</a></li>
+                    <li><g:link controller="login" action="logout">Logout</g:link></li>
+                </ul>
+            </span>
+        </div>
 
-            </div>
+        <g:form class="navbar-form" role="Search" controller="resource" action="searchString">
+            <span class="form-group" style="margin-left: 47%">
+                <span class="glyphicon glyphicon-search"></span>
+                <g:textField type="text" name="queryString" class="form-control" placeholder="Search"/>&nbsp;&nbsp;
+                <g:submitButton name="search" value="search" type="submit" class="btn btn-primary"></g:submitButton>
+            </span>&nbsp;&nbsp;
         </g:form>
+
+
     </nav>
 
     <g:render template="/topic/createTopic"></g:render>
+
+    <g:render template="/topic/sendInvite"></g:render>
 
     <g:render template="/documentResource/createDocumentResource"></g:render>
 
@@ -73,10 +79,11 @@
     <div class="navbar navbar-default">
         <nav class="navbar header">
             <a class="navbar-brand" href="#">Link sharing</a>
-            <g:form class="navbar-form " role="search">
+            <g:form class="navbar-form " role="search" controller="resource" action="search">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-search" style="margin-left:47em"></span>
                     <input type="text" class="form-control" placeholder="Search"/>
+                    <g:submitButton name="search" value="search" type="submit" class="btn btn-primary"></g:submitButton>
                 </div>
             </g:form>
         </nav>
@@ -89,5 +96,7 @@
 </div>
 
 <g:layoutBody/>
+<asset:javascript src="additional-methods.min.js"/>
+<asset:javascript src="jquery.validate.min.js"/>
 </body>
 </html>

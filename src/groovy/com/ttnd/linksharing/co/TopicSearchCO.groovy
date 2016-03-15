@@ -1,4 +1,4 @@
-package com.ttnd.linksharing.CO
+package com.ttnd.linksharing.co
 
 import com.enums.Visibility
 import com.ttnd.linksharing.User

@@ -8,54 +8,42 @@
 <body>
 
 <div class="row">
+
     <div class="col-xs-5">
-        <g:render template="/topic/trendingTopics"></g:render>
+        <ls:trendingTopics/>
+        <g:render template="/login/topPosts" model="['resources': resources]"></g:render>
     </div>
 
-    <div class="panel panel-default"><!--BEGINNING OF INBOX-->
-        <div class="panel-heading">
-            <h3 class="panel-title">Search for "test"</h3>
-        </div>
+    <div class="col-xs-7">
 
-        <div class="panel-body">
-            <asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>
-            <p>Uday Pratap Singh
-                <inline style="margin-left:1em; color:#d2d4d9">@Uday 5min</inline>
-                <inline style="float:right"><a href="#"><u>Grails</u></a></inline>
-                <br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+        <div class="panel panel-default">
 
-            <p style="float:right">
-                <a href="#"><u>Download</u></a>
-                <a href="#"><u>View full Size</u></a>
-                <a href="#"><u>Mark as Read</u></a>
-                <a href="#"><u>View Posts</u></a>
-            </p><br>
+            <div class="panel-heading">
+                <h3 class="panel-title">Search for "${queryString}"</h3>
+            </div>
 
-            <hr>
-            <asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>
-            <p>Uday Pratap Singh.
-                <inline style="margin-left:1em; color:#d2d4d9">@Uday</inline>
-                <inline style="float:right"><a href="#"><ins>Grails</ins></a></inline>
-                <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
+            <div class="panel-body" style="overflow-y: auto; height: 300px">
+                <g:each in="${resources}" var="resource">
+                    <div class="col-xs-2">
+                        <ls:userImage userId="${resource.createdBy.id}"/>
+                    </div>
 
-            <div>
-                <p style="float:right">
-                    <a href="#"><ins>Download</ins></a>
-                    <a href="#"><ins>View full Size</ins></a>
-                    <a href="#"><ins>Mark as Read</ins></a>
-                    <a href="#"><ins>View Posts</ins></a>
-                </p>
+                    <p>${resource.createdBy.fullName}
+                        <inline style="margin-left:1em; color:#d2d4d9">@${resource.createdBy.userName} 5min</inline>
+                        <inline style="float:right"><a href="#"><u>${resource.topic}</u></a></inline>
+                        <br/>${resource.description}
+                    </p>
+
+                    <p style="float:right">
+                        <ls:checkType id="${resource.id}"/>
+                        <a href="#"><u>Mark as Read</u></a>
+                        <g:link controller="resource" action="show" params="[resourceId: resource.id]">View Post</g:link>
+                    </p><br><hr>
+
+                </g:each>
             </div>
         </div>
-    </div> <!--End of inbox-->
-
+    </div>
 </div>
-
-<div class="col-xs-5">
-    <g:render template="/login/topPosts"></g:render>
-</div>
-
 </body>
 </html>

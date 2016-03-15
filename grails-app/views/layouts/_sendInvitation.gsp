@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="email" class="control-label col-lg-2">Email*</label>
+                        <label class="control-label col-lg-2">Email*</label>
 
                         <div class="col-lg-10">
                             <input type="url" class="form-control" placeholder="Email">
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-lg-2" for="pwd">Topic*</label>
+                        <label class="control-label col-lg-2" >Topic*</label>
 
                         <div class="dropdown col-sm-6">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
@@ -41,4 +41,3 @@
                     </div>
 
                 </form></div></div></div></div>
-<!--END OF SEND INVITATION MODAL-->

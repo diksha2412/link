@@ -40,6 +40,14 @@ class LoginController {
         forward(action: 'index')
     }
 
+    def validateEmail(){
+        User.findByEmail(params.email) ? false : true
+    }
+
+    def validateUserName(){
+        User.findByUserName(params.userName) ? false : true
+    }
+
     def forgotPassword(){
 //        render template: '/user/forgotPassword'
     }

@@ -1,6 +1,6 @@
 package com.ttnd.linksharing
 
-import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.co.ResourceSearchCO
 import grails.transaction.Transactional
 
 @Transactional

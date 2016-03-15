@@ -9,7 +9,7 @@
 <body>
 <div class="row">
     <div class="col-xs-5">
-        <g:render template="userInfo" model="[userDetails: userDetails]"></g:render>
+        <g:render template="userInfo" model="[user: user]"></g:render>
         <g:render template="topics" model="[topicsCreated: topicsCreated]"/>
     </div>
 

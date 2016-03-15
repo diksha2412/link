@@ -6,20 +6,20 @@
     <div class="panel-body">
         <g:form class="form-horizontal" controller="login">
             <div class="form-group">
-                <label for="userName" class="control-label col-xs-2">UserName</label>
+                <label for="userName" class="control-label col-xs-2">UserName*</label>
 
                 <div class="col-xs-10">
                     <g:textField name="userName" type="email" class="form-control" id="userName"
-                                 placeholder="userName"></g:textField>
+                                 placeholder="userName" required=""></g:textField>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputPassword" class="control-label col-xs-2">Password</label>
+                <label for="inputPassword" class="control-label col-xs-2">Password*</label>
 
                 <div class="col-xs-10">
                     <g:passwordField name="password" class="form-control" id="inputPassword"
-                                     placeholder="Password"></g:passwordField>
+                                     placeholder="Password" required=""></g:passwordField>
                 </div>
             </div>
 

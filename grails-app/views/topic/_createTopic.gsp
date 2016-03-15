@@ -22,7 +22,7 @@
 
                         <div class="dropdown col-sm-6">
 
-                            <g:select name="visibility" from="${com.enums.Visibility.values()}"
+                            <g:select class="dropdown-toggle btn btn-default" name="visibility" from="${com.enums.Visibility.values()}"
                                       noSelection="['': 'select visibility']"/>
 
                         </div>
@@ -30,11 +30,10 @@
                     <!--Footer-->
                     <div class="modal-footer">
 
-                        <g:actionSubmit value="save" action="save" class="btn btn-primary" data-dismiss="modal"></g:actionSubmit>
-
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                    </div>
-
+                    <g:submitButton name="save" value="save" class="btn btn-primary"></g:submitButton>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                 </g:form>
             </div>
+            </div>
+
         </div></div></div>

@@ -1,32 +1,32 @@
 package com.linksharing
 
-import com.enums.Visibility
-import com.ttnd.linksharing.CO.ResourceSearchCO
+import com.ttnd.linksharing.co.ResourceSearchCO
 import com.ttnd.linksharing.ReadingItem
 import com.ttnd.linksharing.Resource
 
 import com.ttnd.linksharing.Topic
-import com.ttnd.linksharing.VO.TopicVO
+import com.ttnd.linksharing.vo.TopicVO
 import com.ttnd.linksharing.User
 
 class ResourceController {
 
-    def index() {}
+    def index() {
+    }
 
-    private addToReadingItems(Resource resource){
+    private addToReadingItems(Resource resource) {
 
         println "=====inside addToReadingItems of resource controller========"
 
-        Topic topic=resource.topic
+        Topic topic = resource.topic
 
         List<User> subscribedUsers = topic.getSubscribedUsers()
 
         subscribedUsers.each { User user ->
             println "====${user} subscribed user=========="
-            if (resource.createdBy!=user){
+            if (resource.createdBy != user) {
                 user.addToResources(resource)
                 println "======resource added=========="
-                user.addToReadingItems(new ReadingItem(resource: resource,user: user ).save(failOnError: true,flush: true))
+                user.addToReadingItems(new ReadingItem(resource: resource, user: user).save(failOnError: true, flush: true))
                 println "========reading item added=========="
             }
         }
@@ -48,8 +48,25 @@ class ResourceController {
         }
     }
 
+    def searchString(String queryString) {
+
+        List<Resource> list1 = Resource.findAllByDescriptionIlike("%${queryString}%")
+        render view: '/resource/search', model: ['resources': list1, 'queryString': queryString]
+
+        /*List<Topic> topics=Topic.findAllByNameIlike("%${queryString}%")
+        List<Resource> l=[]
+
+        topics.resources.each { Resource resource1->
+            l.add(resource1)
+        }
+        List<Resource> list3=l.flatten()
+
+        list1+=list3*/
+
+    }
+
     def search(ResourceSearchCO resourceSearchCO) {
-        if (resourceSearchCO.q) {
+        if (resourceSearchCO.queryString) {
             resourceSearchCO.visibility = Visibility.PUBLIC
         }
     }
@@ -60,10 +77,27 @@ class ResourceController {
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         if (resource && resource.canBeViewedBy(user)) {
             render(view: 'show', model: [trendingTopics: trendingTopics, resource: resource])
-//            RatingInfoVO ratingInfoVO=resource.getRatingInfo()
-//            render "${ratingInfoVO}"
         } else {
             render 'resource could not be found'
+        }
+    }
+
+    def showEdit() {
+        render template: 'edit'
+    }
+
+    def edit(String description, Long resourceId) {
+        Resource resource = Resource.get(resourceId)
+        User user = User.get(session.userId)
+        if (user && resource) {
+            if (resource.createdBy == user) {
+                resource.description = description
+                resource.save(flush: true)
+            } else {
+                flash.message = "existing user doesn't have permission to update"
+            }
+        } else {
+            flash.error = "not found"
         }
     }
 
@@ -71,5 +105,4 @@ class ResourceController {
         List<TopicVO> topicVOs = Topic.getTrendingTopics()
         render topicVOs
     }
-
 }

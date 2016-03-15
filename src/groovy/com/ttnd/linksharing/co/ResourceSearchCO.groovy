@@ -1,8 +1,8 @@
-package com.ttnd.linksharing.CO
+package com.ttnd.linksharing.co
 
 import com.enums.Visibility
 import com.ttnd.linksharing.User
-import com.ttnd.linksharing.VO.SearchCO
+import com.ttnd.linksharing.vo.SearchCO
 import grails.validation.Validateable
 
 @Validateable

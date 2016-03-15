@@ -1,6 +1,8 @@
 package com.ttnd.linksharing
 
-import com.ttnd.linksharing.VO.TopicVO
+import com.enums.Seriousness
+import com.enums.Visibility
+import com.ttnd.linksharing.vo.TopicVO
 
 class LinksharingTagLib {
 //    static defaultEncodeAs = [taglib: 'html']
@@ -9,26 +11,25 @@ class LinksharingTagLib {
     static namespace = "ls"
 
     def markRead = { attrs, body ->
-        User user=User.get(session.userId)
-        if (user){
-            Long resourceId=attrs.resourceId
-            Boolean isRead=attrs.isRead
-            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead', params: [resourceId: attrs.resourceId, isRead: !attrs.isRead])}"
-            if (isRead){
-                out << "<a href=$link>Mark as Unread</a>"
-            } else {
-                out << "<a href=$link>Mark as read</a>"
-            }
-        }
-
-    }
-
-   /* def markRead = { attrs, body ->
         User user = User.get(session.userId)
         if (user) {
-            out << render(template: '/resource/readMark', model: [readingItem: attrs.readingItem])
+            Long resourceId = attrs.resourceId
+            Boolean isRead = attrs.isRead
+            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead')}"
+            if (isRead) {
+                out << "<a href=$link class='markReadStatus' resourceId=\"${attrs.resourceId}\" isRead=\"${attrs.isRead}\">Mark as Unread</a>"
+            } else {
+                out << "<a href=$link class='markReadStatus' resourceId=\"${attrs.resourceId}\" isRead=\"${attrs.isRead}\">Mark as read</a>"
+            }
         }
-    }*/
+    }
+
+    /* def markRead = { attrs, body ->
+         User user = User.get(session.userId)
+         if (user) {
+             out << render(template: '/resource/readMark', model: [readingItem: attrs.readingItem])
+         }
+     }*/
 
     def checkType = { attrs, body ->
         Resource resource = Resource.get(attrs.id as Long)
@@ -64,12 +65,13 @@ class LinksharingTagLib {
 
     def showSubscribe = { attrs, body ->
         if (session.userId) {
-            if (!User.isSubscribed(User.get(session.userId), attrs.topicId)) {
-                String subscribe = "${createLink(controller: 'subscription', action: 'save', params: [topicId: attrs.topicId])}"
-                out << "<a href=$subscribe>Subscribe</a>"
+            User user = User.get(session.userId)
+            if (!user.isSubscribed(attrs.topicId)) {
+                String subscribe = "${createLink(controller: 'subscription', action: 'save')}"
+                out << "<a href=$subscribe class='subscriptionSave' topicId=\"${attrs.topicId}\">Subscribe</a>"
             } else {
-                String unsubscribe = "${createLink(controller: 'subscription', action: 'delete', params: [topicId: attrs.topicId])}"
-                out << "<a href=$unsubscribe class='subscription'>Unsubscribe</a>"
+                String unsubscribe = "${createLink(controller: 'subscription', action: 'delete')}"
+                out << "<a href=$unsubscribe class='subscription' topicId=\"${attrs.topicId}\">Unsubscribe</a>"
             }
         }
     }
@@ -96,6 +98,46 @@ class LinksharingTagLib {
         if (attrs.userId) {
             String src = "${createLink(controller: 'user', action: 'image', params: [userId: attrs.userId])}"
             out << "<img src=${src} class='img-thumbnail'>"
+        }
+    }
+
+    def canUpdateTopic = { attrs, body ->
+        User user=User.get(session.userId)
+        Topic topic=Topic.get(attrs.topicId)
+        if (user.admin || user==topic.createdBy ){
+            out << body()
+        } else {
+            flash.error="either topic or user is not available"
+        }
+    }
+
+    def showSeriousness = { attrs,body ->
+        User user= User.get(session.userId)
+        Topic topic=Topic.get(attrs.topicId)
+        if (user){
+            Subscription subscription=user.getSubscription(attrs.topicId)
+            if (user.getSubscription(attrs.topicId)){
+                out<< g.select(class: 'seriousness dropdown-toggle btn btn-default',name:'seriousness', from: Seriousness.values(), value: subscription.seriousness, topicId: attrs.topicId )
+            } else {
+                flash.error="user not subscribed to topic"
+            }
+        } else {
+            flash.error="user not found"
+        }
+    }
+
+    def showVisibility = { attrs,body ->
+        User user= User.get(session.userId)
+        Topic topic=Topic.get(attrs.topicId)
+        if (user){
+            Subscription subscription=user.getSubscription(attrs.topicId)
+            if (user.getSubscription(attrs.topicId)){
+                out<< g.select(class: 'visibility dropdown-toggle btn btn-default',name:'visibility', from: Visibility.values(), value: topic.visibility, topicId: attrs.topicId )
+            } else {
+                flash.error="user not subscribed to topic"
+            }
+        } else {
+            flash.error="user not found"
         }
     }
 }

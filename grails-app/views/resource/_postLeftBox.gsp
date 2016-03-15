@@ -18,14 +18,13 @@
                               value="${com.ttnd.linksharing.ResourceRating.findByResource(resource)?.score}"
                               noSelection="['': 'select score']"/>
 
-                    %{--<g:hiddenField name="score" value="${resource.id}"/>--}%
+                %{--<g:hiddenField name="score" value="${resource.id}"/>--}%
 
                     <g:submitButton name="vote"></g:submitButton>
                 </g:form>
             </span>
 
         </div><br><br>
-
 
         <div class="row-sm-7">
             <p class="text:justify"
@@ -34,13 +33,12 @@
 
             <div style="float:right">
                 <ls:deleteResource resource="${resource}"/> &nbsp;&nbsp;
-                <a href="#">Edit</a>&nbsp;&nbsp;
+                <g:render template="edit" model="[resource: resource]"/>
+                <g:link data-toggle="modal" data-target="#editDescription">Edit</g:link>
 
                 <ls:checkType id="${resource.id}"></ls:checkType>
 
-                %{--<a href="#">Download</a>&nbsp;&nbsp;--}%
-                %{--<a href="#">View full site</a>--}%
             </div>
         </div>
-    </div> <!--END OF PANEL BODY-->
-</div> <!--END OF PANEL-->
+    </div>
+</div>

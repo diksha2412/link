@@ -1,7 +1,6 @@
 package com.ttnd.linksharing
 
-import com.ttnd.linksharing.VO.UserVO
-import org.hibernate.sql.Update
+import com.ttnd.linksharing.vo.UserVO
 
 class User {
 
@@ -52,27 +51,31 @@ class User {
             eq('user.id', this.id)
         }
         result
-
     }
+
+    Subscription getSubscription(Long topicId){
+        Subscription.findByUserAndTopic(this, Topic.get(topicId))
+    }
+
+    /*Boolean equals(User createdBy){
+        this.equals(createdBy)
+    }*/
 
     Boolean canDeleteResource(Resource resource) {
         resource.createdBy.equals(this) || this.admin
     }
 
-    static Boolean isSubscribed(User user, Long topicId) {
-        if (user) {
-            List<Subscription> subscriptions = Subscription.createCriteria().list() {
-                createAlias('topic', 't')
-                projections {
-                    property('t.id')
-                }
-                eq('t.id', topicId)
+    Boolean isSubscribed(Long topicId) {
+        Subscription.findByUserAndTopic(this, Topic.read(topicId))
+    }
+
+    List<Resource> unreadResources() {
+        return ReadingItem.createCriteria().list {
+            projections {
+                property('resource')
             }
-            if (subscriptions.size() == 0) {
-                return false
-            } else {
-                return true
-            }
+            eq('user', this)
+            eq('isRead', false)
         }
     }
 
@@ -84,5 +87,4 @@ class User {
     String toString() {
         firstName
     }
-
 }

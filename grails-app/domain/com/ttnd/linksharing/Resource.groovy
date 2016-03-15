@@ -1,7 +1,7 @@
 package com.ttnd.linksharing
 
-import com.ttnd.linksharing.CO.ResourceSearchCO
-import com.ttnd.linksharing.VO.RatingInfoVO
+import com.ttnd.linksharing.co.ResourceSearchCO
+import com.ttnd.linksharing.vo.RatingInfoVO
 
 abstract class Resource {
 
@@ -29,7 +29,7 @@ abstract class Resource {
         }
 
         userResourceSearch { ResourceSearchCO resourceSearchCO ->
-            eq('createdBy',resourceSearchCO.getUser())
+            eq('createdBy', resourceSearchCO.getUser())
         }
     }
 
@@ -48,14 +48,23 @@ abstract class Resource {
         resourceList
     }
 
-    Boolean isLinkResource(){
-        println "--->> ${this}"
-       this.instanceOf(LinkResource)
+    Boolean isLinkResource() {
+        this.instanceOf(LinkResource)
     }
 
-    Boolean canBeViewedBy(User user){
+    Boolean canBeViewedBy(User user) {
         this.topic.canBeViewedBy(user)
     }
+
+    static List<User> usersWithUnreadResources() {
+        return ReadingItem.createCriteria().listDistinct {
+            projections {
+                property('user')
+            }
+            eq('isRead', false)
+        }
+    }
+
 
 //    RatingInfoVO getRatingInfo(){
 //        List result=ResourceRating.createCriteria().list() {
