@@ -4,17 +4,19 @@
 
     <div class="panel-body" style="overflow-y: auto; height: 300px">
 
-        <g:each in="${trendingTopics}" var="topic">
+        <g:each in="${subscribedTopics}" var="topic">
 
             <span style="float:left">
-                <g:link controller="topic" action="show"
-                        params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
+                <g:link controller="topic" action="show" params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
             </span>
             <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
             <span style="color:grey;float:right">Posts</span>
             <br>
             <span class="dropup">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+
+                <ls:showSeriousness topicId="${topic.id}" />
+
+                %{--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     Serious
                     <span class="caret"></span>
@@ -22,7 +24,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="#">Very Serious</a></li>
                     <li><a href="#">Casual</a></li>
-                </ul>
+                </ul>--}%
             </span>
             <i class="glyphicon glyphicon-envelope" style="font-size:20px"></i>&nbsp;&nbsp;
 
@@ -33,8 +35,7 @@
 
 
             <span style="float:left">
-                <g:link controller="topic" action="show"
-                        params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
+                <g:link controller="topic" action="show" params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
             </span>
 
             <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;

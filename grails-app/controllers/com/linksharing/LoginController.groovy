@@ -10,9 +10,7 @@ class LoginController {
         if (session.userId) {
             forward(controller: 'User', action: 'index')
         } else {
-            //render "failure, no user session"
             List<Resource> resources = Resource.showTopPosts()
-            //println resources
             List<Resource> recentShares = Resource.list(max: 5, sort: 'dateCreated', order: 'desc')
             render view: 'home', model: [resources: resources, recentShares: recentShares]
         }

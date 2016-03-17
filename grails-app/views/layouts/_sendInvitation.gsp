@@ -8,7 +8,7 @@
             </div>
             <!--Body-->
             <div class="modal-body">
-                <form class="form-horizontal">
+                <g:form class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-lg-2">Email*</label>
 
@@ -32,12 +32,12 @@
                         </div>
                         <!--Form Closing-->
                     </div>
-                    <!--Footer--></form>
+                    <!--Footer--></g:form>
 
-                <form class="form-horizontal">
+                <g:form class="form-horizontal">
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Invite</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                     </div>
 
-                </form></div></div></div></div>
+                </g:form></div></div></div></div>

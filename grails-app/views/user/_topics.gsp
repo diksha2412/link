@@ -7,8 +7,7 @@
         <g:each in="${topics}" var="topic">
 
             <span style="float:left">
-                <g:link controller="topic" action="show"
-                        params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
+                <g:link controller="topic" action="show" params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
             </span>
             <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
             <span style="color:grey;float:right">Posts</span>

@@ -1,6 +1,7 @@
 package com.linksharing
 
 import com.enums.Visibility
+import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.co.ResourceSearchCO
 import com.ttnd.linksharing.dto.EmailDTO
 import com.ttnd.linksharing.Subscription
@@ -32,11 +33,11 @@ class TopicController {
         }
     }
 
-//    def show(ResourceSearchCO resourceSearchCO){
-//        render 'implementing named query to retrieve resources particular to topic id'
-//        List<Resource> resources=Resource.search(resourceSearchCO).list()
-//        render resources
-//    }
+    def showNamedQuery(ResourceSearchCO resourceSearchCO) {
+        render 'implementing named query to retrieve resources particular to topic id'
+        List<Resource> resources = Resource.search(resourceSearchCO).list()
+        render resources
+    }
 
 
     def invite(Long topic, String email) {
@@ -60,47 +61,46 @@ class TopicController {
 
     def join(Long id) {
         if (session.userId) {
-
             User user = User.get(session.userId)
             Topic topic = Topic.get(id)
             Subscription subscription = new Subscription(user: user, topic: topic)
-
-            if (subscription.save())
-                flash.message = "You have subscribed to this topic successfully."
-            else
+            flash.message = "You have subscribed to this topic successfully."
+            if (subscription.save(flush: true)) {
+                flash.message = "subscription saved successfully"
+            } else {
                 flash.error = "Failure. Could not subscribe to the topic."
-
-            redirect(controller: "login", action: "index")
+            }
         }
+        redirect(controller: "login", action: "index")
     }
 
     def save(String name, String visibility) {
-        println "======inside topic save"
         Topic topic1 = new Topic(name: name, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
-
         if (topic1.validate()) {
-            println "1"
-            topic1.save()
-            println "2"
+            topic1.save(flush: true)
             flash.message = 'topic saved successfully'
             redirect controller: 'user', action: 'index'
         } else {
-            render "failure"
-            log.error('error in saving the topic')
             flash.error = topic1.errors
-            render(flash.error)
         }
+    }
+
+    def titleUpdate(String title, Long topicId) {
+        Map jsonResponseMap = [:]
+        Topic topic = Topic.get(topicId)
+        topic.name = title
+        topic.save(flush: true, failOnError: true)
     }
 
     def delete(Long topicId) {
         Map jsonResponseMap = [:]
         Topic topic = Topic.get(topicId)
-        if (topic.delete(flush: true)){
+        if (topic.delete(flush: true)) {
             jsonResponseMap.message = "topic deleted successfully"
         } else {
-            jsonResponseMap.error ="error in deleting topic"
+            jsonResponseMap.error = "error in deleting topic"
         }
-        JSON jsonResponse=jsonResponseMap as JSON
+        JSON jsonResponse = jsonResponseMap as JSON
         render jsonResponse
     }
 }

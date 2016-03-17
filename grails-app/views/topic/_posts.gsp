@@ -1,4 +1,4 @@
-<div class="panel panel-default"><!--BEGINNING OF posts-->
+<div class="panel panel-default">
     <div class="panel-heading">
         <h6 class="panel-title">Posts: "${topic.name}"</h6>
     </div>
@@ -15,8 +15,9 @@
 
             <p style="float:right">
                 <ls:checkType id="${resource.id}"/>
-
-                <a href="#"><u>Mark as Read</u></a>
+                <g:if test="${session.userId}">
+                    <a href="#">Mark as Read</a>
+                </g:if>
                 <g:link controller="resource" action="show" params='[resourceId: "${resource.id}"]'>View Post</g:link>
 
             </p><br>
@@ -24,4 +25,4 @@
             <hr>
         </g:each>
     </div>
-</div> <!--End of inbox-->
+</div>

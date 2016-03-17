@@ -1,7 +1,7 @@
 package com.ttnd.linksharing.dto
 
 class EmailDTO {
-    List<String> to
+    String to
     String subject
     String view
     String content

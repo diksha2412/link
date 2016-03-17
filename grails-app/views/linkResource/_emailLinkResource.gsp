@@ -32,7 +32,7 @@
 
                     <div class="dropdown col-sm-6">
 
-                        <g:select name="topicName" from="${subscribedTopics}" optionKey="id" value="${subscribedTopics}"
+                        <g:select name="topicName" class="dropdown-toggle btn btn-default" from="${subscribedTopics}" optionKey="id"
                                   noSelection="['': '-Choose topic-']"/>
 
                     </div>

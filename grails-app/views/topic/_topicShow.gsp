@@ -16,29 +16,21 @@
             </inline><br>
             <inline>
                 <span style="float:left"><ls:showSubscribe topicId="${topic.id}"/></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span style="color:grey; margin-left: 75px"><ls:subscriptionCount topicId="${topic.id}"/></span>
+                <span style="color:grey; margin-left: 140px"><ls:subscriptionCount topicId="${topic.id}"/></span>
                 <span style="color:grey; float:right"><ls:resourceCount topicId="${topic.id}"/></span>
             </inline><br>
 
             <div style="float:right">
-                <span class="dropdown">
+                <g:if test="${session.userId}">
+                    <span class="dropdown">
+                        <g:select name="seriousness" from="${com.enums.Seriousness.values()}"
+                                  noSelection="['': 'select visibility']"/>
+                    </span>
 
-                    <g:select name="seriousness" from="${com.enums.Seriousness.values()}"
-                              noSelection="['': 'select visibility']"/>
-                    %{--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Serious
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Very Serious</a></li>
-                        <li><a href="#">Casual</a></li>
-                    </ul>--}%
-                </span>
-
-                &nbsp;&nbsp;
-                <i class="glyphicon glyphicon-envelope" style="font-size:20px" data-target="#sendinvitation"
-                   data-toggle="modal"></i>
+                    &nbsp;&nbsp;
+                    <i class="glyphicon glyphicon-envelope" style="font-size:20px" data-target="#sendinvitation"
+                       data-toggle="modal"></i>
+                </g:if>
             </div>
         </div>
     </div>

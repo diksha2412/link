@@ -1,11 +1,13 @@
 package com.linksharing
 
+import com.enums.Visibility
 import com.ttnd.linksharing.co.ResourceSearchCO
 import com.ttnd.linksharing.co.TopicSearchCO
 import com.ttnd.linksharing.co.UserCO
 import com.ttnd.linksharing.ReadingItem
 import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.Topic
+import com.ttnd.linksharing.co.UserSearchCO
 import com.ttnd.linksharing.vo.TopicVO
 import com.ttnd.linksharing.User
 import com.ttnd.linksharing.vo.UserVO
@@ -32,14 +34,6 @@ class UserController {
                                           'subscriptions'   : User.get(session.userId).subscriptions, 'user': user]
     }
 
-    /*def update(Long id, Boolean isRead) {
-        if (ReadingItem.changeIsRead(id, isRead)) {
-            render 'success'
-        } else {
-            render 'error'
-        }
-    }
-*/
     def register(UserCO co) {
         User user = new User(co.properties)
         if (!params.file.empty) {
@@ -55,25 +49,21 @@ class UserController {
     }
 
     def edit(UserCO userCO) {
-        println "=====inside user edit======"
-        println "=======${userCO.properties}"
         User user = User.get(session.userId)
 
-        user.firstName=userCO.firstName
-        user.lastName=userCO.lastName
-        user.userName=userCO.userName
+        user.firstName = userCO.firstName
+        user.lastName = userCO.lastName
+        user.userName = userCO.userName
 
-//        List<Topic> topicsCreated = user.topics
-
-        if (!params.photo.empty){
-            user.photo=params.photo.bytes
+        if (!params.photo.empty) {
+            user.photo = params.photo.bytes
         }
 
-        if (user.save(flush: true)){
-            flash.message="details updated successfully"
+        if (user.save(flush: true)) {
+            flash.message = "details updated successfully"
             redirect(controller: 'login', action: 'index')
         } else {
-            flash.error="error in updating details"
+            flash.error = "error in updating details"
         }
     }
 
@@ -98,23 +88,50 @@ class UserController {
 
     def profile(ResourceSearchCO resourceSearchCO) {
 
-        TopicSearchCO topicSearchCO = new TopicSearchCO(id: resourceSearchCO.id, visibility: resourceSearchCO.visibility)
+        User user = resourceSearchCO.getUser(resourceSearchCO.id)
 
+        if (session.userId) {
+            if (!((User.get(session.userId).admin) || (session.userId == id))) {
+                topicSearchCO.visibility = Visibility.PUBLIC
+            }
+        } else {
+            topicSearchCO.visibility = Visibility.PUBLIC
+        }
         List<Resource> resources = resourceService.search(resourceSearchCO)
-        List<Resource> subscribedTopics = subscriptionService.search(topicSearchCO)
-        List<Topic> topicsCreated = topicService.search(topicSearchCO)
+        render(view: '/user/profile', model: ['user': user])
+    }
 
-        UserVO userDetails = User.get(session.userId).getUserDetails()
-//        User user = User.get(resourceSearchCO.id)
+    def topics(Long id) {
+        TopicSearchCO topicSearchCO = new TopicSearchCO(id: id)
+        if (session.userId) {
+            if (!((User.get(session.userId).admin) || (session.userId == id))) {
+                topicSearchCO.visibility = Visibility.PUBLIC
+            }
+        } else {
+            topicSearchCO.visibility = Visibility.PUBLIC
+        }
+        List<TopicVO> createdTopics = topicService.search(topicSearchCO)
+        render(template: '/user/topics', model: [topics: createdTopics])
+    }
 
-        render view: 'profile', model: ['resources'  : resources, 'topicsCreated': topicsCreated,
-                                        'userDetails': resourceSearchCO.getUser(), subscribedTopics: subscribedTopics]
+    def subscriptions(Long id) {
+        TopicSearchCO topicSearchCO = new TopicSearchCO(id: id)
+        if (session.userId) {
+            if (!((User.get(session.userId).admin) || (session.userId == id))) {
+                topicSearchCO.visibility = Visibility.PUBLIC
+            }
+        } else {
+            topicSearchCO.visibility = Visibility.PUBLIC
+        }
+        List<TopicVO> subscribedTopics = subscriptionService.search(topicSearchCO)
+        render(template: '/user/subscribedTopics', model: [subscribedTopics: subscribedTopics])
     }
 
 
     def showEditProfile() {
         User user = User.get(session.userId)
-        render(view: '/user/edit', model: ['user': user])
+        List<Topic> topicsCreated = user.topics.toList()
+        render(view: '/user/edit', model: ['user': user, 'topicsCreated': topicsCreated])
     }
 
     def sendForgetPasswordEmail(String emailID) {
@@ -158,6 +175,60 @@ class UserController {
             }
             session.invalidate()
             redirect(controller: 'login', action: 'index')
+        }
+    }
+
+    def list(UserSearchCO userSearchCO) {
+        println "=========inside list=============="
+        println "=========${userSearchCO.properties}"
+        if (session.userId) {
+            User user = User.get(session.userId)
+            if (user.admin) {
+                List<User> users = User.search(userSearchCO).list(max: userSearchCO.max, sort: userSearchCO.sort, order: userSearchCO.order)
+                List<UserVO> usersList = users?.collect {
+                    user1 ->
+                        new UserVO(id: user1.id, userName: user1.userName, email: user1.email, firstName: user1.firstName, lastName: user1.lastName,
+                                active: user1.active)
+                }
+                render(view: "/user/list", model: ['usersList': usersList])
+            } else {
+                redirect(controller: 'login', action: 'index')
+            }
+        } else {
+            redirect(controller: 'login', action: 'index')
+        }
+    }
+
+    def toggleActive(Long id) {
+
+        if (session.userId) {
+            User sessionUser = User.get(session.userId)
+
+            if (sessionUser.admin) {
+
+                User user = User.get(id)
+
+                if (user) {
+                    if (user.admin) {
+                        flash.error = "Admin active status cannot be changed."
+                    } else {
+                        user.active = !(user.active)
+                        user.confirmPassword = user.password
+                    }
+
+                    if (user.save(flush: true)) {
+
+                        flash.message = "User active status changed"
+                    } else
+                        flash.error = "User active status could not be changed"
+                } else
+                    flash.error = "User not found."
+
+                redirect(controller: "user", action: "list")
+            } else
+                redirect(controller: "login", action: "index")
+        } else {
+            redirect(controller: "login", action: "index")
         }
     }
 

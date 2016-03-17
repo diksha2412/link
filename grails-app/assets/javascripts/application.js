@@ -99,15 +99,6 @@ jQuery(document).ready(function () {
                 }
             }
         });
-        //jQuery.validator.addMethod("confirm", function (value, element) {
-// var result = false;
-// var password = $('form#registrationForm input[id=password]').val();
-//
-// if (password === value) {
-// result = true;
-// }
-// return result;
-//}, "Confirm password not matched with password");
     });
 
 
@@ -153,15 +144,30 @@ jQuery(document).ready(function () {
         $("#editForm"+topicId).css({'display': 'block'});
     });
 
-    /*$(".topic-delete").click(function (e) {
+    $(".saveTopicNameButton").click(function () {
+        var topicId = $(this).attr('topicId')
+        $.ajax({
+            url: "/topic/titleUpdate",
+            data: {topicId: topicId, title: $("#name" + topicId).val()},
+            success: ajaxSuccess
+        })
+    });
 
+    $(".cancelTopicNameButton").on('click',function(e){
+        e.preventDefault()
+        var topicId=$(".edit-topic").attr('data-topicId');
+        alert(topicId);
+        $("#editForm"+topicId).css({'display': 'none'});
+    });
+
+
+    $(".topic-delete").click(function (e) {
         alert(topicId)
         e.preventDefault();
         $.ajax({
-
             url: "/topic/delete",
             data: {topicId: $(this).attr('topicId')},
             success: ajaxSuccess
         });
-    });*/
+    });
 });

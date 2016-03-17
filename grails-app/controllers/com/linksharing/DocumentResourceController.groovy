@@ -13,15 +13,11 @@ class DocumentResourceController extends ResourceController {
 
     @Transactional
     def save(DocumentResource documentResource) {
-        
-        println "=======inside doc res save==========="
-
         documentResource.createdBy = User.get(session.userId)
 
         MultipartFile file = params.file as MultipartFile
 
         if (file.empty) {
-            println "=======file empty=========="
             flash.error = "Invalid file"
         } else {
             String filePath = "${grailsApplication.config.grails.linksharing.folderPath}/${UUID.randomUUID()}.pdf"
@@ -29,10 +25,8 @@ class DocumentResourceController extends ResourceController {
             documentResource.filePath = filePath
 
             if (documentResource.save(flush: true)) {
-                println "===========resource saved=============="
                 File savedFile = new File(filePath)
                 params.file.transferTo(savedFile)
-                println "==========1============="
                 addToReadingItems(documentResource)
 
                 flash.message = "document saved successfully"
@@ -44,16 +38,13 @@ class DocumentResourceController extends ResourceController {
     }
 
     def download(Long id) {
-        println "==========inside doc res download=============="
         User user = User.get(session.userId)
         DocumentResource documentResource = (DocumentResource) Resource.get(id)
 
         if (documentResource && documentResource.canBeViewedBy(user)) {
-            println "resource exists and can be viewed"
             def file = new File(documentResource.filePath)
 
             if (file.exists()) {
-                println "===file exists======"
                 response.setContentType(Constants.DOCUMENT_CONTENT_TYPE)
                 response.setHeader("Content-disposition", "attachment,fileName=${documentResource.fileName}")
                 response.outputStream << file.bytes
@@ -62,6 +53,5 @@ class DocumentResourceController extends ResourceController {
         } else {
             flash.error = "Cannot access the desired resource. Permission denied."
         }
-//        redirect(controller: 'resource', action: 'show', params: [id: id])
     }
 }

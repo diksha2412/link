@@ -1,5 +1,6 @@
 package com.ttnd.linksharing
 
+import com.ttnd.linksharing.co.UserSearchCO
 import com.ttnd.linksharing.vo.UserVO
 
 class User {
@@ -43,6 +44,30 @@ class User {
         [firstName, lastName].findAll { it }.join(' ')
     }
 
+    static namedQueries = {
+        search { UserSearchCO userSearchCO ->
+
+            if (userSearchCO.q) {
+
+                or
+                        {
+                            ilike('firstName', "%${userSearchCO.q}%")
+                            ilike('lastName', "%${userSearchCO.q}%")
+                            ilike('emailID', "%${userSearchCO.q}%")
+                            ilike('userName', "%${userSearchCO.q}%")
+
+                        }
+            }
+
+            if (userSearchCO.active != null) {
+                eq('active', userSearchCO.active)
+            }
+
+            eq('admin', false)
+        }
+
+    }
+
     List<Topic> getSubscribedTopics() {
         List<Topic> result = Subscription.createCriteria().list() {
             projections {
@@ -56,10 +81,6 @@ class User {
     Subscription getSubscription(Long topicId){
         Subscription.findByUserAndTopic(this, Topic.get(topicId))
     }
-
-    /*Boolean equals(User createdBy){
-        this.equals(createdBy)
-    }*/
 
     Boolean canDeleteResource(Resource resource) {
         resource.createdBy.equals(this) || this.admin

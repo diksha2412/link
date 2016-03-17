@@ -13,15 +13,17 @@
             <span style="float:right; color:grey">2:45 PM 22 FEB 2014</span><br><br>
 
             <span style="float: right">
-                <g:form controller="resourceRating" action="save" params="[resourceId: resource.id]">
-                    <g:select name="score" from="[1, 2, 3, 4, 5]"
-                              value="${com.ttnd.linksharing.ResourceRating.findByResource(resource)?.score}"
-                              noSelection="['': 'select score']"/>
+                <g:if test="${session.userId}">
+                    <g:form controller="resourceRating" action="save" params="[resourceId: resource.id]">
+                        <g:select name="score" from="[1, 2, 3, 4, 5]"
+                                  value="${com.ttnd.linksharing.ResourceRating.findByResource(resource)?.score}"
+                                  noSelection="['': 'select score']"/>
 
-                %{--<g:hiddenField name="score" value="${resource.id}"/>--}%
+                    %{--<g:hiddenField name="score" value="${resource.id}"/>--}%
 
-                    <g:submitButton name="vote"></g:submitButton>
-                </g:form>
+                        <g:submitButton name="vote"></g:submitButton>
+                    </g:form>
+                </g:if>
             </span>
 
         </div><br><br>
@@ -32,10 +34,12 @@
             <br>
 
             <div style="float:right">
-                <ls:deleteResource resource="${resource}"/> &nbsp;&nbsp;
-                <g:render template="edit" model="[resource: resource]"/>
-                <g:link data-toggle="modal" data-target="#editDescription">Edit</g:link>
+                <g:if test="${session.userId}">
+                    <ls:deleteResource resource="${resource}"/> &nbsp;&nbsp;
+                    <g:render template="edit" model="[resource: resource]"/>
 
+                <g:link data-toggle="modal" data-target="#editDescription">Edit</g:link>
+                </g:if>
                 <ls:checkType id="${resource.id}"></ls:checkType>
 
             </div>

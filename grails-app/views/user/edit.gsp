@@ -15,7 +15,7 @@
 
         <div class="col-lg-5">
             <g:render template="/user/userInfo" model="[user: user]"></g:render>
-            <g:render template="createdTopics" model="[topicsCreated: topicsCreated]"/>
+            <ls:trendingTopics/>
         </div>
 
         <div class="col-lg-7">

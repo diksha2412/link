@@ -47,19 +47,15 @@
 
                         <ls:showVisibility topicId="${subscription.topic.id}"/>
 
-                        <ls:showSeriousness topicId="${subscription.topic.id}"/>
-
                         </span>
 
-                        <i class="glyphicon glyphicon-envelope" style="font-size:20px"></i>&nbsp;&nbsp;
 
-                        <i class="fa fa-pencil-square-o edit-topic" data-topicId="${subscription.topic.id}"
-                           style="font-size:20px"></i>&nbsp;&nbsp;
+                        <i class="glyphicon glyphicon-envelope" data-toggle="modal" data-target="#sendinvitation" style="font-size:20px"></i>&nbsp;&nbsp;
 
-                        <g:link name="delete" controller="topic" action="delete"
-                                params='[topicId: "${subscription.topic.id}"]' style="font-size:20px">
-                            <i class="glyphicon glyphicon-trash topic-delete" controller="topic" action="delete"
-                               data-topicId="${subscription.topic.id}" style="font-size:20px">
+                        <i class="fa fa-pencil-square-o edit-topic" data-topicId="${subscription.topic.id}" style="font-size:20px"></i>&nbsp;&nbsp;
+
+                        <g:link name="delete" controller="topic" action="delete" params='[topicId: "${subscription.topic.id}"]' style="font-size:20px">
+                            <i class="glyphicon glyphicon-trash topic-delete" controller="topic" action="delete" data-topicId="${subscription.topic.id}" style="font-size:20px">
                             </i>
                         </g:link>
                     </ls:canUpdateTopic>
@@ -71,12 +67,11 @@
 
             <div style="display: none; float: right" id="editForm${subscription.topic.id}">
                 <div class="row">
-                    <g:textField name="topicName" id="name${subscription.topic.id}" value="${subscription.topic.name}"/>
+                    <g:textField name="name${subscription.topic.id}" value="${subscription.topic.name}"/>
 
-                    <g:hiddenField name="topicId" id="topicId${subscription.topic.id}"
-                                   value="${subscription.topic.id}"/>
+                    <g:hiddenField name="topicId" id="topicId${subscription.topic.id}" value="${subscription.topic.id}"/>
 
-                    <button class="saveTopicNameButton btn-primary" topicId="${subscription.topic.id}">Save</button>
+                    <button class="saveTopicNameButton btn-primary" class="saveTopicNameButton" topicId="${subscription.topic.id}">Save</button>
 
                     <button class="cancelTopicNameButton btn-primary" topicId="${subscription.topic.id}">Cancel</button>
                 </div>

@@ -10,28 +10,3 @@ searchString() in resource controller is used for searching within the navbar
 
 
 
-$(".edit-topic").on('click',function(){
-var topicId=$(this).attr('data-topic-id');
-alert(topicId);
-$("#editForm"+topicId).css({'display': 'block'});
-
-});
-
-
-$(".cancelTopicNameButton").on('click',function(){
-var topicId=$(".edit-topic").attr('data-topic-id');
-alert(topicId);
-$("#editForm"+topicId).css({'display': 'none'});
-
-});
-
-
-
-$(".saveTopicNameButton").click(function () {
-var topicId = $(this).attr('topicId')
-$.ajax({
-url: "/topic/titleUpdate",
-data: {topicId: topicId, name: $("#name" + topicId).val()},
-success:ajaxSuccess
-})
-});

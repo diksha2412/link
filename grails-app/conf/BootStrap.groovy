@@ -104,7 +104,6 @@ class BootStrap {
         }
         topic.addToResources(resource)
         updateReadingItems(resource, topic)
-
     }
 
     LinkResource createLinkResource(String link, Topic topic, User user, String description) {

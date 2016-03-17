@@ -15,7 +15,7 @@
     </div>
 
     <div class="col-xs-7">
-        <g:render template="/topic/posts"></g:render>
+        <g:render template="/topic/posts" model="[topic: topic]"></g:render>
     </div>
 
 </div>

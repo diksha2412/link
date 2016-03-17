@@ -49,20 +49,8 @@ class ResourceController {
     }
 
     def searchString(String queryString) {
-
         List<Resource> list1 = Resource.findAllByDescriptionIlike("%${queryString}%")
         render view: '/resource/search', model: ['resources': list1, 'queryString': queryString]
-
-        /*List<Topic> topics=Topic.findAllByNameIlike("%${queryString}%")
-        List<Resource> l=[]
-
-        topics.resources.each { Resource resource1->
-            l.add(resource1)
-        }
-        List<Resource> list3=l.flatten()
-
-        list1+=list3*/
-
     }
 
     def search(ResourceSearchCO resourceSearchCO) {

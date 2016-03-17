@@ -14,8 +14,6 @@
     <asset:javascript src="jquery-2.2.1.min.js"/>
     <asset:stylesheet src="application.css"/>
     <asset:javascript src="application.js"/>
-    <asset:javascript src="jquery.validate.min.js"/>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -27,14 +25,17 @@
 <g:if test="${session.userId}">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#"><ins>Link Sharing</ins></a>
+            <a class="navbar-brand" href="${createLink(controller: 'user', action: 'index')}"><ins>Link Sharing</ins>
+            </a>
         </div>
 
-        <div style="float: right; margin-top: 1%" >
+        <div style="float: right; margin-top: 1%">
             <i class="fa fa-comment fa-lg" data-target="#createtopic" data-toggle="modal"></i>&nbsp;&nbsp;
-            <i class="glyphicon glyphicon-envelope fa-lg" data-target="#sendinvitation" data-toggle="modal"></i>&nbsp;&nbsp;
+            <i class="glyphicon glyphicon-envelope fa-lg" data-target="#sendinvitation"
+               data-toggle="modal"></i>&nbsp;&nbsp;
             <i class="glyphicon glyphicon-link fa-lg" data-target="#sharelink" data-toggle="modal"></i>&nbsp;&nbsp;
-            <i class="fa fa-external-link fa-lg" data-target="#sharedocument" data-toggle="modal"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <i class="fa fa-external-link fa-lg" data-target="#sharedocument"
+               data-toggle="modal"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <i class="glyphicon glyphicon-user fa-lg"></i>&nbsp;&nbsp;
 
 
@@ -46,9 +47,7 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><g:link controller="user" action="showEditProfile">Profile</g:link></li>
-                    <li><a href="#">Users</a></li>
-                    <li><a href="#">Topics</a></li>
-                    <li><a href="#">Posts</a></li>
+                    <li><g:link controller="user" action="list">Users</g:link></li>
                     <li><g:link controller="login" action="logout">Logout</g:link></li>
                 </ul>
             </span>
@@ -61,7 +60,6 @@
                 <g:submitButton name="search" value="search" type="submit" class="btn btn-primary"></g:submitButton>
             </span>&nbsp;&nbsp;
         </g:form>
-
 
     </nav>
 
@@ -96,7 +94,6 @@
 </div>
 
 <g:layoutBody/>
-<asset:javascript src="additional-methods.min.js"/>
-<asset:javascript src="jquery.validate.min.js"/>
+
 </body>
 </html>
