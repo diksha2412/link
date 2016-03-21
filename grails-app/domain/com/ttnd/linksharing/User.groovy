@@ -11,7 +11,7 @@ class User {
     String firstName
     String lastName
     Byte[] photo
-    Boolean admin
+    Boolean admin = false
     Boolean active = true
     Date dateCreated
     Date lastUpdated
@@ -78,7 +78,7 @@ class User {
         result
     }
 
-    Subscription getSubscription(Long topicId){
+    Subscription getSubscription(Long topicId) {
         Subscription.findByUserAndTopic(this, Topic.get(topicId))
     }
 

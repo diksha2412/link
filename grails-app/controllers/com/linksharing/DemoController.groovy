@@ -18,9 +18,6 @@ class DemoController {
 
     def index() {
         render "${myBeanUsingConstructor.properties}"
-//        render "${myBean.properties}"
-       // render view: 'form'
-
     }
 
    def mailTry(){

@@ -66,6 +66,8 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:2.2.3"
         compile "org.grails.plugins:mail:1.0.7"
         compile "org.grails.plugins:quartz:1.0.2"
+        compile "org.grails.plugins:codenarc:0.25.1"
+
 
         test "org.grails.plugins:code-coverage:2.0.3-3"
         // plugins needed at runtime but not for compilation
@@ -84,3 +86,14 @@ grails.project.dependency.resolution = {
         //compile ":handlebars-asset-pipeline:1.3.0.3"
     }
 }
+
+codenarc {
+    ruleSetFiles = "file:grails-app/conf/CodeNarcRules.groovy"
+    reports = {
+        HtmlReport('html') {                  // Report type is 'html'
+            outputFile = 'target/CodeNarcReport.html'
+            title = 'My Test Code Narc Report'
+        }
+    }
+}
+

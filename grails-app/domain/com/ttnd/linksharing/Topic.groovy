@@ -41,22 +41,6 @@ class Topic {
         }
     }
 
-//    static List<TopicVO> getTrendingTopics() {
-//        List<TopicVO> trendingTopics = Resource.createCriteria().list([max: 5]) {
-//            createAlias('topic', 't')
-//            projections {
-//                groupProperty('t.id')
-//                Property('t.name')
-//                Property('t.visibility')
-//                count('r.id', 'resourceCount')
-//            }
-//            order('resourceCount', 'desc')
-//            order('name')
-//        }
-//        trendingTopics
-//    }
-//}
-
     static List<TopicVO> getTrendingTopics() {
         List<TopicVO> topicVoList = []
         String hql = '''
@@ -68,7 +52,6 @@ class Topic {
         def ids = Topic.executeQuery(hql, [max: 5])
         def orderedTopics = Topic.getAll(ids)
 
-        println "${orderedTopics}"
         orderedTopics.each { Topic topic ->
             topicVoList.add(new TopicVO(id: topic.id, name: topic.name, visibility: topic.visibility, createdBy: topic.createdBy,
                     count: topic.resources.size()))

@@ -43,6 +43,7 @@
                 <div style="float:right">
                 <span class="dropdown">
 
+                    <ls:showSeriousness topicId="${subscription.topic.id}"/>
                     <ls:canUpdateTopic topicId="${subscription.topic.id}">
 
                         <ls:showVisibility topicId="${subscription.topic.id}"/>

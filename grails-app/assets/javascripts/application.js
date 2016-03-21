@@ -87,7 +87,8 @@ jQuery(document).ready(function () {
                     minlength: "Password should be at least 5 character long"
                 },
                 'confirmPassword': {
-                    required: "Confirm password can't be blank"
+                    required: "Confirm password can't be blank",
+                    equalTo: "passwords don't match"
                 },
                 'email': {
                     required: "Email address can't be blank",

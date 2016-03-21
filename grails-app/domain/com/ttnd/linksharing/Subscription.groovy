@@ -2,7 +2,6 @@ package com.ttnd.linksharing
 
 import com.enums.Seriousness
 
-
 class Subscription {
 
     Topic topic
@@ -18,5 +17,4 @@ class Subscription {
         topic(nullable: false)
         seriousness(nullable: false)
     }
-
 }

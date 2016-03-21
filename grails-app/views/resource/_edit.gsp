@@ -15,8 +15,7 @@
                         <label class="control-label col-lg-2">Description</label>
 
                         <div class="col-xs-10">
-                            <g:textArea rows="5" name="description" class="form-control" placeholder="Description"
-                                        required="required"></g:textArea>
+                            <g:textArea rows="5" name="description" class="form-control" placeholder="Description" required="required"></g:textArea>
                         </div>
                     </div>
 

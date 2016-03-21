@@ -4,7 +4,9 @@
 
     <div class="panel-body">
         <div class="row-sm-6">
-            <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
+            <div class="col-xs-3">
+                <ls:userImage userId="${topic.createdBy.id}"/>
+            </div>
             <inline>
                 <span class="strong">${topic.createdBy.fullName}</span> <br/>
 
@@ -23,8 +25,9 @@
             <div style="float:right">
                 <g:if test="${session.userId}">
                     <span class="dropdown">
-                        <g:select name="seriousness" from="${com.enums.Seriousness.values()}"
-                                  noSelection="['': 'select visibility']"/>
+                        <g:select name="seriousness" class="dropdown-toggle btn btn-default"
+                                  from="${com.enums.Seriousness.values()}"
+                                  noSelection="['': 'select seriousness']"/>
                     </span>
 
                     &nbsp;&nbsp;
@@ -34,4 +37,4 @@
             </div>
         </div>
     </div>
-</div> <!--END OF PANEL BODY-->
+</div>

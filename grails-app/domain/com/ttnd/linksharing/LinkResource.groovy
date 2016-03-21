@@ -1,6 +1,6 @@
 package com.ttnd.linksharing
 
-class LinkResource extends Resource{
+class LinkResource extends Resource {
 
     String url
     Date dateCreated
@@ -10,7 +10,7 @@ class LinkResource extends Resource{
         url(url: true)
     }
 
-    String toString(){
+    String toString() {
         url
     }
 }

@@ -23,11 +23,12 @@ class UserController {
     def index() {
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         User user = User.get(session.userId)
+        List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
 
-        List<ReadingItem> readingItemsList = ReadingItem.createCriteria().list() {
+        /*List<ReadingItem> readingItemsList = ReadingItem.createCriteria().list() {
             eq('isRead', false)
             eq('user', user)
-        }
+        }*/
 
         render view: 'dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
                                           'trendingTopics'  : trendingTopics, 'readingItems': readingItemsList,
@@ -41,11 +42,11 @@ class UserController {
         }
         if (user.validate()) {
             user.save(flush: true)
-            render 'success'
+            flash.message = "Registration successful."
         } else {
-            flash.error = user.errors
-            render user.errors
+            flash.error = "Unsuccessful Registration. Please try again."
         }
+        redirect(controller: 'login', action: 'index')
     }
 
     def edit(UserCO userCO) {
@@ -135,27 +136,22 @@ class UserController {
     }
 
     def sendForgetPasswordEmail(String emailID) {
-        println "====inside ForgotPassword====="
-        println "====email id entered is : ${emailID}"
         User user = User.findByEmail(emailID)
         if (user) {
-            println "===user found"
             mailService.sendMail {
-                println "====inside email service"
                 to "${user.email}"
                 subject "Forgot Password Request"
                 body "Hello, This is your password: ${user.password}. Login again with this password."
             }
             flash.message = "success"
         } else {
-            flash.error = "user not found"
+            flash.error = "user with given emailID not found"
         }
+        redirect(controller: 'login', action: 'index')
     }
 
     def sendInvite(String email, String topic) {
-        println "=====inside sendInvite method======"
         mailService.sendMail {
-            println "====inside email service"
             to "${email}"
             subject "invite for subscription"
             body "This is an invite for the topic ${topic}"
@@ -168,7 +164,6 @@ class UserController {
         if (user) {
             String query = "update User set password=:password where id=:id"
             if (User.executeUpdate(query, [password: changePwd, id: session.userId])) {
-//                render "password updated successfully"
                 flash.message = "success"
             } else {
                 flash.error = "error"
@@ -179,8 +174,6 @@ class UserController {
     }
 
     def list(UserSearchCO userSearchCO) {
-        println "=========inside list=============="
-        println "=========${userSearchCO.properties}"
         if (session.userId) {
             User user = User.get(session.userId)
             if (user.admin) {
@@ -231,19 +224,4 @@ class UserController {
             redirect(controller: "login", action: "index")
         }
     }
-
-    /*def getScore(Long resourceId, Integer score) {
-        String msg =""
-        User user = User.get(session.user)
-        Resource resource = Resource.findById(resourceId)
-        println resource
-        if(resource) {
-            ResourceRating.executeUpdate("update ResourceRating r set r.score=:score where " +
-                    "r.resource.id=:resourceId and r.user.id = :userId", [score: score, resourceId: resourceId, userId: user.id])
-            msg = "Sucess"
-        }else{
-            msg = "${resource} not found."
-        }
-        render msg
-    }*/
 }

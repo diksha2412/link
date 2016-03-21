@@ -1,19 +1,29 @@
 package com.linksharing
 
+import com.ttnd.linksharing.ReadingItem
+import com.ttnd.linksharing.Topic
+import com.ttnd.linksharing.User
+import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 
-/**
- * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
- */
+@Mock([Topic, User, ReadingItem])
 @TestFor(UserController)
 class UserControllerSpec extends Specification {
 
-    void "test index"() {
+    def "test index"() {
+        setup:"a user"
+        User user=User.get(session.userId)
+
         when:"calling index action"
         controller.index()
 
-        then:"content should be rendered"
-        response.contentAsString=="user dashboard"
+        then:"view and models should be rendered"
+        model.subscribedTopics == user.subscribedTopics
+        model.trendingTopics == Topic.getTrendingTopics()
+        model.reasingItems == ReadingItem.getReadingItems(user)
+        model.subscriptions == user.subscriptions
+        model.user == user
+        view == "/user/dashboard"
     }
 }

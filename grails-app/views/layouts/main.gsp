@@ -1,4 +1,4 @@
-<%@ page import="com.enums.Visibility" %>
+<%@ page import="com.ttnd.linksharing.User; com.enums.Visibility" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -47,7 +47,9 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><g:link controller="user" action="showEditProfile">Profile</g:link></li>
-                    <li><g:link controller="user" action="list">Users</g:link></li>
+                    <g:if test="${com.ttnd.linksharing.User.get(session.userId).admin}">
+                        <li><g:link controller="user" action="list">Users</g:link></li>
+                    </g:if>
                     <li><g:link controller="login" action="logout">Logout</g:link></li>
                 </ul>
             </span>
@@ -57,6 +59,7 @@
             <span class="form-group" style="margin-left: 47%">
                 <span class="glyphicon glyphicon-search"></span>
                 <g:textField type="text" name="queryString" class="form-control" placeholder="Search"/>&nbsp;&nbsp;
+
                 <g:submitButton name="search" value="search" type="submit" class="btn btn-primary"></g:submitButton>
             </span>&nbsp;&nbsp;
         </g:form>
@@ -77,10 +80,11 @@
     <div class="navbar navbar-default">
         <nav class="navbar header">
             <a class="navbar-brand" href="#">Link sharing</a>
-            <g:form class="navbar-form " role="search" controller="resource" action="search">
+            <g:form class="navbar-form " role="search" controller="resource" action="searchString">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-search" style="margin-left:47em"></span>
-                    <input type="text" class="form-control" placeholder="Search"/>
+                    %{--<input type="text" class="form-control" placeholder="Search"/>--}%
+                    <g:textField type="text" name="queryString" class="form-control" placeholder="Search"/>&nbsp;&nbsp;
                     <g:submitButton name="search" value="search" type="submit" class="btn btn-primary"></g:submitButton>
                 </div>
             </g:form>

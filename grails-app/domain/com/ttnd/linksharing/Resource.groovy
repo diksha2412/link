@@ -1,5 +1,6 @@
 package com.ttnd.linksharing
 
+import com.enums.Visibility
 import com.ttnd.linksharing.co.ResourceSearchCO
 import com.ttnd.linksharing.vo.RatingInfoVO
 
@@ -48,6 +49,16 @@ abstract class Resource {
         resourceList
     }
 
+    static List<Resource> resourceSearch(ResourceSearchCO resourceSearchCO){
+        List<Resource> resources=Resource.createCriteria().list(){
+            ilike('description', "%${resourceSearchCO.queryString}%")
+            topic{
+                eq('visibility', Visibility.PUBLIC)
+            }
+        }
+        resources
+    }
+
     Boolean isLinkResource() {
         this.instanceOf(LinkResource)
     }
@@ -64,7 +75,6 @@ abstract class Resource {
             eq('isRead', false)
         }
     }
-
 
 //    RatingInfoVO getRatingInfo(){
 //        List result=ResourceRating.createCriteria().list() {

@@ -1,3 +1,4 @@
+<%@ page import="com.enums.Visibility" %>
 <div class="panel panel-default"><!--BEGINNING OF TRENDING TOPICS PANEL-->
     <div class="panel-heading">
         <h3 class="panel-title">Trending Topics</h3></div>
@@ -39,5 +40,5 @@
                 <hr>
             </div>
         </g:each>
-    </div> <!--END OF PANEL BODY-->
-</div> <!--END OF TRENDING TOPICS PANEL-->
+    </div>
+</div>

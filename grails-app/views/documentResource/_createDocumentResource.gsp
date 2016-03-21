@@ -1,12 +1,10 @@
 <div id="sharedocument" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <!--Header-->
             <div class="modal-header">
                 <span type="button" class="close" data-dismiss="modal">X</span>
                 <h4 class="modal-title">Share Document</h4>
             </div>
-            <!--Body-->
         <div class="modal-body">
             <g:uploadForm class="form-horizontal" controller="documentResource">
                 <div class="form-group">
@@ -31,21 +29,19 @@
                     <label class="control-label col-lg-2">Topic* :</label>
 
                     <div class="dropdown col-sm-6">
-
-                        <g:select name="topic" class="dropdown-toggle btn btn-default" from="${subscribedTopics}" optionKey="id"
+                        <g:select name="topic" class="dropdown-toggle btn btn-default" from="${subscribedTopics}"
+                                  optionKey="id"
                                   noSelection="['': '-Choose topic-']"></g:select>
                     </div>
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <g:actionSubmit value="share" action="save"/>
+                    <g:actionSubmit value="share" action="save" class="btn btn-primary"/>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
                 </div>
             </g:uploadForm>
-        <!--Form Closing-->
 
         </div>
-        <!--Footer-->
 
     </div>
 </div>

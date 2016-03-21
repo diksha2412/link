@@ -6,7 +6,6 @@ import com.ttnd.linksharing.User
 class LoginController {
 
     def index() {
-
         if (session.userId) {
             forward(controller: 'User', action: 'index')
         } else {
@@ -17,19 +16,21 @@ class LoginController {
     }
 
     def login(String userName, String password) {
+        println "-----------1----------"
         User user = User.findByUserNameAndPassword(userName, password)
+        println "----------${user}--------"
         if (user) {
             if (user.active) {
+                println "-----------${user.active}---------"
                 session.userId = user.id
-                //session.user = user
-
-                redirect(action: 'index')
+                flash.message = "Login successfully."
+                forward(action: 'index')
             } else {
-                flash.error = 'Your account is not active'
+                flash.error = "Your account is not active"
             }
         } else {
-            flash.error = 'User not found'
-            render flash.error
+            flash.error = "User not found"
+            redirect(action: 'index')
         }
     }
 
@@ -38,28 +39,12 @@ class LoginController {
         forward(action: 'index')
     }
 
-    def validateEmail(){
+    def validateEmail() {
         User.findByEmail(params.email) ? false : true
     }
 
-    def validateUserName(){
+    def validateUserName() {
         User.findByUserName(params.userName) ? false : true
     }
-
-    def forgotPassword(){
-//        render template: '/user/forgotPassword'
-    }
-
-//    def test() {
-//        User user = new User(firstName: "diksha", lastName: "ahuja", email: "hcdghs@gmail.com", password: "test123",
-//                confirmPassword: "test456")
-//        if (user.validate()) {
-//            render 'true'
-//        } else {
-//            List errors = []
-//            user.errors.allErrors.each { errors << message(error: it) }
-//            render errors.join(',')
-//        }
-//    }
 
 }

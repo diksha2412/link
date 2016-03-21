@@ -16,6 +16,8 @@ class TopicController {
     def index() {}
 
     def show(ResourceSearchCO resourceSearchCO) {
+        println "=======inside topic show "
+        println "=====topic id is : ${resourceSearchCO.topicId}"
         Topic topic = Topic.get(resourceSearchCO.topicId)
         if (!topic) {
             flash.error = "no topic in database"
@@ -25,10 +27,10 @@ class TopicController {
         } else {
             User user1 = User.findByUserName(session.userId)
             if (Subscription.findByTopicAndUser(topic, user1)) {
-                render 'success'
+                flash.message= 'success'
             } else {
                 flash.error = "user subscription doesn't exist for the given topic"
-                redirect(controller: 'user', action: 'index')
+//                redirect(controller: 'user', action: 'index')
             }
         }
     }
@@ -42,7 +44,6 @@ class TopicController {
 
     def invite(Long topic, String email) {
         Topic topic1 = Topic.get(topic)
-
         String to = email
         String subject = "Invitation for a new topic."
         String hostURL = grailsApplication.config.grails.serverURL
@@ -55,7 +56,6 @@ class TopicController {
             emailService.sendMail(emailDTO)
             flash.message = "Email sent"
         }
-
         redirect(controller: "login", action: "index")
     }
 
@@ -86,21 +86,30 @@ class TopicController {
     }
 
     def titleUpdate(String title, Long topicId) {
-        Map jsonResponseMap = [:]
         Topic topic = Topic.get(topicId)
-        topic.name = title
-        topic.save(flush: true, failOnError: true)
+        if (topic){
+            topic.name = title
+            if (topic.save(flush: true, failOnError: true)){
+                flash.success="title updated successfully"
+            } else {
+                flash.error="error in saving topic"
+            }
+        } else {
+            flash.error="topic not found"
+        }
     }
 
     def delete(Long topicId) {
-        Map jsonResponseMap = [:]
         Topic topic = Topic.get(topicId)
         if (topic.delete(flush: true)) {
-            jsonResponseMap.message = "topic deleted successfully"
+            flash.message="topic deleted successfully"
+//            jsonResponseMap.message = "topic deleted successfully"
         } else {
-            jsonResponseMap.error = "error in deleting topic"
+            flash.error="error in deleting topic"
+//            jsonResponseMap.error = "error in deleting topic"
         }
-        JSON jsonResponse = jsonResponseMap as JSON
-        render jsonResponse
+        redirect(controller: 'user', action: 'index')
+        /*JSON jsonResponse = jsonResponseMap as JSON
+        render jsonResponse*/
     }
 }

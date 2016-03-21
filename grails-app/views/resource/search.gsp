@@ -11,7 +11,7 @@
 
     <div class="col-xs-5">
         <ls:trendingTopics/>
-        <g:render template="/login/topPosts" model="['resources': resources]"></g:render>
+        <ls:topPosts/>
     </div>
 
     <div class="col-xs-7">
@@ -30,7 +30,10 @@
 
                     <p>${resource.createdBy.fullName}
                         <inline style="margin-left:1em; color:#d2d4d9">@${resource.createdBy.userName} 5min</inline>
-                        <inline style="float:right"><a href="#"><u>${resource.topic}</u></a></inline>
+                        <inline style="float:right">
+                            <g:hiddenField name="topicId" value="${resource.topic.id}"/>
+                            <g:link controller="topic" action="show" params='[topicId: "${resource.topic.id}"]'>${resource.topic}</g:link>
+                        </inline>
                         <br/>${resource.description}
                     </p>
 

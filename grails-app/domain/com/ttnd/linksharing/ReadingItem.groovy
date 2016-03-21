@@ -16,4 +16,11 @@ class ReadingItem {
         user(nullable: false)
     }
 
+    static List<ReadingItem> getReadingItems(User user) {
+        List<ReadingItem> readingItemList = ReadingItem.createCriteria().list() {
+            eq('isRead', false)
+            eq('user', user)
+        }
+        readingItemList
+    }
 }

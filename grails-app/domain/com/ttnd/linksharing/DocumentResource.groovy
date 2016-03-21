@@ -13,9 +13,6 @@ class DocumentResource extends Resource {
     static constraints = {
         filePath(blank: false)
         contentType bindable: true, matches: Constants.DOCUMENT_CONTENT_TYPE
-        /*validator: { val, obj ->*/
-//            (val.equals(Constants.DOCUMENT_CONTENT_TYPE))
-//        }
     }
 
     String toString() {
