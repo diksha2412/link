@@ -14,7 +14,7 @@
                     <label for="link" class="control-label col-lg-2">Link*</label>
 
                     <div class="col-lg-10">
-                        <g:textField name="link" class="form-control" placeholder="Link"></g:textField>
+                        <g:textField name="link" class="form-control" placeholder="Link" required=""></g:textField>
                     </div>
                 </div>
 
@@ -23,7 +23,7 @@
 
                     <div class="col-xs-10">
                         <g:textArea name="description" rows="5" class="form-control"
-                                    placeholder="Description"></g:textArea>
+                                    placeholder="Description" required=""></g:textArea>
                     </div>
                 </div>
 
@@ -32,7 +32,7 @@
 
                     <div class="dropdown col-sm-6">
 
-                        <g:select name="topicName" class="dropdown-toggle btn btn-default" from="${subscribedTopics}" optionKey="id"
+                        <g:select name="topicName" class="dropdown-toggle btn btn-default" from="${subscribedTopics}" optionKey="id" required=""
                                   noSelection="['': '-Choose topic-']"/>
 
                     </div>

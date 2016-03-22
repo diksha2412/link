@@ -75,7 +75,11 @@ class TopicController {
     }
 
     def save(String name, String visibility) {
+        println "=======inside topic save========="
+        println "=======topic name is : ${name}"
+        println "=======topic visibility is : ${visibility}"
         Topic topic1 = new Topic(name: name, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
+        println "======${topic1.properties}"
         if (topic1.validate()) {
             topic1.save(flush: true)
             flash.message = 'topic saved successfully'
@@ -98,18 +102,39 @@ class TopicController {
             flash.error="topic not found"
         }
     }
+    
+    def update(Long topicId, String visibility){
+        Map jsonResponse =[:]
+        Topic topic = Topic.get(topicId)
+        if (topic){
+            topic.visibility=Visibility.convert(visibility)
+            topic.save(flush: true)
+            jsonResponse.message = "visibility changed successfully"
+        } else {
+            jsonResponse.error="visibility couldn't be changed"
+        }
+        render jsonResponse as JSON
+    }
+
+    def validateName(){
+        Boolean result = Topic.findByName(params.name) ? false : true
+        render result
+    }
 
     def delete(Long topicId) {
+        Map jsonResponseMap = [:]
         Topic topic = Topic.get(topicId)
-        if (topic.delete(flush: true)) {
-            flash.message="topic deleted successfully"
-//            jsonResponseMap.message = "topic deleted successfully"
+        if (topic) {
+            topic.delete(flush: true)
+//            flash.message="topic deleted successfully"
+            jsonResponseMap.message = "topic deleted successfully"
         } else {
-            flash.error="error in deleting topic"
-//            jsonResponseMap.error = "error in deleting topic"
+            println "====2"
+//            flash.error="error in deleting topic"
+            jsonResponseMap.error = "error in deleting topic"
         }
-        redirect(controller: 'user', action: 'index')
-        /*JSON jsonResponse = jsonResponseMap as JSON
-        render jsonResponse*/
+//        redirect(controller: 'user', action: 'index')
+        JSON jsonResponse = jsonResponseMap as JSON
+        render jsonResponse
     }
 }

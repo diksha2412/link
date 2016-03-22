@@ -25,7 +25,7 @@
 
                 <ls:checkType id="${readingItem.resource.id}"></ls:checkType>
 
-                <ls:markRead isRead="${readingItem.isRead}" resourceId="${readingItem.id}"/>
+                <ls:markRead isRead="${readingItem.isRead}" class="markReadStatus" resourceId="${readingItem.id}"/>
 
                 <g:link controller="resource" action="show" params='[resourceId: "${readingItem.resource.id}"]'>View Post</g:link>
 

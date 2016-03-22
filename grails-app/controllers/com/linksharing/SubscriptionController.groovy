@@ -13,7 +13,7 @@ class SubscriptionController {
     def index() { render "subscription" }
 
     def delete(Long topicId) {
-        Map jsonResponseMap = [:]
+//        Map jsonResponseMap = [:]
         Topic topic = Topic.get(topicId)
         User user = User.get(session.userId)
 
@@ -22,36 +22,36 @@ class SubscriptionController {
             if (subscription) {
                 subscription.delete(flush: true)
                 flash.message = "subscription deleted successfully"
-                jsonResponseMap.message = "subscription deleted successfully"
+//                jsonResponseMap.message = "subscription deleted successfully"
             } else {
                 flash.error = "error in deleting subscription"
-                jsonResponseMap.error = "error in deleting subscription"
+//                jsonResponseMap.error = "error in deleting subscription"
             }
         } else {
             flash.message = "creator of the topic cannot unsubscribe"
         }
-        JSON jsonResponse = jsonResponseMap as JSON
-        render jsonResponse
+       /* JSON jsonResponse = jsonResponseMap as JSON
+        render jsonResponse*/
     }
 
     def save(Long topicId) {
-        Map jsonResponse = [:]
+//        Map jsonResponse = [:]
         User user = User.get(session.userId)
         Topic topic = Topic.get(topicId)
         Subscription subscription = new Subscription(topic: topic, user: user)
         if (subscription.validate()) {
-            subscription.save()
+            subscription.save(flush: true)
 
             topic.resources.each { Resource resource ->
                 user.addToReadingItems(new ReadingItem(user: user, resource: resource, isRead: false).save(failOnError: true))
             }
             flash.message = "subscription saved successfully"
-            jsonResponse.message = "subscription saved successfully"
+//            jsonResponse.message = "subscription saved successfully"
         } else {
             flash.error = "error in saving subscription"
-            jsonResponse.error = "error in saving subscription"
+//            jsonResponse.error = "error in saving subscription"
         }
-        render jsonResponse as JSON
+//        render jsonResponse as JSON
     }
 
     def update(Long topicId, String serious) {
@@ -60,7 +60,7 @@ class SubscriptionController {
         if (subscription) {
             subscription.seriousness = Seriousness.convert(serious)
             if (subscription.validate()) {
-                subscription.save()
+                subscription.save(flush: true)
                 flash.message = "subscription updated successfully"
                 jsonResponse.message = "subscription updated successfully"
             } else {

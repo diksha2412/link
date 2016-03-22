@@ -40,22 +40,25 @@
 
 
             <span class="dropdown" style="margin-right: 1%">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     ${com.ttnd.linksharing.User.get(session.userId).firstName}
                     <span class="caret"></span>
                 </button>
+
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
                     <li><g:link controller="user" action="showEditProfile">Profile</g:link></li>
+
                     <g:if test="${com.ttnd.linksharing.User.get(session.userId).admin}">
                         <li><g:link controller="user" action="list">Users</g:link></li>
                     </g:if>
+
                     <li><g:link controller="login" action="logout">Logout</g:link></li>
                 </ul>
             </span>
         </div>
 
-        <g:form class="navbar-form" role="Search" controller="resource" action="searchString">
+        <g:form class="navbar-form resourceSearch" role="Search" controller="resource" action="searchString">
             <span class="form-group" style="margin-left: 47%">
                 <span class="glyphicon glyphicon-search"></span>
                 <g:textField type="text" name="queryString" class="form-control" placeholder="Search"/>&nbsp;&nbsp;

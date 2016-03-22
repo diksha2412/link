@@ -15,9 +15,9 @@
                 </div>
             </div>
 
-                     <div class="modal-footer">
-                <g:submitButton class="btn btn-primary" name="save" type="submit" value="send"/>
+            <div class="modal-footer">
 
+                <g:submitButton class="btn btn-primary forgotPassword" name="save" type="submit" value="send"/>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
             </div>
         </g:form>

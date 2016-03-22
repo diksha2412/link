@@ -5,12 +5,10 @@ enum Visibility {
 
 
     static Visibility convert(String string) {
-        if (string.equalsIgnoreCase("public")) {
-            com.enums.Visibility.PUBLIC
-        } else {
+        if (string.equalsIgnoreCase("private")) {
             com.enums.Visibility.PRIVATE
+        } else {
+            com.enums.Visibility.PUBLIC
         }
-
     }
-
 }

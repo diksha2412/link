@@ -60,7 +60,7 @@ class UserController {
             user.photo = params.photo.bytes
         }
 
-        if (user.save(flush: true)) {
+        if (user.save(flush: true, failOnError: true)) {
             flash.message = "details updated successfully"
             redirect(controller: 'login', action: 'index')
         } else {

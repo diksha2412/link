@@ -8,7 +8,8 @@
             </div>
 
             <div class="modal-body">
-                <g:form class="form-horizontal" controller="topic" action="save">
+
+                <g:form class="form-horizontal createTopic" controller="topic" action="save">
                     <div class="form-group">
                         <label class="control-label col-lg-2">Topic Name*</label>
 
@@ -22,8 +23,9 @@
 
                         <div class="dropdown col-sm-6">
 
-                            <g:select class="dropdown-toggle btn btn-default" name="visibility" from="${com.enums.Visibility.values()}"
-                                      noSelection="['': 'select visibility']"/>
+                            <g:select class="dropdown-toggle btn btn-default" name="visibility"
+                                      from="${com.enums.Visibility.values()}"
+                                      noSelection="['': 'select visibility']" />
 
                         </div>
                     </div>

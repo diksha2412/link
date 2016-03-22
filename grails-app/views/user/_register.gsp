@@ -7,7 +7,7 @@
                 <label class="col-xs-3 contr">First Name*</label>
 
                 <div class="col-xs-9">
-                    <g:textField name="firstName" class="form-control" placeholder="First Name" required=""></g:textField>
+                    <g:textField name="firstName" id="firstName" class="form-control" placeholder="First Name" required=""></g:textField>
                 </div>
             </div>
 
@@ -15,15 +15,15 @@
                 <label for="inputLname" class="control-label col-xs-3">Last Name*</label>
 
                 <div class="col-xs-9">
-                    <g:textField name="lastName" class="form-control" id="inputLname" placeholder="Last Name" required=""></g:textField>
+                    <g:textField name="lastName" class="form-control" id="lastName" placeholder="Last Name" required=""></g:textField>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputEmail" class="control-label col-xs-3">Email*</label>
+                <label for="email" class="control-label col-xs-3">Email*</label>
 
                 <div class="col-xs-9">
-                    <g:textField name="email" type="email" class="form-control" id="inputEmail" placeholder="Email" required=""></g:textField>
+                    <g:textField name="email" type="email" class="form-control" id="email" placeholder="Email" required=""></g:textField>
                 </div>
             </div>
 
@@ -31,7 +31,7 @@
                 <label class="control-label col-xs-3">Username*</label>
 
                 <div class="col-xs-9">
-                    <g:textField name="userName" class="form-control" id="inputUname" placeholder="UserName" required=""></g:textField>
+                    <g:textField name="userName" class="form-control" id="userName" placeholder="UserName" required=""></g:textField>
                 </div>
             </div>
 
@@ -39,15 +39,15 @@
                 <label class="control-label col-xs-3">Password*</label>
 
                 <div class="col-xs-9">
-                    <g:passwordField name="password" type="password" class="form-control" id="inputPass" placeholder="******" required=""></g:passwordField>
+                    <g:passwordField name="password" type="password" class="form-control" id="password" placeholder="******" required=""></g:passwordField>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputEmail" class="control-label col-xs-3">Confirm Password*</label>
+                <label class="control-label col-xs-3">Confirm Password*</label>
 
                 <div class="col-xs-9">
-                    <g:passwordField name="confirmPassword" class="form-control" id="inputConfirm" placeholder="*****" required=""></g:passwordField>
+                    <g:passwordField name="confirmPassword" class="form-control" id="confirmPassword" placeholder="*****" required=""></g:passwordField>
                 </div>
             </div>
 

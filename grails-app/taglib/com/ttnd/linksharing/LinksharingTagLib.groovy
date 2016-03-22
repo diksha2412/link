@@ -24,13 +24,6 @@ class LinksharingTagLib {
         }
     }
 
-    /* def markRead = { attrs, body ->
-         User user = User.get(session.userId)
-         if (user) {
-             out << render(template: '/resource/readMark', model: [readingItem: attrs.readingItem])
-         }
-     }*/
-
     def checkType = { attrs, body ->
         Resource resource = Resource.get(attrs.id as Long)
         if (resource.isLinkResource()) {
@@ -67,7 +60,7 @@ class LinksharingTagLib {
         if (session.userId) {
             User user = User.get(session.userId)
             if (!user.isSubscribed(attrs.topicId)) {
-                String subscribe = "${createLink(controller: 'subscription', action: 'save' )}"
+                String subscribe = "${createLink(controller: 'subscription', action: 'save')}"
                 out << "<a href=$subscribe class='subscriptionSave' topicId=\"${attrs.topicId}\">Subscribe</a>"
             } else {
                 String unsubscribe = "${createLink(controller: 'subscription', action: 'delete')}"
@@ -102,42 +95,42 @@ class LinksharingTagLib {
     }
 
     def canUpdateTopic = { attrs, body ->
-        User user=User.get(session.userId)
-        Topic topic=Topic.get(attrs.topicId)
-        if (user.admin || user==topic.createdBy ){
+        User user = User.get(session.userId)
+        Topic topic = Topic.get(attrs.topicId)
+        if (user.admin || user == topic.createdBy) {
             out << body()
         } else {
-            flash.error="either topic or user is not available"
+            flash.error = "either topic or user is not available"
         }
     }
 
-    def showSeriousness = { attrs,body ->
-        User user= User.get(session.userId)
-        Topic topic=Topic.get(attrs.topicId)
-        if (user){
-            Subscription subscription=user.getSubscription(attrs.topicId)
-            if (user.getSubscription(attrs.topicId)){
-                out<< g.select(class: 'seriousness dropdown-toggle btn btn-default',name:'seriousness', from: Seriousness.values(), value: subscription.seriousness, topicId: attrs.topicId )
+    def showSeriousness = { attrs, body ->
+        User user = User.get(session.userId)
+        Topic topic = Topic.get(attrs.topicId)
+        if (user) {
+            Subscription subscription = user.getSubscription(attrs.topicId)
+            if (user.getSubscription(attrs.topicId)) {
+                out << g.select(class: 'seriousness dropdown-toggle btn btn-default', name: 'seriousness', from: Seriousness.values(), value: subscription.seriousness, topicId: attrs.topicId)
             } else {
-                flash.error="user not subscribed to topic"
+                flash.error = "user not subscribed to topic"
             }
         } else {
-            flash.error="user not found"
+            flash.error = "user not found"
         }
     }
 
-    def showVisibility = { attrs,body ->
-        User user= User.get(session.userId)
-        Topic topic=Topic.get(attrs.topicId)
-        if (user){
-            Subscription subscription=user.getSubscription(attrs.topicId)
-            if (user.getSubscription(attrs.topicId)){
-                out<< g.select(class: 'visibility dropdown-toggle btn btn-default',name:'visibility', from: Visibility.values(), value: topic.visibility, topicId: attrs.topicId )
+    def showVisibility = { attrs, body ->
+        User user = User.get(session.userId)
+        Topic topic = Topic.get(attrs.topicId)
+        if (user) {
+            Subscription subscription = user.getSubscription(attrs.topicId)
+            if (user.getSubscription(attrs.topicId)) {
+                out << g.select(class: 'visibility dropdown-toggle btn btn-default', name: 'visibility', from: Visibility.values(), value: topic.visibility, topicId: attrs.topicId)
             } else {
-                flash.error="user not subscribed to topic"
+                flash.error = "user not subscribed to topic"
             }
         } else {
-            flash.error="user not found"
+            flash.error = "user not found"
         }
     }
 }

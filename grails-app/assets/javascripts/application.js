@@ -41,6 +41,77 @@ jQuery(document).ready(function () {
         });
     });*/
 
+
+    $('.subscription').click(function (e) {
+        alert(jQuery(this).attr('topicId'))
+        e.preventDefault();
+        $.ajax({
+            url: "/subscription/delete",
+            data: {topicId: $(this).attr('topicId')},
+            success: location.reload()
+        });
+    });
+
+    $('.subscriptionSave').click(function (e) {
+        alert(jQuery(this).attr('topicId'))
+        e.preventDefault();
+        $.ajax({
+            url: "/subscription/save",
+            data: {topicId: $(this).attr('topicId')},
+            success: location.reload()
+        });
+    });
+
+    $(".seriousness").change(function () {
+        $.ajax({
+            url: "/subscription/update",
+            data: {topicId: $(this).attr('topicId'), serious: $(this).val()},
+            success: ajaxSuccess()
+        });
+    });
+
+    $(".visibility").change(function () {
+        $.ajax({
+            url: "/topic/update",
+            data: {topicId: $(this).attr('topicId'), visibility: $(this).val()},
+            success: ajaxSuccess()
+        });
+    });
+
+    $(".edit-topic").on('click',function(){
+        var topicId=$(this).attr('data-topicId');
+        alert(topicId);
+        $("#editForm"+topicId).css({'display': 'block'});
+    });
+
+    $(".saveTopicNameButton").click(function () {
+        var topicId = $(this).attr('topicId')
+        $.ajax({
+            url: "/topic/titleUpdate",
+            data: {topicId: topicId, title: $("#name" + topicId).val()},
+            success: ajaxSuccess()
+        })
+    });
+
+    $(".cancelTopicNameButton").on('click',function(e){
+        e.preventDefault()
+        var topicId=$(".edit-topic").attr('data-topicId');
+        alert(topicId);
+        $("#editForm"+topicId).css({'display': 'none'});
+    });
+
+
+    $(".topicDelete").click(function (e) {
+        var topicId = $(this).attr('topicId');
+        alert(topicId);
+        e.preventDefault();
+        $.ajax({
+            url: "/topic/delete",
+            data: {topicId: topicId},
+            success: ajaxSuccess()
+        });
+    });
+
     $(function () {
         $('#registrationForm').validate({
             rules: {
@@ -100,75 +171,36 @@ jQuery(document).ready(function () {
                 }
             }
         });
-    });
 
-
-    $('.subscription').click(function (e) {
-        alert(jQuery(this).attr('topicId'))
-        e.preventDefault();
-        $.ajax({
-            url: "/subscription/delete",
-            data: {topicId: $(this).attr('topicId')},
-            success: ajaxSuccess
+        $('.resourceSearch').validate({
+            rules: {
+                'queryString' : {
+                    required: true
+                }
+            },
+            messages : {
+                'queryString': {
+                    required: "enter the resources you want to search for"
+                }
+            }
         });
-    });
 
-    $('.subscriptionSave').click(function (e) {
-        alert(jQuery(this).attr('topicId'))
-        e.preventDefault();
-        $.ajax({
-            url: "/subscription/save",
-            data: {topicId: $(this).attr('topicId')},
-            success: ajaxSuccess
-        });
-    });
-
-    $(".seriousness").change(function () {
-        $.ajax({
-            url: "/subscription/update",
-            data: {topicId: $(this).attr('topicId'), serious: $(this).val()},
-            success: ajaxSuccess
-        });
-    });
-
-    $(".visibility").change(function () {
-        $.ajax({
-            url: "/topic/save",
-            data: {topicId: $(this).attr('topicId'), visibility: $(this).val()},
-            success: ajaxSuccess
-        });
-    });
-
-    $(".edit-topic").on('click',function(){
-        var topicId=$(this).attr('data-topicId');
-        alert(topicId);
-        $("#editForm"+topicId).css({'display': 'block'});
-    });
-
-    $(".saveTopicNameButton").click(function () {
-        var topicId = $(this).attr('topicId')
-        $.ajax({
-            url: "/topic/titleUpdate",
-            data: {topicId: topicId, title: $("#name" + topicId).val()},
-            success: ajaxSuccess
-        })
-    });
-
-    $(".cancelTopicNameButton").on('click',function(e){
-        e.preventDefault()
-        var topicId=$(".edit-topic").attr('data-topicId');
-        alert(topicId);
-        $("#editForm"+topicId).css({'display': 'none'});
-    });
-
-
-    $(".topic-delete").click(function (e) {
-        alert(topicId)
-        e.preventDefault();
-        $.ajax({
-            url: "/topic/delete",
-            data: {topicId: $(this).attr('topicId')},
-            success: ajaxSuccess
+        $('.createTopic').validate({
+            rules: {
+                'name' : {
+                    required: true,
+                    remote: {
+                        url: "/topic/validateName",
+                        type: "post"
+                    }
+                }
+            },
+            messages : {
+                'name': {
+                    required: "enter the name of the topic",
+                    remote: "topic with given name already exists"
+                }
+            }
         });
     });
 });

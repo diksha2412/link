@@ -29,7 +29,7 @@ class LoginController {
                 flash.error = "Your account is not active"
             }
         } else {
-            flash.error = "User not found"
+            flash.error = "Either user name or password is incorrect"
             redirect(action: 'index')
         }
     }
@@ -40,11 +40,12 @@ class LoginController {
     }
 
     def validateEmail() {
-        User.findByEmail(params.email) ? false : true
+        Boolean result = User.findByEmail(params.email) ? false : true
+        render result
     }
 
     def validateUserName() {
-        User.findByUserName(params.userName) ? false : true
+        Boolean result= User.findByUserName(params.userName) ? false : true
+        render result
     }
-
 }

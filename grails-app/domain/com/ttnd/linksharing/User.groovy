@@ -30,7 +30,9 @@ class User {
         admin(nullable: true)
         active(nullable: true)
         confirmPassword bindable: true, nullable: true, validator: { val, obj ->
-            val == obj.password ?: 'com.linksharing.user.password.dont.match'
+            if (val && obj.password){
+                val.equals(obj.password) ? true : 'com.linksharing.user.password.dont.match'
+            }
         }
     }
 
