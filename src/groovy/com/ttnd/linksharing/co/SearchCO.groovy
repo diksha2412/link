@@ -1,12 +1,9 @@
 package com.ttnd.linksharing.co
 
-/**
- * Created by diksha on 24/2/16.
- */
 class SearchCO {
     String q
-    Integer max
-    Integer offset
+    Integer max = 5
+    Integer offset = 0
     String order
     String sort
 }

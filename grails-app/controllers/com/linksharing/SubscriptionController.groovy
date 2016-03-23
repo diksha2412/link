@@ -14,6 +14,10 @@ class SubscriptionController {
 
     def delete(Long topicId) {
 //        Map jsonResponseMap = [:]
+        println "sdfsdfD"
+        println topicId
+        println params
+        println "sdfsdfD"
         Topic topic = Topic.get(topicId)
         User user = User.get(session.userId)
 
@@ -35,7 +39,7 @@ class SubscriptionController {
     }
 
     def save(Long topicId) {
-//        Map jsonResponse = [:]
+        Map jsonResponse = [:]
         User user = User.get(session.userId)
         Topic topic = Topic.get(topicId)
         Subscription subscription = new Subscription(topic: topic, user: user)
@@ -46,12 +50,13 @@ class SubscriptionController {
                 user.addToReadingItems(new ReadingItem(user: user, resource: resource, isRead: false).save(failOnError: true))
             }
             flash.message = "subscription saved successfully"
-//            jsonResponse.message = "subscription saved successfully"
+
+            jsonResponse.message = "subscription saved successfully"
         } else {
             flash.error = "error in saving subscription"
-//            jsonResponse.error = "error in saving subscription"
+            jsonResponse.error = "error in saving subscription"
         }
-//        render jsonResponse as JSON
+        render jsonResponse as JSON
     }
 
     def update(Long topicId, String serious) {

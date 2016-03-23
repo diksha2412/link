@@ -13,7 +13,7 @@ class ReadingItemController {
         Map jsonResponseMap = [:]
         ReadingItem readingItem = ReadingItem.findByIdAndUser(resourceId, User.get(session.userId))
         if (readingItem) {
-            readingItem.isRead = isRead
+            readingItem.isRead = !isRead
             readingItem.save(flush: true, failOnError: true)
             jsonResponseMap.message = "updated successfully"
         } else {

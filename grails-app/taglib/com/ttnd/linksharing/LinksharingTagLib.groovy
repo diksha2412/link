@@ -15,11 +15,11 @@ class LinksharingTagLib {
         if (user) {
             Long resourceId = attrs.resourceId
             Boolean isRead = attrs.isRead
-            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead', params: ['resourceId': attrs.resourceId, 'isRead': !attrs.isRead])}"
+            String link = "${createLink(controller: 'readingItem', action: 'changeIsRead')}"
             if (isRead) {
-                out << "<a href=$link class='markReadStatus' >Mark as Unread</a>"
+                out << "<a href=$link class='markReadStatus' data-resourceId='${resourceId}' data-isRead='${isRead}'>Mark as Unread</a>"
             } else {
-                out << "<a href=$link class='markReadStatus' >Mark as read</a>"
+                out << "<a href=$link class='markReadStatus' data-resourceId='${resourceId}' data-isRead='${isRead}'>Mark as read</a>"
             }
         }
     }

@@ -183,12 +183,25 @@ class UserController {
                         new UserVO(id: user1.id, userName: user1.userName, email: user1.email, firstName: user1.firstName, lastName: user1.lastName,
                                 active: user1.active)
                 }
-                render(view: "/user/list", model: ['usersList': usersList])
+                render(view: "/user/list", model: ['usersList': usersList, totalCount: User.search(userSearchCO).count()])
             } else {
                 redirect(controller: 'login', action: 'index')
             }
         } else {
             redirect(controller: 'login', action: 'index')
+        }
+    }
+
+    def paginate(UserSearchCO userSearchCO) {
+        User user = User.get(session.userId)
+        if (user.admin) {
+            List<User> users = User.search(userSearchCO).list(userSearchCO.properties)
+            List<UserVO> usersList = users?.collect {
+                user1 ->
+                    new UserVO(id: user1.id, userName: user1.userName, email: user1.email, firstName: user1.firstName, lastName: user1.lastName,
+                            active: user1.active)
+            }
+            render(template: 'userList', model: ['usersList': usersList,totalCount:User.search(userSearchCO).count()])
         }
     }
 

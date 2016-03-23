@@ -16,12 +16,9 @@ class LoginController {
     }
 
     def login(String userName, String password) {
-        println "-----------1----------"
         User user = User.findByUserNameAndPassword(userName, password)
-        println "----------${user}--------"
         if (user) {
             if (user.active) {
-                println "-----------${user.active}---------"
                 session.userId = user.id
                 flash.message = "Login successfully."
                 forward(action: 'index')

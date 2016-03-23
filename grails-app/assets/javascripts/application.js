@@ -31,15 +31,15 @@ function ajaxSuccess(result) {
 }
 
 jQuery(document).ready(function () {
-    /*$(".markReadStatus").click(function (e) {
+    $(".markReadStatus").click(function (e) {
         e.preventDefault()
-        alert(jQuery(this).attr('resourceId'))
+        alert(jQuery(this).data('resourceid'))
         $.ajax({
             url: "/readingItem/changeIsRead",
-            data: {resourceId: $(this).attr('resourceId'), isRead: $(this).attr('isRead')},
+            data: {resourceId: $(this).data('resourceid'), isRead: $(this).data('isread')},
             success: location.reload()
         });
-    });*/
+    });
 
 
     $('.subscription').click(function (e) {

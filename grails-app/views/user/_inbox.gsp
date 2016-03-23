@@ -15,8 +15,7 @@
                 <inline style="margin-left:1em; color:#d2d4d9">@${readingItem.resource.createdBy.userName} 5min</inline>
                 <inline style="float:right">
 
-                    <g:link controller="topic" action="show"
-                            params='[topicId: "${readingItem.resource.topic.id}"]'>"${readingItem.resource.topic.name}"</g:link></inline>
+                    <g:link controller="topic" action="show" params='[topicId: "${readingItem.resource.topic.id}"]'>"${readingItem.resource.topic.name}"</g:link></inline>
 
                 <br/>${readingItem.resource.description} this is readingItem no:${readingItem.id}
             </p>
