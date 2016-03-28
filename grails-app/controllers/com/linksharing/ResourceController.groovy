@@ -39,7 +39,6 @@ class ResourceController {
     }
 
     def searchString(ResourceSearchCO resourceSearchCO) {
-//        List<Resource> list1 = Resource.findAllByDescriptionIlike("%${queryString}%")
         List<Resource> list1 = Resource.resourceSearch(resourceSearchCO)
         render view: '/resource/search', model: ['resources': list1, 'queryString': resourceSearchCO.queryString]
     }

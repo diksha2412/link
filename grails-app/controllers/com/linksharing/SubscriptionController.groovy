@@ -34,6 +34,7 @@ class SubscriptionController {
         } else {
             flash.message = "creator of the topic cannot unsubscribe"
         }
+        render(template: 'subscriptions', model: ['subscriptions': user.subscriptions])
        /* JSON jsonResponse = jsonResponseMap as JSON
         render jsonResponse*/
     }
@@ -56,7 +57,8 @@ class SubscriptionController {
             flash.error = "error in saving subscription"
             jsonResponse.error = "error in saving subscription"
         }
-        render jsonResponse as JSON
+   //     render(template: 'subscriptions', model: ['subscriptions': subscription])
+//        render jsonResponse as JSON
     }
 
     def update(Long topicId, String serious) {

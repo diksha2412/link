@@ -18,7 +18,7 @@
 <g:elseif test="${flash.error}">
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Danger!</strong> ${flash.error}.
+        <strong>Danger!</strong> ${flash.error}
     </div>
 </g:elseif>
 

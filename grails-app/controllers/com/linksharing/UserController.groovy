@@ -25,14 +25,13 @@ class UserController {
         User user = User.get(session.userId)
         List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
 
-        /*List<ReadingItem> readingItemsList = ReadingItem.createCriteria().list() {
-            eq('isRead', false)
-            eq('user', user)
-        }*/
-
         render view: 'dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
                                           'trendingTopics'  : trendingTopics, 'readingItems': readingItemsList,
                                           'subscriptions'   : User.get(session.userId).subscriptions, 'user': user]
+    }
+
+    def trial() {
+        render(template: '/subscription/subscriptions', model: ['subscriptions': User.get(session.userId).subscriptions])
     }
 
     def register(UserCO co) {
@@ -145,7 +144,7 @@ class UserController {
             }
             flash.message = "success"
         } else {
-            flash.error = "user with given emailID not found"
+            flash.error = "Invalid Email ID. Try Again ...!!"
         }
         redirect(controller: 'login', action: 'index')
     }
@@ -159,17 +158,19 @@ class UserController {
         flash.message = "success"
     }
 
-    def changePassword(String pwd, String changePwd) {
-        User user = User.findByPassword(pwd)
+    def changePassword(String oldPwd, String newPwd) {
+        User user = User.findByPassword(oldPwd)
         if (user) {
             String query = "update User set password=:password where id=:id"
-            if (User.executeUpdate(query, [password: changePwd, id: session.userId])) {
+            if (User.executeUpdate(query, [password: newPwd, id: session.userId])) {
                 flash.message = "success"
             } else {
                 flash.error = "error"
             }
             session.invalidate()
             redirect(controller: 'login', action: 'index')
+        } else {
+            flash.error = "password entered is incorrect. Try Again..!!!"
         }
     }
 
@@ -201,7 +202,7 @@ class UserController {
                     new UserVO(id: user1.id, userName: user1.userName, email: user1.email, firstName: user1.firstName, lastName: user1.lastName,
                             active: user1.active)
             }
-            render(template: 'userList', model: ['usersList': usersList,totalCount:User.search(userSearchCO).count()])
+            render(template: 'userList', model: ['usersList': usersList, totalCount: User.search(userSearchCO).count()])
         }
     }
 
@@ -236,5 +237,10 @@ class UserController {
         } else {
             redirect(controller: "login", action: "index")
         }
+    }
+
+    def validatePassword() {
+        Boolean result = User.findByPassword(params.oldPwd) ? true : false
+        render result
     }
 }

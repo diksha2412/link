@@ -1,9 +1,11 @@
+<%@ page import="com.ttnd.linksharing.User" %>
 <div class="panel panel-default"><!--FIRST PANEL-->
     <div class="panel-body">
         <div class="row-sm-5">
 
-            <asset:image src="user.png" class="img-thumbnail; col-xs-3" alt="Responsive image"/>
-
+            <div class="col-xs-4">
+                <ls:userImage userId="${resource.createdBy.id}"/>
+            </div>
             <inline>
                 <span style="float:left">${resource.createdBy.fullName}</span>
                 <span style="float:right"><a href="#">${resource.description}</a></span>
@@ -16,12 +18,11 @@
                 <g:if test="${session.userId}">
                     <g:form controller="resourceRating" action="save" params="[resourceId: resource.id]">
                         <g:select name="score" from="[1, 2, 3, 4, 5]"
-                                  value="${com.ttnd.linksharing.ResourceRating.findByResource(resource)?.score}"
+                                  class="dropdown-toggle btn btn-default"
+                                  value="${com.ttnd.linksharing.ResourceRating.findByResourceAndUser(resource, com.ttnd.linksharing.User.get(session.userId))?.score}"
                                   noSelection="['': 'select score']"/>
 
-                    %{--<g:hiddenField name="score" value="${resource.id}"/>--}%
-
-                        <g:submitButton name="vote"></g:submitButton>
+                        <g:submitButton name="vote" class="btn btn-primary"></g:submitButton>
                     </g:form>
                 </g:if>
             </span>
@@ -38,7 +39,7 @@
                     <ls:deleteResource resource="${resource}"/> &nbsp;&nbsp;
                     <g:render template="edit" model="[resource: resource]"/>
 
-                <g:link data-toggle="modal" data-target="#editDescription">Edit</g:link>
+                    <g:link data-toggle="modal" data-target="#editDescription">Edit</g:link>
                 </g:if>
                 <ls:checkType id="${resource.id}"></ls:checkType>
 

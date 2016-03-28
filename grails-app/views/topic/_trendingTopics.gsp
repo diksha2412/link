@@ -7,16 +7,15 @@
 
         <g:each in="${trendingTopics}" var="topic">
 
-            <div class="row-sm-6">
+            <div class="row-sm-6" id="topic-${topic.id}">
 
                 <div class="col-xs-3">
                     <ls:userImage userId="${topic.createdBy.id}"/>
                 </div>
 
-
                 <inline>
                     <span style="float:left">
-                        <g:link controller="topic" action="show" params='[topicId: "${topic.id}}"]'>${topic.name}</g:link>
+                        <g:link controller="topic" action="show" params='[topicId: "${topic.id}"]'>${topic.name}</g:link>
                     </span><br>
                 </inline>
                 <inline>

@@ -30,16 +30,6 @@
                                         type="submit"></button>
                             </span>
 
-                            <span class="input-group-btn">
-                                <input type="text" id="q" name="q" class="form-control input-group"
-                                       placeholder="Search">
-                            </span>
-
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary glyphicon-remove searchButtons">
-                                </button>
-                            </span>
-
                         </div>
                     </div>
                 </g:form>
@@ -47,14 +37,8 @@
         </div>
     </div>
 
-    <div class="panel-body">
-
-       <g:render template="userList" />
-
-        <div class="pagination">
-            <util:remotePaginate controller="user" action="paginate" total="${totalCount}" update="listUpdate" max="5"/>
-        </div>
-
+    <div class="panel-body" id="paginatedList">
+        <g:render template="userList"/>
     </div>
 </div>
 

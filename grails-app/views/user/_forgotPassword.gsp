@@ -6,7 +6,7 @@
     </div>
     <!--Body-->
     <div class="modal-body">
-        <g:form class="form-horizontal" controller="user" action="sendForgetPasswordEmail">
+        <g:form class="form-horizontal forgotPassword" controller="user" action="sendForgetPasswordEmail">
             <div class="form-group">
                 <label class="control-label col-xs-4">Enter your e-mailID*</label>
 

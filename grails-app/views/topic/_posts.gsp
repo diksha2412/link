@@ -5,7 +5,10 @@
 
     <div class="panel-body">
         <g:each in="${topic.resources}" var="resource">
-            <asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>
+            <div class="col-xs-2">
+                <ls:userImage userId="${resource.createdBy.id}"/>
+            </div>
+        %{--<asset:image src="user.png" class="img-thumbnail; col-xs-2" alt="Responsive image"/>--}%
             <p>${resource.createdBy.fullName}
                 <inline style="margin-left:1em; color:#d2d4d9">@${resource.createdBy.userName}
                     <span style="float: right">${resource.dateCreated}</span></inline>

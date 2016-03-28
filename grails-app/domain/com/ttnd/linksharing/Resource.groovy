@@ -40,13 +40,26 @@ abstract class Resource {
             projections {
                 property('resource.id')
             }
+            createAlias('resource', 'r')
+            createAlias('r.topic', 't')
             groupProperty('resource.id')
             count('id', 'totalVotes')
             order('totalVotes', 'desc')
+            eq('t.visibility', Visibility.PUBLIC)
         }
         List list = result.collect { it[0] }
         resourceList = Resource.getAll(list)
         resourceList
+    }
+
+    static List<Resource> showRecentShares() {
+        List<Resource> result = Resource.createCriteria().list(max: 5) {
+            'topic' {
+                eq('visibility', Visibility.PUBLIC)
+            }
+            order('dateCreated', 'desc')
+        }
+        result
     }
 
     static List<Resource> resourceSearch(ResourceSearchCO resourceSearchCO){

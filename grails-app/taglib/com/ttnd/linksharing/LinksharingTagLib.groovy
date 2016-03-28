@@ -31,7 +31,6 @@ class LinksharingTagLib {
         } else {
             String download = "${createLink(controller: 'documentResource', action: 'download', params: [id: attrs.id])}"
             out << "<a href=$download class='download'>Download</a>"
-//            out << "<a href='${resource.filePath}'>Download</a>"
         }
     }
 
@@ -53,7 +52,7 @@ class LinksharingTagLib {
 
     def topPosts = {
         List<Resource> resourceList = Resource.showTopPosts()
-        out << render(template: "/login/topPosts", model: [resourceList: resourceList])
+        out << render(template: "/login/topPosts", model: [resources: resourceList])
     }
 
     def showSubscribe = { attrs, body ->

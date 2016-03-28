@@ -14,6 +14,7 @@
         <strong>Success!</strong> ${flash.message}
     </div>
 </g:if>
+
 <g:elseif test="${flash.error}">
     <div class="alert alert-danger">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

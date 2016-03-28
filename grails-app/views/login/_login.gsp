@@ -4,13 +4,12 @@
     </div>
 
     <div class="panel-body">
-        <g:form class="form-horizontal" controller="login">
+        <g:form class="form-horizontal loginForm" controller="login">
             <div class="form-group">
                 <label for="userName" class="control-label col-xs-2">UserName*</label>
 
                 <div class="col-xs-10">
-                    <g:textField name="userName" type="email" class="form-control" id="userName"
-                                 placeholder="userName" required=""></g:textField>
+                    <g:textField name="userName" type="email" class="form-control" id="userName" placeholder="userName" required=""></g:textField>
                 </div>
             </div>
 
@@ -18,18 +17,16 @@
                 <label for="inputPassword" class="control-label col-xs-2">Password*</label>
 
                 <div class="col-xs-10">
-                    <g:passwordField name="password" class="form-control" id="inputPassword"
-                                     placeholder="Password" required=""></g:passwordField>
+                    <g:passwordField name="password" class="form-control" id="inputPassword" placeholder="Password" required=""></g:passwordField>
                 </div>
             </div>
 
             <div class="form-group">
                 <div style="margin-left:200px">
-                    <g:link data-target="#forgotPassword"
-                            data-toggle="modal"><ins>Forgot Password</ins></g:link>
+                    <g:link data-target="#forgotPassword" data-toggle="modal"><ins>Forgot Password</ins></g:link>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <g:actionSubmit value="login" type="submit" class="btn btn-primary"></g:actionSubmit>
+                    <g:actionSubmit value="login" type="submit" class="btn btn-primary "></g:actionSubmit>
                 </div>
             </div>
         </g:form>

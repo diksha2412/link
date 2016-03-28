@@ -13,7 +13,8 @@
                     <label for="email" class="control-label col-lg-2">Email*</label>
 
                     <div class="col-lg-10">
-                        <g:field type="email" class="form-control" placeholder="Email" name="email" required=""></g:field>
+                        <g:field type="email" class="form-control" placeholder="Email" name="email"
+                                 required=""></g:field>
                     </div>
                 </div>
 
@@ -21,7 +22,8 @@
                     <label class="control-label col-lg-2" for="topic">Topic*</label>
 
                     <div class="dropdown col-sm-6">
-                        <g:select class="dropdown-toggle btn btn-default" name="topic" from="${subscribedTopics}" optionKey="id" noSelection="['': '-Choose topic-']"/>
+                        <g:select class="dropdown-toggle btn btn-default" name="topic" from="${subscribedTopics}"
+                                  optionKey="id" noSelection="['': '-Choose topic-']"/>
                     </div>
                     <!--Form Closing-->
                 </div>

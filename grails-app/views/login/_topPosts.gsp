@@ -1,4 +1,4 @@
-<div class="panel panel-default"><!--Top posts panel-->
+<div class="panel panel-default">
     <div class="panel panel-heading">Top posts</div>
 
     <div class="panel-body" style="overflow-y: auto; height: 300px">
@@ -28,4 +28,4 @@
             <hr>
         </g:each>
     </div>
-</div> <!--closure of panel-->
+</div>

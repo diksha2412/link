@@ -25,9 +25,10 @@ class TopicController {
         } else if (topic.visibility == Visibility.PUBLIC) {
             render view: '/topic/show', model: [topic: topic, users: topic.getSubscribedUsers()]
         } else {
-            User user1 = User.findByUserName(session.userId)
-            if (Subscription.findByTopicAndUser(topic, user1)) {
+            User user = User.get(session.userId)
+            if (Subscription.findByTopicAndUser(topic, user)) {
                 flash.message= 'success'
+                render view: '/topic/show', model: [topic: topic, users: topic.getSubscribedUsers()]
             } else {
                 flash.error = "user subscription doesn't exist for the given topic"
 //                redirect(controller: 'user', action: 'index')
@@ -75,11 +76,7 @@ class TopicController {
     }
 
     def save(String name, String visibility) {
-        println "=======inside topic save========="
-        println "=======topic name is : ${name}"
-        println "=======topic visibility is : ${visibility}"
         Topic topic1 = new Topic(name: name, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
-        println "======${topic1.properties}"
         if (topic1.validate()) {
             topic1.save(flush: true)
             flash.message = 'topic saved successfully'
@@ -90,17 +87,22 @@ class TopicController {
     }
 
     def titleUpdate(String title, Long topicId) {
+        Map jsonResponse =[:]
         Topic topic = Topic.get(topicId)
         if (topic){
             topic.name = title
             if (topic.save(flush: true, failOnError: true)){
-                flash.success="title updated successfully"
+                flash.message="title updated successfully"
+                jsonResponse.message="title updated successfully(JSON)"
             } else {
+                jsonResponse.error="error in saving topic"
                 flash.error="error in saving topic"
             }
         } else {
+            jsonResponse.error="topic not found(JSON)"
             flash.error="topic not found"
         }
+        render jsonResponse as JSON
     }
     
     def update(Long topicId, String visibility){
@@ -109,9 +111,11 @@ class TopicController {
         if (topic){
             topic.visibility=Visibility.convert(visibility)
             topic.save(flush: true)
+            flash.message = "visibility changed successfully"
             jsonResponse.message = "visibility changed successfully"
         } else {
             jsonResponse.error="visibility couldn't be changed"
+            flash.error="visibility couldn't be changed"
         }
         render jsonResponse as JSON
     }

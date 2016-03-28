@@ -4,11 +4,13 @@ import com.ttnd.linksharing.LinkResource
 import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.User
+import grails.transaction.Transactional
 
-class LinkResourceController {
+class LinkResourceController extends ResourceController {
 
     def index() {}
 
+    @Transactional
     def create(String link, String description, Integer topicName) {
         Topic topic = Topic.findById(topicName)
         if (topic) {
@@ -19,6 +21,7 @@ class LinkResourceController {
                 if (resource.validate()) {
                     resource.save(flush: true)
                     topic.addToResources(resource)
+                    addToReadingItems(resource)
                     flash.message = "link resource saved successfully"
                     redirect(controller: 'user', action: 'index')
                 } else {

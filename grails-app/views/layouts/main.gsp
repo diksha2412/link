@@ -83,10 +83,9 @@
     <div class="navbar navbar-default">
         <nav class="navbar header">
             <a class="navbar-brand" href="#">Link sharing</a>
-            <g:form class="navbar-form " role="search" controller="resource" action="searchString">
+            <g:form class="navbar-form resourceSearch" role="search" controller="resource" action="searchString">
                 <div class="form-group">
                     <span class="glyphicon glyphicon-search" style="margin-left:47em"></span>
-                    %{--<input type="text" class="form-control" placeholder="Search"/>--}%
                     <g:textField type="text" name="queryString" class="form-control" placeholder="Search"/>&nbsp;&nbsp;
                     <g:submitButton name="search" value="search" type="submit" class="btn btn-primary"></g:submitButton>
                 </div>

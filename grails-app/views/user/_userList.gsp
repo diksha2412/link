@@ -57,6 +57,10 @@
     </table>
 </div>
 
+<div class="pagination">
+    <util:remotePaginate controller="user" action="paginate" total="${totalCount}" update="paginatedList" max="5"/>
+</div>
+
 
 
 

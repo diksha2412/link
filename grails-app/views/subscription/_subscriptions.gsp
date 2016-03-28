@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <h3 class="panel-title">Subscriptions</h3></div>
 
-    <div class="panel-body" style="overflow-y: auto; height: 300px">
+    <div class="panel-body" id="subscriptions" style="overflow-y: auto; height: 300px">
 
         <g:each in="${subscriptions}" var="subscription">
 
@@ -52,33 +52,44 @@
                         </span>
 
 
-                        <i class="glyphicon glyphicon-envelope" data-toggle="modal" data-target="#sendinvitation" style="font-size:20px"></i>&nbsp;&nbsp;
+                        <i class="glyphicon glyphicon-envelope" data-toggle="modal" data-target="#sendinvitation"
+                           style="font-size:20px"></i>&nbsp;&nbsp;
 
-                        <i class="fa fa-pencil-square-o edit-topic" data-topicId="${subscription.topic.id}" style="font-size:20px"></i>&nbsp;&nbsp;
+                        <i class="fa fa-pencil-square-o edit-topic" data-topicId="${subscription.topic.id}"
+                           style="font-size:20px"></i>&nbsp;&nbsp;
 
-                        <g:link name="delete" controller="topic" action="delete" params='[topicId: "${subscription.topic.id}"]' style="font-size:20px">
-                            <i class="glyphicon glyphicon-trash topicDelete" controller="topic" action="delete" topicId="${subscription.topic.id}" style="font-size:20px">
+                        <g:link name="delete" controller="topic" action="delete"
+                                params='[topicId: "${subscription.topic.id}"]' style="font-size:20px">
+
+                            <i class="glyphicon glyphicon-trash topicDelete" controller="topic" action="delete"
+                               topicId="${subscription.topic.id}" style="font-size:20px">
                             </i>
                         </g:link>
                     </ls:canUpdateTopic>
-                </div>
-            </div><br>
-            <hr>
 
-            <!--hidden div for edit begins-->
 
-            <div style="display: none; float: right" id="editForm${subscription.topic.id}">
-                <div class="row">
-                    <g:textField name="name${subscription.topic.id}" value="${subscription.topic.name}"/>
+                <!--hidden div for edit begins-->
 
-                    <g:hiddenField name="topicId" id="topicId${subscription.topic.id}" value="${subscription.topic.id}"/>
+                    <div style="display: none;float: right" id="editForm${subscription.topic.id}">
+                        <hr>
 
-                    <button class="saveTopicNameButton btn-primary" class="saveTopicNameButton" topicId="${subscription.topic.id}">Save</button>
+                        <div class="row">
+                            <g:textField name="name${subscription.topic.id}" value="${subscription.topic.name}"/>
 
-                    <button class="cancelTopicNameButton btn-primary" topicId="${subscription.topic.id}">Cancel</button>
-                </div>
+                            <g:hiddenField name="topicId" id="topicId${subscription.topic.id}"
+                                           value="${subscription.topic.id}"/>
+
+                            <button class="saveTopicNameButton btn-primary" class="saveTopicNameButton"
+                                    topicId="${subscription.topic.id}">Save</button>
+
+                            <button class="cancelTopicNameButton btn-primary"
+                                    topicId="${subscription.topic.id}">Cancel</button>
+                        </div>
+
+                    </div>
+                </div><br>
+                <hr>
             </div>
-
             <!--hidden div for edit ends here-->
         </g:each>
 

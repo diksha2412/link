@@ -41,6 +41,14 @@ jQuery(document).ready(function () {
         });
     });
 
+   /* $(".loginForm").submit(function () {
+        $.ajax({
+            url: "/login/login",
+            data: {userName: $(this).attr('topicId'), serious: $(this).val()},
+            success: ajaxSuccess()
+        });
+    });
+*/
 
     $('.subscription').click(function (e) {
         alert(jQuery(this).attr('topicId'))
@@ -95,7 +103,7 @@ jQuery(document).ready(function () {
 
     $(".cancelTopicNameButton").on('click',function(e){
         e.preventDefault()
-        var topicId=$(".edit-topic").attr('data-topicId');
+        var topicId=$(this).attr('topicId');
         alert(topicId);
         $("#editForm"+topicId).css({'display': 'none'});
     });
@@ -185,6 +193,24 @@ jQuery(document).ready(function () {
             }
         });
 
+        $('.forgotPassword').validate({
+            rules: {
+                'emailID' : {
+                    required: true,
+                    remote: {
+                        url: "/login/validateEmail",
+                        type: "post"
+                    }
+                }
+            },
+            messages : {
+                'emailID': {
+                    required: "enter the email ID",
+                    remote: "This email ID is not taken. Enter a valid one."
+                }
+            }
+        });
+
         $('.createTopic').validate({
             rules: {
                 'name' : {
@@ -199,6 +225,40 @@ jQuery(document).ready(function () {
                 'name': {
                     required: "enter the name of the topic",
                     remote: "topic with given name already exists"
+                }
+            }
+        });
+
+        $('.changePassword').validate({
+            rules: {
+                'oldPwd' : {
+                    required: true,
+                    remote: {
+                        url: "/user/validatePassword",
+                        type: "post"
+                    }
+                },
+                'newPwd':{
+                    required: true,
+                    minlength: 5
+                },
+                'confirmNewPwd':{
+                    required: true,
+                    equalTo: '#newPwd'
+                },
+            },
+            messages : {
+                'oldPwd': {
+                    required: "enter the old password",
+                    remote: "incorrect password !!"
+                },
+                'newPwd': {
+                    required: "enter the new password",
+                    minlength: "Password should be at least 5 character long"
+                },
+                'confirmNewPwd': {
+                    required: "re-enter new password",
+                    equalTo: "Passwords don't match !!"
                 }
             }
         });

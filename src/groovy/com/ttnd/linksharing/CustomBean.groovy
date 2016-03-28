@@ -1,8 +1,5 @@
 package com.ttnd.linksharing
 
-/**
- * Created by diksha on 7/3/16.
- */
 class CustomBean {
     String fname
     int age
