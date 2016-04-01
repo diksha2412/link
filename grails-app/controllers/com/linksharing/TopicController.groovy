@@ -130,11 +130,11 @@ class TopicController {
         Topic topic = Topic.get(topicId)
         if (topic) {
             topic.delete(flush: true)
-//            flash.message="topic deleted successfully"
+            flash.message="topic deleted successfully"
             jsonResponseMap.message = "topic deleted successfully"
         } else {
             println "====2"
-//            flash.error="error in deleting topic"
+            flash.error="error in deleting topic"
             jsonResponseMap.error = "error in deleting topic"
         }
 //        redirect(controller: 'user', action: 'index')

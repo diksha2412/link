@@ -26,7 +26,9 @@ class SubscriptionController {
             if (subscription) {
                 subscription.delete(flush: true)
                 flash.message = "subscription deleted successfully"
-//                jsonResponseMap.message = "subscription deleted successfully"
+                render(template: '/subscription/subscriptions2', model: ['subscriptions'   :
+                                                                                 User.get(session.userId).subscriptions])
+//       jsonResponseMap.message = "subscription deleted successfully"
             } else {
                 flash.error = "error in deleting subscription"
 //                jsonResponseMap.error = "error in deleting subscription"
@@ -34,7 +36,7 @@ class SubscriptionController {
         } else {
             flash.message = "creator of the topic cannot unsubscribe"
         }
-        render(template: 'subscriptions', model: ['subscriptions': user.subscriptions])
+//        render(template: 'subscriptions', model: ['subscriptions': user.subscriptions])
        /* JSON jsonResponse = jsonResponseMap as JSON
         render jsonResponse*/
     }

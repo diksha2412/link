@@ -6,9 +6,9 @@ beans = {
         age=23
     }
 
-//    myBeanUsingConstructor(com.ttnd.linksharing.CustomBean,"diksha"){
-//
-//    }
+    /*myBeanUsingConstructor(com.ttnd.linksharing.CustomBean,"diksha"){
+
+    }*/
 
 //    myBean1(com.ttnd.linksharing.CustomBean,"surabhi"){
 //

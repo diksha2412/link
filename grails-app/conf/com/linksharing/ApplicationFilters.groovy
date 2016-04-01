@@ -13,7 +13,6 @@ class ApplicationFilters {
 
         all(controller: '*', action: '*') {
             before = {
-
                 println("filter " + params)
             }
         }

@@ -56,7 +56,9 @@ jQuery(document).ready(function () {
         $.ajax({
             url: "/subscription/delete",
             data: {topicId: $(this).attr('topicId')},
-            success: location.reload()
+            success: function(data){
+                $("#subscriptions").html(data);
+            }
         });
     });
 
@@ -69,6 +71,7 @@ jQuery(document).ready(function () {
             success: location.reload()
         });
     });
+
 
     $(".seriousness").change(function () {
         $.ajax({

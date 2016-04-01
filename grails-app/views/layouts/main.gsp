@@ -99,6 +99,20 @@
     <div class="jsonResponse" style="display:none"></div>
 </div>
 
+<g:if test="${flash.message}">
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> ${flash.message}
+    </div>
+</g:if>
+
+<g:elseif test="${flash.error}">
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Danger!</strong> ${flash.error}
+    </div>
+</g:elseif>
+
 <g:layoutBody/>
 
 </body>

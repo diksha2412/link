@@ -8,7 +8,7 @@ class LoginController {
 
     def index() {
         if (session.userId) {
-            forward(controller: 'User', action: 'index')
+            redirect(controller: 'User', action: 'index')
         } else {
             List<Resource> resources = Resource.showTopPosts()
             List<Resource> recentShares = Resource.showRecentShares()
@@ -24,7 +24,7 @@ class LoginController {
                 session.userId = user.id
                 jsonResponseMap.message = "Login successful.(JSON) "
                 flash.message = "Login successful."
-                forward(action: 'index')
+                redirect(controller: 'user', action: 'index')
             } else {
                 jsonResponseMap.error="Your account is not active(JSON)"
                 flash.error = "Your account is not active"

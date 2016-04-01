@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputLname" class="control-label col-xs-3">Last Name*</label>
+                <label class="control-label col-xs-3">Last Name*</label>
 
                 <div class="col-xs-9">
                     <g:textField name="lastName" class="form-control" id="lastName" placeholder="Last Name" required=""></g:textField>
@@ -56,7 +56,6 @@
 
                 <div class="col-xs-8">
                     <input type="file" id="file" name="file" class="form-control">
-                    %{--<button type="submit" class="btn btn-default">Browse</button>--}%
                 </div>
             </div>
 

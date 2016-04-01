@@ -26,7 +26,7 @@
                     <g:link data-target="#forgotPassword" data-toggle="modal"><ins>Forgot Password</ins></g:link>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <g:submit value="login" type="submit" class="btn btn-primary "></g:submit>
                 </div>
             </div>
         </g:form>
