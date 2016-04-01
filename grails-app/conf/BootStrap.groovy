@@ -5,9 +5,11 @@ import com.ttnd.linksharing.LinkResource
 import com.ttnd.linksharing.ReadingItem
 import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.ResourceRating
+import com.ttnd.linksharing.Role
 import com.ttnd.linksharing.Subscription
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.User
+import com.ttnd.linksharing.UserRole
 
 class BootStrap {
     //def grailsApplication
@@ -61,19 +63,24 @@ class BootStrap {
         }
     }
 
-    void createUser() {
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating users")
-        User u1 = new User(firstName: "diksha", lastName: "ahuja", userName: "diksha2412", password: "test123", confirmPassword: "test123",
-                email: "diksha.ahuja@tothenew.com", admin: true).save()
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
 
-        User u2 = new User(firstName: "pulkit", lastName: "ahuja", userName: "pulkit", password: "testabc", confirmPassword: "testabc",
-                email: "ahujapulkit@gmail.com", admin: false).save()
-        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
-
-
+    void assignRole(User user, Role role) {
+        new UserRole(user: user, role: role)
     }
 
+
+    void createUser() {
+        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating users")
+        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
+        User u1 = new User(firstName: "diksha", lastName: "ahuja", userName: "diksha2412", password: "test123", confirmPassword: "test123",
+                email: "diksha.ahuja@tothenew.com").save()
+        assignRole(u1, new Role('ROLE_ADMIN').save())
+
+        println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
+        User u2 = new User(firstName: "pulkit", lastName: "ahuja", userName: "pulkit", password: "testabc", confirmPassword: "testabc",
+                email: "ahujapulkit@gmail.com").save()
+        assignRole(u2, new Role('ROLE_USER').save())
+    }
 
     void createTopics(User user) {
         if (true) {

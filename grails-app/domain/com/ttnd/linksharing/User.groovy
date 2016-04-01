@@ -11,11 +11,20 @@ class User {
     String firstName
     String lastName
     Byte[] photo
-    Boolean admin = false
+//    Boolean admin = false
     Boolean active = true
     Date dateCreated
     Date lastUpdated
     String confirmPassword
+
+    boolean enabled = true
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
+
+    Set<Role> getAuthorities() {
+        UserRole.findAllByUser(this)*.role
+    }
 
     static transients = ['fullName', 'confirmPassword', 'subscribedTopics']
 
