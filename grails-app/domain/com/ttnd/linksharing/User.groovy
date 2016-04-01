@@ -3,7 +3,7 @@ package com.ttnd.linksharing
 import com.ttnd.linksharing.co.UserSearchCO
 import com.ttnd.linksharing.vo.UserVO
 
-class User {
+class User extends SecUser {
 
     String email
     String userName
