@@ -12,7 +12,7 @@
 
             <p>${readingItem.resource.createdBy.fullName}
 
-                <inline style="margin-left:1em; color:#d2d4d9">@${readingItem.resource.createdBy.userName} ${readingItem.resource.dateCreated}</inline>
+                <inline style="margin-left:1em; color:#d2d4d9">@${readingItem.resource.createdBy.username} ${readingItem.resource.dateCreated}</inline>
                 <inline style="float:right">
 
                     <g:link controller="topic" action="show" params='[topicId: "${readingItem.resource.topic.id}"]'>"${readingItem.resource.topic.name}"</g:link></inline>

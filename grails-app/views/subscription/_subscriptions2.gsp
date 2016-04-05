@@ -3,7 +3,7 @@
     <div class="row-sm-6">
 
         <div class="col-xs-3">
-            <ls:userImage userId="${subscription.topic.createdBy.id}"/>
+            <ls:userImage userId="${com.ttnd.linksharing.User.loggedInUser().id}"/>
         </div>
 
         <span class="strong">${subscription.topic.createdBy.fullName}</span>
@@ -13,7 +13,7 @@
                     params='[topicId: "${subscription.topic.id}"]'>${subscription.topic}</g:link>
         </span><br>
 
-        <span style="float:left; color:grey">@${subscription.topic.createdBy.userName}</span>
+        <span style="float:left; color:grey">@${subscription.topic.createdBy.username}</span>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 

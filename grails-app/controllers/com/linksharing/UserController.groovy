@@ -13,6 +13,7 @@ import com.ttnd.linksharing.User
 import com.ttnd.linksharing.vo.UserVO
 import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class UserController {
 
     def assetResourceLocator
@@ -41,16 +42,16 @@ class UserController {
         }
     }
 */
-
     def index() {
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
         User user = User.loggedInUser()
+        println "----------${user}"
         List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
 
-        render view: 'dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
+        render view: 'dashboard', model: ['subscribedTopics': user.subscribedTopics,
                                           'trendingTopics'  : trendingTopics,
                                           'readingItems'    : readingItemsList,
-                                          'subscriptions'   : User.get(session.userId).subscriptions,
+                                          'subscriptions'   : user.subscriptions,
                                           'user'            : user]
     }
 

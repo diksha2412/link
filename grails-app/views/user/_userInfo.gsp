@@ -1,15 +1,15 @@
-<div class="panel panel-default"><!--FIRST PANEL-->
+<div class="panel panel-default">
     <div class="panel-body">
         <div class="col-xs-3">
 
-            <ls:userImage userId="${session.userId}"/>
+            <ls:userImage userId="${com.ttnd.linksharing.User.loggedInUser().id}"/>
         </div>
 
 
         <span class="strong" style="float:left">${user.fullName}</span><br>
 
         <span style="float:left; color:grey; font-size:10px">
-            <g:link controller="user" action="showProfile">@${user.userName}</g:link>
+            <g:link controller="user" action="showProfile">@${user.username}</g:link>
         </span><br>
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -25,4 +25,4 @@
         <span style=" margin-left:8em"><ls:topicCount/></span>
 
     </div>
-</div> <!-- First Panel close-->
+</div>

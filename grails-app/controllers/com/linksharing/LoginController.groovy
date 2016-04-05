@@ -174,7 +174,7 @@ class LoginController {
     }
 
     def validateUserName() {
-        Boolean result = User.findByUserName(params.userName) ? false : true
+        Boolean result = User.findByUsername(params.userName) ? false : true
         render result
     }
 }

@@ -22,7 +22,7 @@
 </head>
 
 <body>
-<g:if test="${session.userId}">
+<g:if test="${com.ttnd.linksharing.User.loggedInUser()}">
     <nav class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand" href="${createLink(controller: 'user', action: 'index')}"><ins>Link Sharing</ins>
@@ -41,7 +41,7 @@
 
             <span class="dropdown" style="margin-right: 1%">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    ${com.ttnd.linksharing.User.get(session.userId).firstName}
+                    ${User.loggedInUser().firstName}
                     <span class="caret"></span>
                 </button>
 
@@ -49,11 +49,11 @@
 
                     <li><g:link controller="user" action="showEditProfile">Profile</g:link></li>
 
-                    <g:if test="${com.ttnd.linksharing.User.get(session.userId).admin}">
+                    <g:if test="${com.ttnd.linksharing.User.loggedInUser().isAdmin()}">
                         <li><g:link controller="user" action="list">Users</g:link></li>
                     </g:if>
 
-                    <li><g:link controller="login" action="logout">Logout</g:link></li>
+                    <li><a href="/j_spring_security_logout">Logout</a></li>
                 </ul>
             </span>
         </div>

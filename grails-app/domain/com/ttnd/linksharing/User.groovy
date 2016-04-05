@@ -118,4 +118,8 @@ class User {
     String toString() {
         firstName
     }
+
+    Boolean isAdmin(){
+        this.getAuthorities().contains('ROLE_ADMIN')
+    }
 }

@@ -11,7 +11,7 @@ class LinksharingTagLib {
     static namespace = "ls"
 
     def markRead = { attrs, body ->
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         if (user) {
             Long resourceId = attrs.resourceId
             Boolean isRead = attrs.isRead
@@ -35,7 +35,7 @@ class LinksharingTagLib {
     }
 
     def checkDeleteResource = { attrs, body ->
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         if (user.canDeleteResource(attrs.resource)) {
             out << ls.deleteResource()
         }
@@ -57,7 +57,7 @@ class LinksharingTagLib {
 
     def showSubscribe = { attrs, body ->
         if (session.userId) {
-            User user = User.get(session.userId)
+            User user = User.loggedInUser()
             if (!user.isSubscribed(attrs.topicId)) {
                 String subscribe = "${createLink(controller: 'subscription', action: 'save')}"
                 out << "<a href=$subscribe class='subscriptionSave' topicId=\"${attrs.topicId}\">Subscribe</a>"
@@ -77,12 +77,12 @@ class LinksharingTagLib {
         if (attrs.topicId) {
             out << Topic.get(attrs.topicId).subscriptions.size()
         } else {
-            out << User.get(session.userId).subscriptions.size()
+            out << User.loggedInUser().subscriptions.size()
         }
     }
 
     def topicCount = { attrs, body ->
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         out << user.topics.size()
     }
 
@@ -94,17 +94,17 @@ class LinksharingTagLib {
     }
 
     def canUpdateTopic = { attrs, body ->
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         Topic topic = Topic.get(attrs.topicId)
-        if (user.admin || user == topic.createdBy) {
+        /*if (user.admin || user == topic.createdBy) {
             out << body()
         } else {
             flash.error = "either topic or user is not available"
-        }
+        }*/
     }
 
     def showSeriousness = { attrs, body ->
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         Topic topic = Topic.get(attrs.topicId)
         if (user) {
             Subscription subscription = user.getSubscription(attrs.topicId)
@@ -119,7 +119,7 @@ class LinksharingTagLib {
     }
 
     def showVisibility = { attrs, body ->
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         Topic topic = Topic.get(attrs.topicId)
         if (user) {
             Subscription subscription = user.getSubscription(attrs.topicId)
