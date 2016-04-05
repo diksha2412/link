@@ -12,6 +12,7 @@ import com.ttnd.linksharing.User
 import com.ttnd.linksharing.UserRole
 
 class BootStrap {
+    def utilService
     //def grailsApplication
     def init = { servletContext ->
         //println grailsApplication.config.grails.testValue
@@ -21,6 +22,7 @@ class BootStrap {
         if (!User.count()) {
             createUser()
         }
+
         if (!Topic.count()) {
             User.all.each { User user ->
                 println("creating topics")
@@ -29,11 +31,11 @@ class BootStrap {
         }
 
         //Subscribing user to other topics
-        /*User.all.each { User user ->
+        User.all.each { User user ->
             Topic.findAllByCreatedByNotEqual(user).each { Topic topic ->
                 subscribeTopics(user, topic)
             }
-        }*/
+        }
 
         if (!Resource.count()) {
             Topic.all.each { Topic topic ->
@@ -44,12 +46,12 @@ class BootStrap {
             }
         }
 
-        if (!ResourceRating.count()) {
+        /*if (!ResourceRating.count()) {
             println("creating resource rating")
             ReadingItem.findAllByIsRead(false).each {
                 createResourceRating(it.resource, it.resource.createdBy, 3)
             }
-        }
+        }*/
 
         if (!ResourceRating.count()) {
             println("creating resource rating")
@@ -63,23 +65,40 @@ class BootStrap {
         }
     }
 
+    List<Role> createRoles(){
+        Role adminRole = Role.findOrSaveWhere(authority: 'ROLE_ADMIN')
+        Role userRole = Role.findOrSaveWhere(authority: 'ROLE_USER')
 
-    void assignRole(User user, Role role) {
-        new UserRole(user: user, role: role)
+        List<Role> roles=[]
+        roles.add(adminRole)
+        roles.add(userRole)
+
+        return roles
     }
 
 
     void createUser() {
         println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating users")
         println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
-        User u1 = new User(firstName: "diksha", lastName: "ahuja", userName: "diksha2412", password: "test123", confirmPassword: "test123",
-                email: "diksha.ahuja@tothenew.com").save()
-        assignRole(u1, new Role('ROLE_ADMIN').save())
+        String pass = utilService.fetchEncodedPassword("test123")
+        User u1 = new User(firstName: "diksha", lastName: "ahuja", username: "diksha.ahuja@tothenew.com", password: pass, email: "diksha.ahuja@tothenew.com")
+        println "${u1.validate()}"
+        println ">>>>>>>>>errors are:"
+        println "${u1.errors}"
+        if (u1.validate()){
+            u1.save(flush: true, failOnError: true)
+        }
+       UserRole.create(u1, createRoles()[0], true)
+       UserRole.create(u1, createRoles()[1], true)
 
         println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
-        User u2 = new User(firstName: "pulkit", lastName: "ahuja", userName: "pulkit", password: "testabc", confirmPassword: "testabc",
-                email: "ahujapulkit@gmail.com").save()
-        assignRole(u2, new Role('ROLE_USER').save())
+        String pass1 = utilService.fetchEncodedPassword("testabc")
+        User u2 = new User(firstName: "pulkit", lastName: "ahuja", username: "ahujad81@gmail.com", password: pass1, email: "ahujad81@gmail.com")
+        println "${u1.validate()}"
+        if (u1.validate()){
+            u2.save(flush: true, failOnError: true)
+        }
+        UserRole.create(u2, createRoles()[1], true)
     }
 
     void createTopics(User user) {

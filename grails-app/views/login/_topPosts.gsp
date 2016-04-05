@@ -10,7 +10,7 @@
 
             <div class="col-xs-10">
                 <p>${resource.createdBy.fullName}
-                    <inline style="margin-left:1em; color:#d2d4d9">@"${resource.createdBy.userName}" 5min</inline>
+                    <inline style="margin-left:1em; color:#d2d4d9">@"${resource.createdBy.username}" 5min</inline>
                     <inline style="float:right">
                         <g:link controller="topic" action="show"
                                 params='[topicId: "${resource.topic.id}"]'>${resource.topic.name}</g:link>

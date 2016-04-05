@@ -2,20 +2,21 @@ package com.ttnd.linksharing
 
 import com.ttnd.linksharing.co.UserSearchCO
 import com.ttnd.linksharing.vo.UserVO
+import grails.util.Holders
 
 class User {
 
     String email
-    String userName
+    String username
     String password
     String firstName
     String lastName
     Byte[] photo
 //    Boolean admin = false
-    Boolean active = true
+//    Boolean active = true
     Date dateCreated
     Date lastUpdated
-    String confirmPassword
+//    String confirmPassword
 
     boolean enabled = true
     boolean accountExpired
@@ -26,7 +27,7 @@ class User {
         UserRole.findAllByUser(this)*.role
     }
 
-    static transients = ['fullName', 'confirmPassword', 'subscribedTopics']
+    static transients = ['fullName', 'subscribedTopics']
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
@@ -36,13 +37,7 @@ class User {
         firstName(nullable: false, blank: false)
         lastName(blank: false)
         photo(nullable: true)
-        admin(nullable: true)
-        active(nullable: true)
-        confirmPassword bindable: true, nullable: true, validator: { val, obj ->
-            if (val && obj.password){
-                val.equals(obj.password) ? true : 'com.linksharing.user.password.dont.match'
-            }
-        }
+        username unique: true
     }
 
 
@@ -65,7 +60,7 @@ class User {
                             ilike('firstName', "%${userSearchCO.q}%")
                             ilike('lastName', "%${userSearchCO.q}%")
                             ilike('emailID', "%${userSearchCO.q}%")
-                            ilike('userName', "%${userSearchCO.q}%")
+                            ilike('username', "%${userSearchCO.q}%")
 
                         }
             }
@@ -74,7 +69,7 @@ class User {
                 eq('active', userSearchCO.active)
             }
 
-            eq('admin', false)
+//            eq('admin', false)
         }
 
     }
@@ -112,8 +107,12 @@ class User {
     }
 
     UserVO getUserDetails() {
-        new UserVO(id: id, email: email, firstName: firstName, lastName: lastName, userName: userName, admin: admin,
-                active: active, fullName: fullName)
+        new UserVO(id: id, email: email, firstName: firstName, lastName: lastName, username: username,
+                 fullName: fullName)
+    }
+
+    static User loggedInUser() {
+        Holders.applicationContext.getBean('springSecurityService').getCurrentUser()
     }
 
     String toString() {

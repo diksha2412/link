@@ -10,7 +10,6 @@ class EmailService {
     def mailService
     def messageSource
 
-
     def sendMail(EmailDTO emailDTO) {
         def content
         content = groovyPageRenderer.render(template: "/email/invite", model: [topicId: emailDTO.model.id, hostURL: emailDTO.model.hostURL])
@@ -27,5 +26,13 @@ class EmailService {
                 subject: messageSource.getMessage("com.ttnd.linksharing.dto.EmailDTO.unread.subject", [].toArray(), Locale.default),
                 view: "/email/unreadResources", model: [user: user, unreadResource: unreadResource])
         sendMail(emailDTO)
+    }
+
+    @Transactional
+    static class UtilService {
+
+        def serviceMethod() {
+
+        }
     }
 }

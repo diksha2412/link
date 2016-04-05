@@ -11,6 +11,7 @@ import com.ttnd.linksharing.co.UserSearchCO
 import com.ttnd.linksharing.vo.TopicVO
 import com.ttnd.linksharing.User
 import com.ttnd.linksharing.vo.UserVO
+import grails.plugin.springsecurity.annotation.Secured
 
 class UserController {
 
@@ -19,15 +20,38 @@ class UserController {
     def resourceService
     def subscriptionService
     def mailService
+    def springSecurityService
+
+    /*def index() {
+        if (springSecurityService.isLoggedIn()) {
+            User user = User.read(springSecurityService.currentUserId as Long)
+            session.userId=user.id
+            springSecurityService.reauthenticate(user.email)
+            List<TopicVO> trendingTopics = Topic.getTrendingTopics()
+            List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
+            flash.message = "Login successful..!!"
+            render(view: '/user/dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
+                                                     'trendingTopics'  : trendingTopics,
+                                                     'readingItems'    : readingItemsList,
+                                                     'subscriptions'   : User.get(session.userId).subscriptions,
+                                                     'user'            : user])
+        } else {
+            flash.error = "Unsuccessful Login..!!"
+            redirect(controller: 'login', action: 'index')
+        }
+    }
+*/
 
     def index() {
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
-        User user = User.get(session.userId)
+        User user = User.loggedInUser()
         List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
 
         render view: 'dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
-                                          'trendingTopics'  : trendingTopics, 'readingItems': readingItemsList,
-                                          'subscriptions'   : User.get(session.userId).subscriptions, 'user': user]
+                                          'trendingTopics'  : trendingTopics,
+                                          'readingItems'    : readingItemsList,
+                                          'subscriptions'   : User.get(session.userId).subscriptions,
+                                          'user'            : user]
     }
 
     def trial() {
