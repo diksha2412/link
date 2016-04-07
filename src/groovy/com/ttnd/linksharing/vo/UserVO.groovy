@@ -9,6 +9,5 @@ class UserVO {
     String firstName
     String lastName
     byte[] photo
-    Boolean admin
-    Boolean active
+    Boolean enabled
 }

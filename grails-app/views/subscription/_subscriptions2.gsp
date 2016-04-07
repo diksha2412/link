@@ -3,7 +3,7 @@
     <div class="row-sm-6">
 
         <div class="col-xs-3">
-            <ls:userImage userId="${com.ttnd.linksharing.User.loggedInUser().id}"/>
+            <ls:userImage userId="${session.userId}"/>
         </div>
 
         <span class="strong">${subscription.topic.createdBy.fullName}</span>

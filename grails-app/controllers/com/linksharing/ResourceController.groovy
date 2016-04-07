@@ -8,7 +8,9 @@ import com.ttnd.linksharing.Resource
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.vo.TopicVO
 import com.ttnd.linksharing.User
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class ResourceController {
 
     def index() {
@@ -49,6 +51,7 @@ class ResourceController {
         }
     }
 
+    @Secured(['permitAll'])
     def show(Long resourceId) {
         Resource resource = Resource.get(resourceId)
         User user = User.get(session.userId)

@@ -11,7 +11,7 @@
 
             <span class="strong" style="float:left">${user.fullName}</span><br>
 
-            <span style="float:left; color:grey; font-size:10px">@${user.userName}</span><br>
+            <span style="float:left; color:grey; font-size:10px">@${user.username}</span><br>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span style="color:grey; float:left">Subscriptions</span>
             <span style="color:grey">Topics</span>

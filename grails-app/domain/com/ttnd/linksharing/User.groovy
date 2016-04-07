@@ -16,7 +16,7 @@ class User {
 //    Boolean active = true
     Date dateCreated
     Date lastUpdated
-//    String confirmPassword
+    String confirmPassword
 
     boolean enabled = true
     boolean accountExpired
@@ -27,7 +27,7 @@ class User {
         UserRole.findAllByUser(this)*.role
     }
 
-    static transients = ['fullName', 'subscribedTopics']
+    static transients = ['fullName', 'subscribedTopics', 'confirmPassword']
 
     static hasMany = [topics: Topic, subscriptions: Subscription, readingItems: ReadingItem, resources: Resource]
 
@@ -120,6 +120,6 @@ class User {
     }
 
     Boolean isAdmin(){
-        this.getAuthorities().contains('ROLE_ADMIN')
+        this.getAuthorities().contains(Role.findByAuthority('ROLE_ADMIN'))
     }
 }

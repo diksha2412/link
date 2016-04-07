@@ -11,7 +11,7 @@
                 <span style="float:right"><a href="#">${resource.description}</a></span>
             </inline><br>
 
-            <span style="float:left; color:grey">@${resource.createdBy.userName}</span>
+            <span style="float:left; color:grey">@${resource.createdBy.username}</span>
             <span style="float:right; color:grey">2:45 PM 22 FEB 2014</span><br><br>
 
             <span style="float: right">

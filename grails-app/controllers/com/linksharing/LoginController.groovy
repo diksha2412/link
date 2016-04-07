@@ -32,6 +32,7 @@ class LoginController {
      */
     def index() {
         if (springSecurityService.isLoggedIn()) {
+            println SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
             redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
         } else {
             redirect action: 'auth', params: params
@@ -46,6 +47,7 @@ class LoginController {
         def config = SpringSecurityUtils.securityConfig
 
         if (springSecurityService.isLoggedIn()) {
+            println config.successHandler.defaultTargetUrl
             redirect uri: config.successHandler.defaultTargetUrl
             return
         }
@@ -174,7 +176,7 @@ class LoginController {
     }
 
     def validateUserName() {
-        Boolean result = User.findByUsername(params.userName) ? false : true
+        Boolean result = User.findByUsername(params.username) ? false : true
         render result
     }
 }

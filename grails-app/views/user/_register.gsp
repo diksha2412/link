@@ -31,7 +31,7 @@
                 <label class="control-label col-xs-3">Username*</label>
 
                 <div class="col-xs-9">
-                    <g:textField name="userName" class="form-control" id="userName" placeholder="UserName" required=""></g:textField>
+                    <g:textField name="username" class="form-control" id="username" placeholder="UserName" required=""></g:textField>
                 </div>
             </div>
 

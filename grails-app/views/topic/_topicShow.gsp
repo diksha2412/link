@@ -12,7 +12,7 @@
 
             </inline>
             <inline>
-                <span style="float:left; color:grey">@${topic.createdBy.userName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span style="float:left; color:grey">@${topic.createdBy.username}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <span style="color:grey; margin-left:50px">Subscription</span>&nbsp;&nbsp;&nbsp;
                 <span style="color:grey;float:right">Posts</span>
             </inline><br>

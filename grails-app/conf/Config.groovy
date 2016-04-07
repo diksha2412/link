@@ -139,7 +139,7 @@ grails.testValue="in internal config"
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.ttnd.linksharing.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.ttnd.linksharing.UserRole'
 grails.plugin.springsecurity.authority.className = 'com.ttnd.linksharing.Role'
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/user/index"
+//grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/user/index"
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
 	'/index':           ['permitAll'],

@@ -15,7 +15,7 @@
         <tbody>
 
         <g:each in="${usersList}" var="user">
-            <g:if test="${user.active}">
+            <g:if test="${user.enabled}">
                 <g:set var="bootstrapClass" value="alert alert-success"/>
             </g:if>
             <g:else>
@@ -24,13 +24,13 @@
 
             <tr class="${bootstrapClass}">
                 <td>${user.id}</td>
-                <td>${user.userName}</td>
+                <td>${user.username}</td>
                 <td>${user.email}</td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
 
                 <td>
-                    <g:if test="${user.active}">
+                    <g:if test="${user.enabled}">
                         Yes
                     </g:if>
 
@@ -41,7 +41,7 @@
 
                 <td>
                     <g:link controller="user" action="toggleActive" params="[id: user.id]">
-                        <g:if test="${user.active}">
+                        <g:if test="${user.enabled}">
                             Deactivate
                         </g:if>
                         <g:else>

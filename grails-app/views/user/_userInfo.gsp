@@ -1,8 +1,7 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="col-xs-3">
-
-            <ls:userImage userId="${com.ttnd.linksharing.User.loggedInUser().id}"/>
+            <ls:userImage userId="${session.userId}"/>
         </div>
 
 

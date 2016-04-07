@@ -8,7 +8,9 @@ import com.ttnd.linksharing.Subscription
 import com.ttnd.linksharing.Topic
 import com.ttnd.linksharing.User
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
 class TopicController {
 
     def emailService
@@ -16,7 +18,6 @@ class TopicController {
     def index() {}
 
     def show(ResourceSearchCO resourceSearchCO) {
-        println "=======inside topic show "
         println "=====topic id is : ${resourceSearchCO.topicId}"
         Topic topic = Topic.get(resourceSearchCO.topicId)
         if (!topic) {
@@ -41,7 +42,6 @@ class TopicController {
         List<Resource> resources = Resource.search(resourceSearchCO).list()
         render resources
     }
-
 
     def invite(Long topic, String email) {
         Topic topic1 = Topic.get(topic)
@@ -76,6 +76,7 @@ class TopicController {
     }
 
     def save(String name, String visibility) {
+        println ">>>>>>>inside topic/save"
         Topic topic1 = new Topic(name: name, createdBy: User.get(session.userId), visibility: Visibility.convert(visibility))
         if (topic1.validate()) {
             topic1.save(flush: true)

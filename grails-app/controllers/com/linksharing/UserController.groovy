@@ -1,6 +1,8 @@
 package com.linksharing
 
 import com.enums.Visibility
+import com.ttnd.linksharing.Role
+import com.ttnd.linksharing.UserRole
 import com.ttnd.linksharing.co.ResourceSearchCO
 import com.ttnd.linksharing.co.TopicSearchCO
 import com.ttnd.linksharing.co.UserCO
@@ -22,30 +24,12 @@ class UserController {
     def subscriptionService
     def mailService
     def springSecurityService
+    def utilService
 
-    /*def index() {
-        if (springSecurityService.isLoggedIn()) {
-            User user = User.read(springSecurityService.currentUserId as Long)
-            session.userId=user.id
-            springSecurityService.reauthenticate(user.email)
-            List<TopicVO> trendingTopics = Topic.getTrendingTopics()
-            List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
-            flash.message = "Login successful..!!"
-            render(view: '/user/dashboard', model: ['subscribedTopics': User.get(session.userId).subscribedTopics,
-                                                     'trendingTopics'  : trendingTopics,
-                                                     'readingItems'    : readingItemsList,
-                                                     'subscriptions'   : User.get(session.userId).subscriptions,
-                                                     'user'            : user])
-        } else {
-            flash.error = "Unsuccessful Login..!!"
-            redirect(controller: 'login', action: 'index')
-        }
-    }
-*/
     def index() {
         List<TopicVO> trendingTopics = Topic.getTrendingTopics()
-        User user = User.loggedInUser()
-        println "----------${user}"
+        session.userId = springSecurityService.currentUserId as Long
+        User user = User.get(session.userId)
         List<ReadingItem> readingItemsList = ReadingItem.getReadingItems(user)
 
         render view: 'dashboard', model: ['subscribedTopics': user.subscribedTopics,
@@ -59,13 +43,19 @@ class UserController {
         render(template: '/subscription/subscriptions', model: ['subscriptions': User.get(session.userId).subscriptions])
     }
 
+
+    @Secured(['permitAll'])
     def register(UserCO co) {
+        println ">>>>>>>>>inside user/register"
+        println "${co.properties}"
         User user = new User(co.properties)
+        user.password = utilService.fetchEncodedPassword(co.password)
         if (!params.file.empty) {
             user.photo = params.file.bytes
         }
         if (user.validate()) {
             user.save(flush: true)
+            UserRole.create(user, Role.findByAuthority('ROLE_ADMIN'), true)
             flash.message = "Registration successful."
         } else {
             flash.error = "Unsuccessful Registration. Please try again."
@@ -74,11 +64,16 @@ class UserController {
     }
 
     def edit(UserCO userCO) {
+        println ">>>>>>inside user/edit"
+        println "${userCO.properties}"
         User user = User.get(session.userId)
 
         user.firstName = userCO.firstName
         user.lastName = userCO.lastName
-        user.userName = userCO.userName
+        user.username = userCO.username
+        println "${user.firstName}"
+        println "${user.lastName}"
+        println "${user.username}"
 
         if (!params.photo.empty) {
             user.photo = params.photo.bytes
@@ -93,17 +88,15 @@ class UserController {
     }
 
 
-    def image(Long userId) {
-
-        byte[] img
-        User user = User.get(userId)
-
-        if (user?.photo)
-            img = user.photo
-        else
-            img = assetResourceLocator.findAssetForURI('user.png').byteArray
-
-        response.outputStream.write(img)
+    @Secured(['permitAll'])
+    def image(Long id) {
+        User user = User.read(id)
+        if (user && user?.photo) {
+            byte[] img = user.photo
+            response.outputStream.write(img)
+        } else {
+            response.outputStream << assetResourceLocator.findAssetForURI('user.png').getInputStream()
+        }
         response.outputStream.flush()
     }
 
@@ -116,7 +109,7 @@ class UserController {
         User user = resourceSearchCO.getUser(resourceSearchCO.id)
 
         if (session.userId) {
-            if (!((User.get(session.userId).admin) || (session.userId == id))) {
+            if (!((User.get(session.userId).isAdmin()) || (session.userId == id))) {
                 topicSearchCO.visibility = Visibility.PUBLIC
             }
         } else {
@@ -129,7 +122,7 @@ class UserController {
     def topics(Long id) {
         TopicSearchCO topicSearchCO = new TopicSearchCO(id: id)
         if (session.userId) {
-            if (!((User.get(session.userId).admin) || (session.userId == id))) {
+            if (!((User.get(session.userId).isAdmin()) || (session.userId == id))) {
                 topicSearchCO.visibility = Visibility.PUBLIC
             }
         } else {
@@ -142,7 +135,7 @@ class UserController {
     def subscriptions(Long id) {
         TopicSearchCO topicSearchCO = new TopicSearchCO(id: id)
         if (session.userId) {
-            if (!((User.get(session.userId).admin) || (session.userId == id))) {
+            if (!((User.get(session.userId).isAdmin()) || (session.userId == id))) {
                 topicSearchCO.visibility = Visibility.PUBLIC
             }
         } else {
@@ -202,12 +195,11 @@ class UserController {
     def list(UserSearchCO userSearchCO) {
         if (session.userId) {
             User user = User.get(session.userId)
-            if (user.admin) {
+            if (user.isAdmin()) {
                 List<User> users = User.search(userSearchCO).list(max: userSearchCO.max, sort: userSearchCO.sort, order: userSearchCO.order)
                 List<UserVO> usersList = users?.collect {
                     user1 ->
-                        new UserVO(id: user1.id, userName: user1.userName, email: user1.email, firstName: user1.firstName, lastName: user1.lastName,
-                                active: user1.active)
+                        new UserVO(id: user1.id, username: user1.username, email: user1.email, firstName: user1.firstName, lastName: user1.lastName)
                 }
                 render(view: "/user/list", model: ['usersList': usersList, totalCount: User.search(userSearchCO).count()])
             } else {
@@ -220,12 +212,11 @@ class UserController {
 
     def paginate(UserSearchCO userSearchCO) {
         User user = User.get(session.userId)
-        if (user.admin) {
+        if (user.isAdmin()) {
             List<User> users = User.search(userSearchCO).list(userSearchCO.properties)
             List<UserVO> usersList = users?.collect {
                 user1 ->
-                    new UserVO(id: user1.id, userName: user1.userName, email: user1.email, firstName: user1.firstName, lastName: user1.lastName,
-                            active: user1.active)
+                    new UserVO(id: user1.id, userName: user1.username, email: user1.email, firstName: user1.firstName, lastName: user1.lastName)
             }
             render(template: 'userList', model: ['usersList': usersList, totalCount: User.search(userSearchCO).count()])
         }
@@ -236,15 +227,15 @@ class UserController {
         if (session.userId) {
             User sessionUser = User.get(session.userId)
 
-            if (sessionUser.admin) {
+            if (sessionUser.isAdmin()) {
 
                 User user = User.get(id)
 
                 if (user) {
-                    if (user.admin) {
+                    if (user.isAdmin()) {
                         flash.error = "Admin active status cannot be changed."
                     } else {
-                        user.active = !(user.active)
+                        user.enabled = !(user.enabled)
                         user.confirmPassword = user.password
                     }
 

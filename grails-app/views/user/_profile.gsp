@@ -24,7 +24,7 @@
                 <label class="control-label col-xs-3">Username*</label>
 
                 <div class="col-xs-9">
-                    <g:textField name="userName" value="${user.userName}" class="form-control"/>
+                    <g:textField name="username" value="${user.username}" class="form-control"/>
                 </div>
             </div>
 

@@ -11,11 +11,11 @@ class ApplicationFilters {
 //            }
 //        }
 
-//        all(controller: '*', action: '*') {
-//            before = {
-//                println("filter " + params)
-//            }
-//        }
+        all(controller: '*', action: '*') {
+            before = {
+                println("filter " + params)
+            }
+        }
 //
 //        userIndexCheck(controller: 'user', action: 'index') {
 //            before = {

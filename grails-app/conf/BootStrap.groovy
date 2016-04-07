@@ -81,7 +81,8 @@ class BootStrap {
         println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating users")
         println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
         String pass = utilService.fetchEncodedPassword("test123")
-        User u1 = new User(firstName: "diksha", lastName: "ahuja", username: "diksha.ahuja@tothenew.com", password: pass, email: "diksha.ahuja@tothenew.com")
+        User u1 = new User(firstName: "diksha", lastName: "ahuja", username: "diksha.ahuja@tothenew.com", password: pass,
+                confirmPassword: pass, email: "diksha.ahuja@tothenew.com")
         println "${u1.validate()}"
         println ">>>>>>>>>errors are:"
         println "${u1.errors}"
@@ -89,13 +90,14 @@ class BootStrap {
             u1.save(flush: true, failOnError: true)
         }
        UserRole.create(u1, createRoles()[0], true)
-       UserRole.create(u1, createRoles()[1], true)
+//       UserRole.create(u1, createRoles()[1], true)
 
         println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>creating user1")
         String pass1 = utilService.fetchEncodedPassword("testabc")
-        User u2 = new User(firstName: "pulkit", lastName: "ahuja", username: "ahujad81@gmail.com", password: pass1, email: "ahujad81@gmail.com")
+        User u2 = new User(firstName: "pulkit", lastName: "ahuja", username: "ahujad81@gmail.com", password: pass1,
+                confirmPassword: pass1, email: "ahujad81@gmail.com")
         println "${u1.validate()}"
-        if (u1.validate()){
+        if (u2.validate()){
             u2.save(flush: true, failOnError: true)
         }
         UserRole.create(u2, createRoles()[1], true)

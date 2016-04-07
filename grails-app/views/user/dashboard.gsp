@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-xs-7">
-        %{--<g:render template="/user/inbox" model="[readingItems: readingItems]"></g:render>--}%
+        <g:render template="/user/inbox" model="[readingItems: readingItems]"></g:render>
     </div>
 </div>
 </body>
