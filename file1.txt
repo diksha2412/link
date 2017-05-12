@@ -8,5 +8,6 @@ user/edit
 
 searchString() in resource controller is used for searching within the navbar
 
+dummy line
 
 
